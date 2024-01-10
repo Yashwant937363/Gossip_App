@@ -1,0 +1,22 @@
+:root {
+    --first: #F8E559;
+    --second: #864AF9;
+    --third: #3B3486;
+    --fourth: #332941;
+    --fifth : #181536;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    color: white;
+    background-color: var(--fifth);
+    background-position-x: left !important;
+    background-position-y: bottom !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+}

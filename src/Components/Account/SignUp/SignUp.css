@@ -1,0 +1,55 @@
+#profile{
+    display: none;
+}
+
+.account #signup .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    width: 30%;
+    margin: 15px auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 5px 1px whitesmoke;
+    grid-column: span 2;
+    cursor: pointer;
+    border-radius: 50%;
+    position: relative;
+}
+
+.account #signup .profile .profileicon {
+    font-size: 50px;
+}
+.account #signup .profile .profileimg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.account #signup .profile .edit {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-color: red;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 1rem;
+    overflow: visible;
+}
+
+.account #signup .firstlastname{
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-around;
+}
+
+.account #signup .withicon{
+    display: flex;
+    justify-content: space-between;
+}
+
+.account #signup .withicon input{
+    width: 85%;
+}
+

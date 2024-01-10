@@ -1,0 +1,44 @@
+.account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 45px);
+    height: calc(100dvh - 45px);
+}
+
+.account .form {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    grid-gap: 10px;
+    font-size: 1.5rem;
+    border-radius: 23px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    padding: 30px;
+    width: min(90vw,400px);
+}
+
+.account .form input{
+    background-color: initial;
+    height: 23px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    padding: 5px;
+    transition: border-bottom .5s;
+}
+
+.account .form .submit {
+    grid-column: span 2;
+    width: 80%;
+    margin: 10px auto;
+    height: 40px;
+    border-radius: 23px;
+    background-color: #009900;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+}
