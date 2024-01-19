@@ -6,6 +6,9 @@ import Navbar from './Components/Navbar/navbar'
 import Home from './Components/Home/Home'
 import NotFound from './Components/NotFound/NotFound'
 import { useSelector } from 'react-redux'
+import ErrorBar from './Components/MsgBars/ErrorBar'
+import SuccessBar from './Components/MsgBars/SuccessBar'
+import WarningBar from './Components/MsgBars/WarningBar'
 
 function App() {
   return (

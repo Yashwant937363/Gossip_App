@@ -1,4 +1,20 @@
-#profile{
+.account #signup {
+    padding: 10px 30px;
+    height: 450px;
+    transition: all ease-in;
+    animation: scaleup .3s ease-in forwards;
+}
+
+@keyframes scaleup {
+    0%{
+        height: 300px;
+    }
+    100%{
+        height: 450px;
+    }
+}
+
+.account #signup #profile{
     display: none;
 }
 
@@ -41,15 +57,49 @@
 .account #signup .firstlastname{
     grid-column: span 2;
     display: flex;
-    justify-content: space-around;
-}
-
-.account #signup .withicon{
-    display: flex;
     justify-content: space-between;
 }
 
-.account #signup .withicon input{
-    width: 85%;
+.account #signup .firstlastname input {
+    width: 48%;
 }
 
+.account #signup .dob{
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr 1fr;
+    grid-gap: 8px;
+}
+
+.account #signup .dob select{
+    padding: 0px !important;
+}
+
+.account #signup .dob select::-webkit-scrollbar {
+    width: 6px;
+}
+
+.account #signup .dob select::-webkit-scrollbar-thumb {
+    background-color: rgba(58, 124, 201, 0.349);
+    border-radius: 6px;
+    transition: all 0.9s ease-in-out;
+}
+
+.account #signup .dob select::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(58, 124, 201, 0.836);
+    border-radius: 6px;
+}
+
+.account #signup .dob select::-webkit-scrollbar-button{
+    display: inline;
+}
+
+.account #signup .dob select option{
+    color: #245d93;
+    background-color: initial;
+    backdrop-filter: b1ur(2px);
+    border-bottom: 1px solid white;
+}
+
+.account #signup .dov select option:first-child{
+    border-top-left-radius: 5px;
+}

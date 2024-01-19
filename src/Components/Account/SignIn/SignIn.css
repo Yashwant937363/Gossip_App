@@ -1,0 +1,16 @@
+#signin {
+    padding: 65px 30px;
+    height: 300px;
+    transition: all ease-in;
+    animation: scaledown .3s ease-in forwards;
+}
+
+@keyframes scaledown {
+    0% {
+        height: 450px;
+    }
+
+    100% {
+        height: 300px;
+    }
+}

@@ -5,7 +5,7 @@ import Account from '../Account/Account'
 export default function Home() {
   const isLogin = useSelector((state) => state.user.isLogin)
 
-  if (!isLogin) {
+  if (isLogin) {
     return (<Account />)
   }
   return (

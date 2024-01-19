@@ -1,0 +1,59 @@
+.msgbar {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    padding: 10px;
+    font-size: 1.2rem;
+    width: min(400px, 90vw);
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: transform;
+    animation: formsgbar .4s ease-out forwards;
+}
+
+@keyframes formsgbar {
+    0%{
+        transform: translateY(-100px)  translateX(-50%);
+    }
+    100%{
+        transform: translateY(0px)  translateX(-50%);
+    }
+}
+
+.msgbar .icon{
+    margin-right: 9px;
+}
+
+.errorbar {
+    background-color: rgb(255 81 81);
+}
+
+.msgbar .erroricon {
+    color: red;
+    filter: drop-shadow(0px 0px 4px white);
+    position: relative;
+    top: 1px;
+}
+
+.successbar {
+    background-color: green;
+}
+
+.successicon {
+    color: rgba(0, 255, 0, 1);
+    filter: drop-shadow(0px 0px 4px black);
+}
+
+.warningbar {
+    background-color: #FFE019;
+    color: black;
+}
+
+.warningicon {
+    color: #FFE330;
+    filter: drop-shadow(0px 0px 4px black);
+}
