@@ -1,0 +1,71 @@
+.sidebarlist {
+    background-color: var(--third);
+    overflow-y: scroll;
+}
+
+.sidebarlist::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebarlist::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.349);
+    border-radius: 6px;
+    transition: all 0.9s ease-in-out;
+}
+
+.sidebarlist::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.836);
+    border-radius: 6px;
+}
+
+.sidebarlist .chats {
+    font-size: 1.5rem;
+    display: flex;
+    padding: 15px 10px;
+}
+
+.sidebarlist .chats .chatstext {
+    margin-right: auto;
+}
+
+.sidebarlist .chats:nth-child(3){
+    color: yellow;
+    border: 2px solid red;
+}
+
+.sidebarlist .chats .groupaddicon {
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.sidebarlist .chats .groupaddicon .pluscirclefill {
+    background-color: black;
+    border-radius: 50%;
+    font-size: .7rem;
+    position: absolute;
+    bottom: 4px;
+    right: -4px;
+}
+
+.sidebarlist .chats .addpersonicon{
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.sidebarlist .listItem {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    grid-gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-top: 1px solid var(--fourth);
+}
+
+
+
+.sidebarlist .listItem .listItemtext {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

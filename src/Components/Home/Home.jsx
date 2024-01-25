@@ -1,17 +1,28 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import Account from '../Account/Account'
+import React, { useEffect } from 'react';
+import './Home.css';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ChatWindow from './ChatWindow/ChatWindow';
+import SideBar from './Sidebar/Sidebar';
 
 export default function Home() {
-  const isLogin = useSelector((state) => state.user.isLogin)
+  const isLogin = useSelector((state) => state.user.isLogin);
+  const navigate = useNavigate();
 
-  if (isLogin) {
-    return (<Account />)
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/login');
+    }
+  }, [isLogin, navigate]);
+
+  if (!isLogin) {
+    return null;
   }
+
   return (
-    <div>
-      
-      Home
+    <div className='home'>
+      <SideBar />
+      <ChatWindow name='person' />
     </div>
-  )
+  );
 }

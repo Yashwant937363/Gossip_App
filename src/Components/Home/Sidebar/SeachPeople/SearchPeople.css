@@ -1,0 +1,42 @@
+.searchpeople{
+    border-top: 2px solid var(--fourth);
+}
+
+.searchpeople .searchfield{
+    border-radius: 15px;
+    border: 0px;
+    background-color: var(--fourth);
+    color: white;
+    box-shadow: inset 0px 0px 5px 0px var(--blackshadow);
+    display: flex;
+    align-items: center;
+    width: calc(100% - 10px);
+    margin: 5px;
+    padding:5px 10px;
+    font-size: 1.05rem;
+    box-sizing: border-box;
+}
+
+.searchpeople .searchfield:focus{
+    outline: 0px;
+}
+
+.searchpeople .searchitems .searchitem{
+    display: grid;
+    grid-template-columns: 3fr 6fr 1fr;
+    align-items: center;
+    padding: 5%;
+    gap: 5px;
+}
+
+.searchpeople .searchitems .searchitem .seachitemtext{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.searchpeople .searchitems .searchitem .personaddicon{
+    font-size: 1.4rem;
+    cursor: pointer;
+}

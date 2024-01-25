@@ -1,0 +1,16 @@
+.home{
+    height: calc(100vh - 45px);
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+}
+
+.home .profileimg{
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+    padding: 5%;
+    box-sizing: border-box;
+}

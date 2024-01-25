@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { NavLink, Outlet } from "react-router-dom";
 import './navbar.css';
-import { List, X } from "react-bootstrap-icons";
+import { List, PersonFill, X } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
 
 function Navbar(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const profile = useSelector((state) => state.user.profile)
+  const isLogin = useSelector((state) => state.user.isLogin)
 
   const handleMenuToggle = () => {
     setIsMenuOpen(prevState => !prevState);
@@ -41,9 +44,14 @@ function Navbar(props) {
           </ul>
           <div className="icons">
             <label htmlFor="togglemenu" onClick={handleMenuToggle}>
-              {isMenuOpen ? (<X className="icon menu"/>): (<List className="icon menu"/>)}
+              {isMenuOpen ? (<X className="icon menu" />) : (<List className="icon menu" />)}
             </label>
             <input type="checkbox" id="togglemenu" checked={isMenuOpen} readOnly />
+            <NavLink onClick={handleNavlinkClick} className='link profilelink' to="/profile">
+              <div className="profile">
+                {(profile !== '') && isLogin ? (<img src={profile} alt="" />) : (<PersonFill></PersonFill>)}
+              </div>
+            </NavLink>
           </div>
         </nav>
       </header>

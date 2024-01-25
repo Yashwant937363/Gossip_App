@@ -2,9 +2,10 @@
     --first: #F8E559;
     --second: #864AF9;
     --third: #3B3486;
-    --fourth: #332941;
+    --fourth: #2A255F;
     --fifth : #181536;
     --error : #ff4040;
+    --blackshadow : #000;
 }
 
 * {

@@ -2,10 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './SignIn.css'
 import { useForm } from 'react-hook-form';
 import { Envelope, Lock } from 'react-bootstrap-icons';
+import { useDispatch } from 'react-redux';
+import { setSignInDetails, signInUser } from '../../../store/slices/UserSlice';
 
 export default function SignIn() {
+   const dispatch = useDispatch()
    const { register, handleSubmit, formState: { errors }, trigger } = useForm();
    const onSubmit = data => {
+      const signInData = new FormData()
+      signInData.append('email',data.email)
+      signInData.append('password',data.password)
+      dispatch(setSignInDetails(data.email))
+      dispatch(signInUser({signInData}))
       console.log(data)
    };
 

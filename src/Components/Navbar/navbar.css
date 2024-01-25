@@ -75,7 +75,7 @@
     z-index: 2;
     backdrop-filter: blur(3px);
   }
-  
+
   #list li .link {
     display: block;
     text-align: center;
@@ -85,12 +85,12 @@
     margin: 15px;
     border-radius: 23px;
   }
-  
-  #list li .link:active{
+
+  #list li .link:active {
     transform: scale(0.95);
   }
-  
-  #list li .active span{
+
+  #list li .active span {
     color: var(--first);
     position: relative;
     top: 0px;
@@ -101,11 +101,11 @@
     content: '';
     width: 100%;
     position: absolute;
-    bottom:-2px;
-    left:-1px;
+    bottom: -2px;
+    left: -1px;
     border: 1px solid var(--first);
   }
-  
+
   .menu {
     display: inline-block;
     position: relative;
@@ -129,4 +129,33 @@
 #togglemenu,
 #togglesearch {
   display: none;
+}
+
+.navbar .profilelink {
+  height: 35px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.navbar .profilelink.active {
+  outline: 2px solid var(--first);
+}
+
+.navbar .profile {
+  display: inline-grid;
+  place-items: center;
+  background-color: white;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+
+.navbar .profile img {
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+  border-radius: 50%;
 }
