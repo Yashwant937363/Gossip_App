@@ -36,6 +36,19 @@
     height: 100%;
 }
 
+.searchpeople .searchitems .searchitem .personfillicon{
+    font-size: 1.4rem;
+    width: 100%;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .searchpeople .searchitems .searchitem .personaddicon{
     font-size: 1.4rem;
     cursor: pointer;

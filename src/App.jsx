@@ -1,7 +1,6 @@
 import { useEffect, useReducer, useState } from 'react'
 import './App.css'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import SignUp from './Components/Account/SignUp/SignUp'
 import Navbar from './Components/Navbar/navbar'
 import Home from './Components/Home/Home'
 import NotFound from './Components/NotFound/NotFound'
@@ -10,8 +9,9 @@ import ErrorBar from './Components/MsgBars/ErrorBar'
 import SuccessBar from './Components/MsgBars/SuccessBar'
 import WarningBar from './Components/MsgBars/WarningBar'
 import Account from './Components/Account/Account'
-import { setErrorMsgUser, setSucessMsgUser } from './store/slices/UserSlice'
+import { getUser, setErrorMsgUser, setSucessMsgUser } from './store/slices/UserSlice'
 import { connecttoserver } from './store/socket'
+import Cookies from 'js-cookie'
 
 
 function App() {
@@ -23,20 +23,27 @@ function App() {
   const successmsguser = useSelector((state) => state.user.successmsg)
   const errormsguser = useSelector((state) => state.user.errormsg)
   useEffect(() => {
-    connecttoserver({dispatch,username,profile,uid})
-  },[isLogin])
+    const authtoken = Cookies.get('authtoken')
+    if (authtoken) {
+      dispatch(getUser({ authtoken }))
+    }
+  }, [])
+
+  useEffect(() => {
+    connecttoserver({ dispatch, username, profile, uid })
+  }, [isLogin])
 
   useEffect(() => {
     if (successmsguser !== '') {
       setTimeout(() => {
-         dispatch(setSucessMsgUser(''));
+        dispatch(setSucessMsgUser(''));
       }, 3000);
-   }
-   if (errormsguser !== '') {
+    }
+    if (errormsguser !== '') {
       setTimeout(() => {
-         dispatch(setErrorMsgUser(''));
+        dispatch(setErrorMsgUser(''));
       }, 5000);
-   }
+    }
   })
   return (
     <>

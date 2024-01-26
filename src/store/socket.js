@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { setOnline } from "./slices/UserSlice";
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL
 
-const socket = io(SERVER_URL)
+export const socket = io(SERVER_URL)
 
 export function connecttoserver({ dispatch, username, profile, uid }) {
-    socket.emit('userconnection', { username, profile, uid }, (acknowledgment) => {
+    socket.emit('user:connection', { username, profile, uid }, (acknowledgment) => {
         if (acknowledgment && acknowledgment.success) {
             dispatch(setOnline(true))
             console.log('User connection successful!');
@@ -20,7 +19,7 @@ export function connecttoserver({ dispatch, username, profile, uid }) {
 
 export function findusers(uid) {
     return new Promise((resolve, reject) => {
-        socket.emit('finduser', uid, (users) => {
+        socket.emit('user:finduser', uid, (users) => {
             if (users) {
                 resolve(users);
             } else {
@@ -30,9 +29,9 @@ export function findusers(uid) {
     });
 }
 
-export function sendChatRequest(uid) {
+export function sendChatRequest(fromuid,touid) {
     return new Promise((resolve, reject) => {
-        socket.emit('sendchatrequest', uid, (userResponse) => {
+        socket.emit('user:sendchatrequest', fromuid, touid, (userResponse) => {
             if (userResponse) {
                 resolve(userResponse);
             } else {

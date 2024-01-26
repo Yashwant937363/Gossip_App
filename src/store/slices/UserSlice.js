@@ -1,5 +1,5 @@
-import { autoBatchEnhancer, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL
 
@@ -13,7 +13,6 @@ export const signUpUser = createAsyncThunk("signupuser", async ({ signUpData }) 
             method: 'POST',
             body: signUpData,
         })
-        console.log(response.body)
         const data = await response.json();
         return { data: data, status: response.status };
     }
@@ -28,13 +27,25 @@ export const signInUser = createAsyncThunk("signinuser", async ({ signInData }) 
             method: 'POST',
             body: signInData,
         })
-        // const response = await axios.post(getPath('signin'), signInData);
-        console.log(response)
         const data = await response.json();
         return { data: data, status: response.status };
     }
     catch (error) {
         console.log("SignIn Error : " + error)
+    }
+})
+
+export const getUser = createAsyncThunk("getuser", async ({ authtoken }) => {
+    try {
+        const response = await fetch(getPath('getuser'), {
+            method: 'POST',
+            headers: { authtoken }
+        })
+        const data = await response.json();
+        return { data: data, status: response.status };
+    }
+    catch (error) {
+        console.log("Automatic Login : " + error)
     }
 })
 
@@ -52,7 +63,8 @@ const userSlice = createSlice({
         successmsg: '',
         online: false,
         isLogin: false,
-        isPending: false
+        isPending: false,
+        requests: new Array()
     },
     reducers: {
         clear: (state, action) => {
@@ -84,6 +96,13 @@ const userSlice = createSlice({
         },
         setOnline: (state, action) => {
             state.online = action.payload
+        },
+        addRequest: (state, action) => {
+            state.requests.push(action.payload)
+        },
+        removeRequest: (state, action) => {
+            
+            state.requests.delete(action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -95,6 +114,7 @@ const userSlice = createSlice({
             console.log(action.payload)
             if (action.payload.status < 300 && action.payload.status >= 200) {
                 state.authtoken = action.payload.data.authtoken
+                Cookies.set('authtoken', action.payload.data.authtoken)
                 state.isLogin = true
             } else {
                 state.errormsg = action.payload.data.error
@@ -115,8 +135,9 @@ const userSlice = createSlice({
             if (action.payload.status < 300 && action.payload.status >= 200) {
                 console.log(action.payload)
                 const { profile, authtoken, dob, fullname, uid, username, msg } = action.payload.data
-                state.profile = SERVER_URL + profile
+                state.profile = profile !== '' ? SERVER_URL + profile : ''
                 state.authtoken = authtoken
+                Cookies.set('authtoken', authtoken)
                 state.dob = dob
                 state.successmsg = msg
                 state.fullname = fullname
@@ -132,8 +153,45 @@ const userSlice = createSlice({
             state.isPending = false
             console.log(action.payload)
         })
+
+        //Get User
+        builder.addCase(getUser.pending, (state, action) => {
+            state.isPending = true
+        })
+        builder.addCase(getUser.fulfilled, (state, action) => {
+            const { data, status } = action.payload
+            if (status < 300 && status >= 200) {
+                const { user, msg } = data
+                state.successmsg = msg
+                state.username = user.username
+                state.fullname = { firstname: user.firstname, lastname: user.lastname }
+                state.email = user.email
+                state.uid = user.uid
+                state.dob = user.dob
+                state.profile = user.profile !== '' ? SERVER_URL + user.profile : ''
+                state.isLogin = true
+            } else {
+                state.errormsg = data.error
+            }
+            state.isPending = false
+        })
+        builder.addCase(getUser.rejected, (state, action) => {
+            state.errormsg = action.payload
+            console.log(action.payload)
+            state.isPending = false
+        })
     }
 })
 
-export const { clear, setSignUpDetails, setSignInDetails, setOnline, setProfile, setErrorMsgUser, setSucessMsgUser } = userSlice.actions
+export const {
+    clear,
+    setSignUpDetails,
+    setSignInDetails,
+    setOnline,
+    setProfile,
+    setErrorMsgUser,
+    setSucessMsgUser,
+    addRequest,
+    removeRequest
+} = userSlice.actions
 export default userSlice.reducer
