@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './SignUp.css'
 import { set, useForm } from 'react-hook-form';
-import { BorderWidth, Calendar3, Envelope, Lock, PencilFill, Person } from 'react-bootstrap-icons';
+import { Eye, Calendar3, Envelope, EyeSlash, Lock, PencilFill, Person } from 'react-bootstrap-icons';
 import { setProfile, setSignUpDetails, signUpUser } from '../../../store/slices/UserSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useToggle } from '../../Hooks/useToggle';
 
 export default function SignUp(props) {
    const dispatch = useDispatch()
+   const [showPass, setPassToggle] = useToggle()
    const profile = useSelector((state) => state.user.profile);
    const [dateError, setDateError] = useState(false)
    const { register, handleSubmit, formState: { errors }, trigger, getValues } = useForm();
@@ -85,7 +87,10 @@ export default function SignUp(props) {
          </div>
          <div className={errors.password ? 'error' : ''}>Password : </div>
          <div className={errors.password ? 'withicon error' : 'withicon'}>
-            <input type="password"   {...register("password", { onBlur: () => trigger('password'), required: 'Please enter Password', minLength: { message: "Password have atl least 8 Characters", value: 8 } })} />
+            <div className='password'>
+               <input type={showPass ? 'text' : "password"}   {...register("password", { onBlur: () => trigger('password'), required: 'Please enter Password', minLength: { message: "Password have atl least 8 Characters", value: 8 } })} />
+               {showPass ? <Eye onClick={setPassToggle} /> : <EyeSlash onClick={setPassToggle}></EyeSlash>}
+            </div>
             <Lock></Lock>
             {errors.password && (<div className='errortext'>{errors.password.message}</div>)}
          </div>

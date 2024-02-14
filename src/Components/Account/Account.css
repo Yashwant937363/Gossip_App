@@ -10,7 +10,7 @@
 .account .innerswitch {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
     border-top-left-radius: 23px;
     border-top-right-radius: 23px;
 }
@@ -74,7 +74,7 @@
 .account #signup .dob select {
     background-color: initial;
     height: 23px;
-    width: 85\%;
+    width: 85%;
     border: none;
     border-bottom: 1px solid #fff;
     box-sizing: border-box;
@@ -88,12 +88,23 @@
     outline: 0px;
 }
 
+.account .form .password{
+    display: inline-block;
+    border-bottom: 1px solid #fff;
+    height: 24px;
+}
+
+.account .form .password > input{
+    border-bottom: 0px;
+}
+
+
 .account .form .error {
     color: var(--error);
     position: relative;
 }
 
-.account .form .error input {
+.account .form .error input ,.account .form .error .password{
     border-bottom-color: var(--error);
 }
 

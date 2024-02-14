@@ -98,11 +98,17 @@ const userSlice = createSlice({
             state.online = action.payload
         },
         addRequest: (state, action) => {
+            console.log(action.payload)            
             state.requests.push(action.payload)
         },
         removeRequest: (state, action) => {
-            
-            state.requests.delete(action.payload)
+            let index = state.requests.indexOf(action.payload)
+            if (index !== -1) {
+                let newArr = state.requests.splice(index, 1)
+                console.log(newArr)
+            } else {
+                state.errormsg = "Request not found"
+            }
         }
     },
     extraReducers: (builder) => {

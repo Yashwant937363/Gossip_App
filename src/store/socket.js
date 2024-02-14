@@ -2,7 +2,9 @@ import { io } from "socket.io-client";
 import { setOnline } from "./slices/UserSlice";
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL
 
-export const socket = io(SERVER_URL)
+export const socket = io(SERVER_URL,{
+    autoConnect : false
+})
 
 export function connecttoserver({ dispatch, username, profile, uid }) {
     socket.emit('user:connection', { username, profile, uid }, (acknowledgment) => {

@@ -9,9 +9,10 @@ import ErrorBar from './Components/MsgBars/ErrorBar'
 import SuccessBar from './Components/MsgBars/SuccessBar'
 import WarningBar from './Components/MsgBars/WarningBar'
 import Account from './Components/Account/Account'
-import { getUser, setErrorMsgUser, setSucessMsgUser } from './store/slices/UserSlice'
-import { connecttoserver } from './store/socket'
+import { addRequest, getUser, setErrorMsgUser, setSucessMsgUser } from './store/slices/UserSlice'
+import { connecttoserver, socket } from './store/socket'
 import Cookies from 'js-cookie'
+import Profile from './Components/Profile/Profile'
 
 
 function App() {
@@ -28,6 +29,28 @@ function App() {
       dispatch(getUser({ authtoken }))
     }
   }, [])
+
+  const requests = useSelector((state) => state.user.requests)
+  console.log(requests)
+  useEffect(() => {
+    socket.on("requestfromuser", ({ uid, profile, username }) => {
+      handleRequestFromUser({ uid, profile, username })
+    })
+    return () => {
+      socket.off("requsetfromuser")
+    }
+  }, [socket])
+  const handleRequestFromUser = ({ uid, profile, username }) => {
+    const requests = useSelector((state) => state.user.requests)
+    console.log(requests)
+    const requser = requests.map(request => request.uid === uid ? 'found' : 'notfound')
+    if (requser.indexOf('found') !== -1) {
+      console.log("requser : ", requser)
+    } else {
+      dispatch(addRequest({ uid, profile, username }))
+    }
+  }
+
 
   useEffect(() => {
     connecttoserver({ dispatch, username, profile, uid })
@@ -57,6 +80,7 @@ function App() {
           <Route path='/' element={<Navbar title="Gossip App" />}>
             <Route index element={<Home />} />
             <Route path='/login' element={<Account />} />
+            <Route path='/profile' element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
