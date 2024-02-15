@@ -21,7 +21,7 @@
     outline: 0px;
 }
 
-.searchpeople .searchitems .searchitem{
+.searchpeople .searchandreqitems .searchandreqitem{
     display: grid;
     grid-template-columns: 3fr 6fr 1fr;
     align-items: center;
@@ -29,14 +29,14 @@
     gap: 5px;
 }
 
-.searchpeople .searchitems .searchitem .seachitemtext{
+.searchpeople .searchandreqitems .searchandreqitem .seachitemtext{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
 }
 
-.searchpeople .searchitems .searchitem .personfillicon{
+.searchpeople .searchandreqitems .searchandreqitem .personfillicon{
     font-size: 1.4rem;
     width: 100%;
     aspect-ratio: 1/1;
@@ -49,7 +49,22 @@
     align-items: center;
 }
 
-.searchpeople .searchitems .searchitem .personaddicon{
+.searchpeople .searchandreqitems .searchandreqitem .personaddicon{
     font-size: 1.4rem;
     cursor: pointer;
+}
+
+.searchpeople .reqitem .acceptandreject{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.5rem;
+}
+
+.searchpeople .reqitem .acceptandreject > *{
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: .5px .5px 2px 0px black;
 }

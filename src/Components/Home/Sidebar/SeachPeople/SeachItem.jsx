@@ -15,7 +15,7 @@ export default function SeachItem(props) {
     }
     console.log(profile)
     return (
-        <div className='searchitem'>
+        <div className='searchandreqitem'>
             {(profile !== SERVER_URL) ?
                 (<img src={profile} className='profileimg' />)
                 :

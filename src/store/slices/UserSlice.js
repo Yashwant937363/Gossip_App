@@ -98,8 +98,14 @@ const userSlice = createSlice({
             state.online = action.payload
         },
         addRequest: (state, action) => {
-            console.log(action.payload)            
-            state.requests.push(action.payload)
+            const { uid, profile, username } = action.payload
+            console.log(action.payload)
+            const requser = state.requests.map(request => request.uid === uid ? 'found' : 'notfound')
+            if (requser.indexOf('found') !== -1) {
+                console.log("requser : ", requser)
+            } else {
+                state.requests.push(action.payload)
+            }
         },
         removeRequest: (state, action) => {
             let index = state.requests.indexOf(action.payload)

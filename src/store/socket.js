@@ -2,8 +2,8 @@ import { io } from "socket.io-client";
 import { setOnline } from "./slices/UserSlice";
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL
 
-export const socket = io(SERVER_URL,{
-    autoConnect : false
+export const socket = io(SERVER_URL, {
+    autoConnect: false
 })
 
 export function connecttoserver({ dispatch, username, profile, uid }) {
@@ -31,9 +31,21 @@ export function findusers(uid) {
     });
 }
 
-export function sendChatRequest(fromuid,touid) {
+export function sendChatRequest(fromuid, touid) {
     return new Promise((resolve, reject) => {
         socket.emit('user:sendchatrequest', fromuid, touid, (userResponse) => {
+            if (userResponse) {
+                resolve(userResponse);
+            } else {
+                reject(new Error('Your Request has been Rejected'));
+            }
+        });
+    });
+}
+
+export function requestAnswer({ uid, touid, answer, tousername }) {
+    return new Promise((resolve, reject) => {
+        socket.emit('user:requestanswer', { uid, touid, answer, tousername }, (userResponse) => {
             if (userResponse) {
                 resolve(userResponse);
             } else {

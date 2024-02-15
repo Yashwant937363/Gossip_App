@@ -34,23 +34,12 @@ function App() {
   console.log(requests)
   useEffect(() => {
     socket.on("requestfromuser", ({ uid, profile, username }) => {
-      handleRequestFromUser({ uid, profile, username })
+      dispatch(addRequest({ uid, profile, username }))
     })
     return () => {
       socket.off("requsetfromuser")
     }
   }, [socket])
-  const handleRequestFromUser = ({ uid, profile, username }) => {
-    const requests = useSelector((state) => state.user.requests)
-    console.log(requests)
-    const requser = requests.map(request => request.uid === uid ? 'found' : 'notfound')
-    if (requser.indexOf('found') !== -1) {
-      console.log("requser : ", requser)
-    } else {
-      dispatch(addRequest({ uid, profile, username }))
-    }
-  }
-
 
   useEffect(() => {
     connecttoserver({ dispatch, username, profile, uid })

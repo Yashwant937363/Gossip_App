@@ -48,6 +48,21 @@
     right: -4px;
 }
 
+.sidebarlist .chats .addperson{
+    position: relative;
+}
+
+.sidebarlist .chats .addperson .reddot{
+    display: inline-block;
+    width: 10px;
+    background-color: red;
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
 .sidebarlist .chats .addpersonicon{
     font-size: 1.6rem;
     cursor: pointer;
