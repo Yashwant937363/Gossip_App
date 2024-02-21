@@ -9,7 +9,6 @@ import RequestItem from './RequestItem'
 export default function SeachPeople() {
     const [users, setUsers] = useState([])
     const requests = useSelector((state) => state.user.requests)
-    console.log("request length : ",requests.length)
     const handleSearch = (input) => {
         if (input.length != 0) {
             findusers(input)

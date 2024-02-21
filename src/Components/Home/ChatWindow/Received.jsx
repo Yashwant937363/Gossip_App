@@ -1,5 +1,5 @@
 export default function ReceivedChat(props) {
-    const time = props.time
+    const time = new Date(props.time)
     return (
         <div className='chat'>
             <div className='receivedchat'>

@@ -1,22 +1,23 @@
 import React from 'react'
 import { PersonAdd, PersonFill } from 'react-bootstrap-icons'
 import { sendChatRequest } from '../../../../store/socket'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSucessMsgUser } from '../../../../store/slices/UserSlice'
 
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL
 
 export default function SeachItem(props) {
+    const dispatch = useDispatch()
     const fromuid = useSelector((state) => state.user.uid)
     const { profile, username, uid } = props
     const handlePersonAdd = () => {
         sendChatRequest(fromuid,uid)
-            .then((data) => console.log("Data", data))
+            .then((data) => dispatch(setSucessMsgUser(data)))
             .catch((error) => console.log("Error : ", error))
     }
-    console.log(profile)
     return (
         <div className='searchandreqitem'>
-            {(profile !== SERVER_URL) ?
+            {(profile !== '') ?
                 (<img src={profile} className='profileimg' />)
                 :
                 (<div className='personfillicon'>

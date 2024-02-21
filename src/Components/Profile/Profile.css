@@ -1,152 +1,193 @@
-.profilepage input,
-.profilepage .dob select {
-    background-color: initial;
-    height: 23px;
-    width: 85\%;
-    border: none;
-    border-bottom: 1px solid #fff;
-    box-sizing: border-box;
-    color: #fff;
-    display: inline-block;
-    padding: 5px;
-    transition: border-bottom .5s;
-}
-
-.profilepage input:focus {
-    outline: 0px;
-}
-
-.profilepage .error {
-    color: var(--error);
-    position: relative;
-}
-
-.profilepage .error input {
-    border-bottom-color: var(--error);
-}
-
-.profilepage .errortext {
-    font-size: 0.8rem;
-    position: absolute;
-    bottom: -5px;
-    left : 0px;
-}
-
-.profilepage .submit {
-    grid-column: span 2;
-    width: 80%;
-    margin: 10px auto;
-    height: 40px;
-    border-radius: 23px;
-    background-color: #3a7cc9;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: white;
-    border: none;
-}
-
 .profilepage {
-    padding: 10px 30px;
-    height: 450px;
-    transition: all ease-in;
-    animation: scaleup .3s ease-in forwards;
+  display: flex;
+  justify-content: center;
 }
 
-@keyframes scaleup {
-    0%{
-        height: 300px;
-    }
-    100%{
-        height: 450px;
-    }
+.profilepage .profileform {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 50px;
+  width: min(90vw, 400px);
 }
 
-.profilepage #profile{
-    display: none;
+.profilepage #profile {
+  display: none;
 }
 
 .profilepage .profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1/1;
-    width: 30%;
-    margin: 15px auto;
-    background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 0px 5px 1px whitesmoke;
-    grid-column: span 2;
-    cursor: pointer;
-    border-radius: 45px;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  width: min(30%, 150px);
+  margin: 15px auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 0px 5px 1px whitesmoke;
+  grid-column: span 2;
+  cursor: pointer;
+  border-radius: 45px;
+  position: relative;
+  grid-column: 1 / span 5;
 }
 
 .profilepage .profile .profileicon {
-    font-size: 50px;
+  font-size: 50px;
 }
+
 .profilepage .profile .profileimg {
-    width: 100%;
-    height: 100%;
-    border-radius: 45px;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 45px;
+  object-fit: cover;
 }
 
 .profilepage .profile .edit {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    background-color: red;
-    padding: 8px;
-    border-radius: 50%;
-    font-size: 1rem;
-    overflow: visible;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: red;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 1rem;
+  overflow: visible;
 }
 
-.profilepage .firstlastname{
-    grid-column: span 2;
-    display: flex;
-    justify-content: space-between;
+.profilepage .firstlastname {
+  grid-column: span 2;
+  display: flex;
+  justify-content: space-between;
+  grid-column: 1 / span 5;
 }
 
 .profilepage .firstlastname input {
-    width: 48%;
+  width: 45%;
 }
 
-.profilepage .dob{
-    display: grid;
-    grid-template-columns: 4fr 4fr 4fr 1fr;
-    grid-gap: 8px;
+.profilepage .inputtitle {
+  grid-column: 1 / span 1;
 }
 
-.profilepage .dob select{
-    padding: 0px !important;
+.profilepage .withicon {
+  grid-column: 2 / span 4;
+}
+
+.profilepage input,
+.profilepage .dob select {
+  background-color: initial;
+  height: 23px;
+  width: 85%;
+  border: none;
+  border-bottom: 1px solid #fff;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-block;
+  padding: 5px;
+  transition: border-bottom 0.5s;
+}
+
+.profilepage input:focus {
+  outline: 0px;
+}
+
+.profilepage .error {
+  color: var(--error);
+  position: relative;
+}
+
+.profilepage .error input {
+  border-bottom-color: var(--error);
+}
+
+.profilepage .errortext {
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -5px;
+  left: 0px;
+}
+
+.profilepage {
+  padding: 10px 30px;
+  height: 450px;
+  transition: all ease-in;
+  animation: scaleup 0.3s ease-in forwards;
+}
+
+@keyframes scaleup {
+  0% {
+    height: 300px;
+  }
+
+  100% {
+    height: 450px;
+  }
+}
+
+.profilepage .dob {
+  display: grid;
+  grid-template-columns: 4fr 4fr 4fr 1fr 1fr;
+  grid-gap: 8px;
+}
+
+.profilepage .dob select {
+  padding: 0px !important;
 }
 
 .profilepage .dob select::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .profilepage .dob select::-webkit-scrollbar-thumb {
-    background-color: rgba(58, 124, 201, 0.349);
-    border-radius: 6px;
-    transition: all 0.9s ease-in-out;
+  background-color: rgba(58, 124, 201, 0.349);
+  border-radius: 6px;
+  transition: all 0.9s ease-in-out;
 }
 
 .profilepage .dob select::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(58, 124, 201, 0.836);
-    border-radius: 6px;
+  background-color: rgba(58, 124, 201, 0.836);
+  border-radius: 6px;
 }
 
-.profilepage .dob select::-webkit-scrollbar-button{
-    display: inline;
+.profilepage .dob select::-webkit-scrollbar-button {
+  display: inline;
 }
 
-.profilepage .dob select option{
-    color: #245d93;
-    background-color: initial;
-    backdrop-filter: b1ur(2px);
-    border-bottom: 1px solid white;
+.profilepage .dob select option {
+  color: #245d93;
+  background-color: initial;
+  backdrop-filter: b1ur(2px);
+  border-bottom: 1px solid white;
 }
 
-.profilepage .dov select option:first-child{
-    border-top-left-radius: 5px;
+.profilepage .dob select option:first-child {
+  border-top-left-radius: 5px;
+}
+
+.profilepage .dob .dobtext {
+  grid-column: 1 / span 4;
+}
+
+.profilepage .editbutton {
+  aspect-ratio: 1/1;
+  height: 20px;
+  float: right;
+}
+
+.profilepage .btn {
+  height: 40px;
+  border-radius: 23px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  width: 100%;
+  grid-row: 8 / span 1;
+}
+
+.profilepage .submit {
+  background-color: #3a7cc9;
+  grid-column: 4 / span 2;
+}
+
+.profilepage .logout {
+  grid-column: 1 / span 2;
+  background-color: var(--error);
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 import { CheckSquareFill, PersonFill, XSquareFill } from 'react-bootstrap-icons'
 import { requestAnswer, sendChatRequest } from '../../../../store/socket'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeRequest, setSucessMsgUser } from '../../../../store/slices/UserSlice'
 
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL
 
@@ -9,14 +10,18 @@ export default function RequestItem(props) {
     const touid = useSelector((state) => state.user.uid)
     const tousername = useSelector((state) => state.user.username)
     const { profile, username, uid } = props
-
-    const answerRequest = (answer) => {
-        requestAnswer({ uid, touid, answer, tousername })
+    const dispatch = useDispatch()
+    const answerRequest = async (answer) => {
+        const fromuid = uid
+        const res = await requestAnswer({ fromuid, touid, answer, tousername })
+        .catch((err) => console.log("Error While Answering Request : ",err))
+        dispatch(setSucessMsgUser(res))
+        dispatch(removeRequest(fromuid))
     }
     console.log(profile)
     return (
         <div className='searchandreqitem reqitem'>
-            {(profile !== SERVER_URL) ?
+            {(profile !== '') ?
                 (<img src={profile} className='profileimg' />)
                 :
                 (<div className='personfillicon'>

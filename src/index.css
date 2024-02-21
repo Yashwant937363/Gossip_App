@@ -1,24 +1,54 @@
 :root {
-    --first: #F8E559;
-    --second: #864AF9;
-    --third: #3B3486;
-    --fourth: #2A255F;
-    --fifth : #181536;
-    --error : #ff4040;
-    --blackshadow : #000;
+  --first: #f8e559;
+  --second: hsl(273, 100%, 70%);
+  --third: hsl(264, 96%, 63%);
+  --fourth: hsl(264, 62%, 52%);
+  --fifth: hsl(263, 70%, 42%);
+  --error: #ff4040;
+  --blackshadow: #000;
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
-body{
-    color: white;
-    background-color: var(--fifth);
-    background-position-x: left !important;
-    background-position-y: bottom !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
+body {
+  color: white;
+  background-color: var(--fifth);
+  background-position-x: left !important;
+  background-position-y: bottom !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+
+@media screen and (max-width: 600px) {
+  .home {
+    grid-template-columns: 1fr;
+  }
+  .closedchat {
+    display: none !important;
+  }
+  .chatwindow {
+    animation: scalein 0.3s ease-in forwards;
+  }
+
+  @keyframes scalein {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  .sidebarlist .listItem {
+    grid-template-columns: 40px auto;
+  }
 }

@@ -1,70 +1,72 @@
-.searchpeople{
-    border-top: 2px solid var(--fourth);
+.searchpeople {
+  border-top: 2px solid var(--fourth);
 }
 
-.searchpeople .searchfield{
-    border-radius: 15px;
-    border: 0px;
-    background-color: var(--fourth);
-    color: white;
-    box-shadow: inset 0px 0px 5px 0px var(--blackshadow);
-    display: flex;
-    align-items: center;
-    width: calc(100% - 10px);
-    margin: 5px;
-    padding:5px 10px;
-    font-size: 1.05rem;
-    box-sizing: border-box;
+.searchpeople .searchfield {
+  border-radius: 15px;
+  border: 0px;
+  background-color: var(--fourth);
+  color: white;
+  box-shadow: inset 0px 0px 5px 0px var(--blackshadow);
+  display: flex;
+  align-items: center;
+  width: calc(100% - 10px);
+  margin: 5px;
+  padding: 5px 10px;
+  font-size: 1.05rem;
+  box-sizing: border-box;
 }
 
-.searchpeople .searchfield:focus{
-    outline: 0px;
+.searchpeople .searchfield:focus {
+  outline: 0px;
 }
 
-.searchpeople .searchandreqitems .searchandreqitem{
-    display: grid;
-    grid-template-columns: 3fr 6fr 1fr;
-    align-items: center;
-    padding: 5%;
-    gap: 5px;
+.searchpeople .searchandreqitems .searchandreqitem {
+  display: grid;
+  grid-template-columns: 3fr 20fr 3fr;
+  align-items: center;
+  padding: 5%;
+  gap: 5px;
+  border-top: 1px solid var(--fifth);
+  border-bottom: 1px solid var(--fifth);
 }
 
-.searchpeople .searchandreqitems .searchandreqitem .seachitemtext{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+.searchpeople .searchandreqitems .searchandreqitem .seachitemtext {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
-.searchpeople .searchandreqitems .searchandreqitem .personfillicon{
-    font-size: 1.4rem;
-    width: 100%;
-    aspect-ratio: 1/1;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: white;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.searchpeople .searchandreqitems .searchandreqitem .personfillicon {
+  font-size: 1.4rem;
+  width: 100%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.searchpeople .searchandreqitems .searchandreqitem .personaddicon{
-    font-size: 1.4rem;
-    cursor: pointer;
+.searchpeople .searchandreqitems .searchandreqitem .personaddicon {
+  font-size: 1.4rem;
+  cursor: pointer;
 }
 
-.searchpeople .reqitem .acceptandreject{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    font-size: 1.5rem;
+.searchpeople .reqitem .acceptandreject {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 1.5rem;
 }
 
-.searchpeople .reqitem .acceptandreject > *{
-    background-color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: .5px .5px 2px 0px black;
+.searchpeople .reqitem .acceptandreject > * {
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0.5px 0.5px 2px 0px black;
 }

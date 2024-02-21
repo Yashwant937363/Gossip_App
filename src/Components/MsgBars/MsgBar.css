@@ -11,15 +11,17 @@
     color: white;
     display: flex;
     align-items: center;
-    transition: transform;
+    transition: all;
     animation: formsgbar .4s ease-out forwards;
 }
 
 @keyframes formsgbar {
     0%{
-        transform: translateY(-100px)  translateX(-50%);
+        opacity: 0;
+        transform: translateY(-25px)  translateX(-50%);
     }
     100%{
+        opacity: 1;
         transform: translateY(0px)  translateX(-50%);
     }
 }
