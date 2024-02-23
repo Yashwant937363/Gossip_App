@@ -52,3 +52,19 @@ body {
     grid-template-columns: 40px auto;
   }
 }
+
+@media screen and (max-width: 430px) {
+  .profilepage .profileform {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .profilepage .profileform .profile,
+  .profilepage .profileform .firstlastname {
+    grid-column: 1 / span 7;
+  }
+  .profilepage .profileform .inputtitle {
+    grid-column: 1 / span 2;
+  }
+  .profilepage .profileform .withicon {
+    grid-column: 3 / span 5;
+  }
+}

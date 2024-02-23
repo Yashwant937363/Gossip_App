@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowLeft, PersonFill, SendFill, X } from "react-bootstrap-icons";
+import {
+  ArrowLeft,
+  ChatText,
+  PersonFill,
+  SendFill,
+  X,
+} from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
 import "./ChatWindow.css";
 import SendChat from "./SendChat";
 import ReceivedChat from "./Received";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../../../store/socket";
+import { seenMessages, sendMessage } from "../../../store/socket";
 import { changeOpenedChat } from "../../../store/slices/UISlice";
+import { setSeenMessages } from "../../../store/slices/ChatSlice";
 
 export default function ChatWindow(props) {
   const {
@@ -65,6 +72,23 @@ export default function ChatWindow(props) {
       setTimeout(() => setAnimation({ animationName: "fadein" }), 0);
     }
   }, [openedchat]);
+
+  useEffect(() => {
+    const touid = openedchat.uid;
+    const messages = new Array(...chats);
+    const lastIndex = messages
+      .reverse()
+      .findIndex((message) => message.Receiver_ID === fromuid);
+
+    if (lastIndex !== -1) {
+      const lastMessage = messages[lastIndex];
+      if (lastMessage.seen === false) {
+        seenMessages({ fromuid: touid, touid: fromuid });
+        dispatch(setSeenMessages(fromuid));
+      }
+      console.log(lastMessage);
+    }
+  }, [chats]);
 
   return (
     <div className="chatwindow" style={animation}>

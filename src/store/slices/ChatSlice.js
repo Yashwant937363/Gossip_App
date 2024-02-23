@@ -87,7 +87,6 @@ const chatSlice = createSlice({
       state.friends = [...newFriends];
     },
     addChat: (state, action) => {
-      console.log(action.payload);
       state.chats = [...original(state.chats), action.payload];
     },
     setSeenMessages: (state, action) => {
@@ -105,6 +104,26 @@ const chatSlice = createSlice({
         };
         if (copyobject.Receiver_ID === uid) {
           copyobject.seen = true;
+        }
+        return copyobject;
+      });
+      state.chats = new Array(...newChats);
+    },
+    setReceivedMessages: (state, action) => {
+      const uid = action.payload;
+      let copyobject;
+      const copyChats = new Array(...original(state.chats));
+      const newChats = copyChats.map((item, index) => {
+        copyobject = {
+          Sender_ID: item.Sender_ID,
+          Receiver_ID: item.Receiver_ID,
+          text: item.text,
+          seen: item.seen,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+        };
+        if (copyobject.Receiver_ID === uid) {
+          copyobject.seen = false;
         }
         return copyobject;
       });
@@ -143,6 +162,11 @@ const chatSlice = createSlice({
   },
 });
 
-export const { setFriendOnline, setFriendOffline, addChat, setSeenMessages } =
-  chatSlice.actions;
+export const {
+  setFriendOnline,
+  setFriendOffline,
+  addChat,
+  setSeenMessages,
+  setReceivedMessages,
+} = chatSlice.actions;
 export default chatSlice.reducer;

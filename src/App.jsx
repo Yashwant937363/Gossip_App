@@ -22,6 +22,7 @@ import {
   addChat,
   setFriendOffline,
   setFriendOnline,
+  setReceivedMessages,
   setSeenMessages,
 } from "./store/slices/ChatSlice";
 import About from "./Components/About/About";
@@ -36,27 +37,20 @@ function App() {
   const errormsguser = useSelector((state) => state.user.errormsg);
 
   useEffect(() => {
-    socket.on("requestfromuser", ({ uid, profile, username }) => {
-      dispatch(addRequest({ uid, profile, username }));
-    });
-    socket.on("successmessage", (message) => {
-      dispatch(setSucessMsgUser(message));
-    });
-    socket.on("errormessage", (message) => {
-      dispatch(setErrorMsgUser(message));
-    });
+    socket.on("requestfromuser", ({ uid, profile, username }) =>
+      dispatch(addRequest({ uid, profile, username }))
+    );
+    socket.on("successmessage", (message) =>
+      dispatch(setSucessMsgUser(message))
+    );
+    socket.on("errormessage", (message) => dispatch(setErrorMsgUser(message)));
     socket.on("friendonline", ({ uid }) => {
       dispatch(setFriendOnline(uid));
+      dispatch(setReceivedMessages(uid));
     });
-    socket.on("friendoffline", ({ uid }) => {
-      dispatch(setFriendOffline(uid));
-    });
-    socket.on("chat:receivemessage", (newChat) => {
-      dispatch(addChat(newChat));
-    });
-    socket.on("seenmessages", ({ uid }) => {
-      dispatch(setSeenMessages(uid));
-    });
+    socket.on("friendoffline", ({ uid }) => dispatch(setFriendOffline(uid)));
+    socket.on("chat:receivemessage", (newChat) => dispatch(addChat(newChat)));
+    socket.on("seenmessages", ({ uid }) => dispatch(setSeenMessages(uid)));
     // socket.on("disconnetion", () => {
     //   dispatch(setOnline(false))
     // })
@@ -71,6 +65,8 @@ function App() {
       socket.off("errormessage");
       socket.off("friendonline");
       socket.off("friendoffline");
+      socket.off("chat:receivemessage");
+      socket.off("seenmessages");
       // socket.off("disconnection")
       // socket.off("reconnection")
     };
