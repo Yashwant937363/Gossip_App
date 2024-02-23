@@ -1,6 +1,20 @@
 .profilepage {
   display: flex;
   justify-content: center;
+  padding: 10px 30px;
+  height: 450px;
+  transition: all ease-in;
+  animation: scaleup 0.3s ease-in forwards;
+}
+
+@keyframes scaleup {
+  0% {
+    height: 300px;
+  }
+
+  100% {
+    height: 450px;
+  }
 }
 
 .profilepage .profileform {
@@ -99,27 +113,10 @@
 }
 
 .profilepage .errortext {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   position: absolute;
-  bottom: -5px;
+  bottom: -2px;
   left: 0px;
-}
-
-.profilepage {
-  padding: 10px 30px;
-  height: 450px;
-  transition: all ease-in;
-  animation: scaleup 0.3s ease-in forwards;
-}
-
-@keyframes scaleup {
-  0% {
-    height: 300px;
-  }
-
-  100% {
-    height: 450px;
-  }
 }
 
 .profilepage .dob {
