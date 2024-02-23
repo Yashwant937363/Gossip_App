@@ -145,24 +145,42 @@ export default function SignUp() {
             <Pencil></Pencil>
           </button>
         </div>
-        <div className={errors.username ? "error inputtitle" : "inputtitle"}>
+        <div
+          className={
+            errors.username
+              ? usernameToggle
+                ? "error inputtitle"
+                : "inputtitle"
+              : "inputtitle"
+          }
+        >
           Username :{" "}
         </div>
-        <div className={errors.username ? "withicon error" : "withicon"}>
+        <div
+          className={
+            errors.username
+              ? usernameToggle
+                ? "error inputtitle"
+                : "inputtitle"
+              : "inputtitle"
+          }
+        >
           {usernametoggle ? (
             <>
-              <input
-                type="text"
-                {...register("username", {
-                  required: "Username cannot be Empty",
-                  minLength: {
-                    message: "Username have at least 5 Characters",
-                    value: 5,
-                  },
-                  onBlur: () => trigger("username"),
-                })}
-              />
-              <Person></Person>
+              <div className="inputwithicon">
+                <input
+                  type="text"
+                  {...register("username", {
+                    required: "Username cannot be Empty",
+                    minLength: {
+                      message: "Username have at least 5 Characters",
+                      value: 5,
+                    },
+                    onBlur: () => trigger("username"),
+                  })}
+                />
+                <Person></Person>
+              </div>
               {errors.username && (
                 <div className="errortext">{errors.username.message}</div>
               )}
@@ -174,10 +192,26 @@ export default function SignUp() {
             <Pencil></Pencil>
           </button>
         </div>
-        <div className={errors.email ? "error inputtitle" : "inputtitle"}>
+        <div
+          className={
+            errors.email
+              ? emailToggle
+                ? "error inputtitle"
+                : "inputtitle"
+              : "inputtitle"
+          }
+        >
           Email :{" "}
         </div>
-        <div className={errors.email ? "withicon error" : "withicon"}>
+        <div
+          className={
+            errors.email
+              ? emailToggle
+                ? "error inputtitle"
+                : "inputtitle"
+              : "inputtitle"
+          }
+        >
           {emailtoggle ? (
             <>
               <input
