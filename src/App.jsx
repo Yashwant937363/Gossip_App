@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import Profile from "./Components/Profile/Profile";
 import {
   addChat,
+  addFriend,
   setFriendOffline,
   setFriendOnline,
   setReceivedMessages,
@@ -40,9 +41,10 @@ function App() {
     socket.on("requestfromuser", ({ uid, profile, username }) =>
       dispatch(addRequest({ uid, profile, username }))
     );
-    socket.on("successmessage", (message) =>
-      dispatch(setSucessMsgUser(message))
-    );
+    socket.on("successmessage", ({ msg, user }) => {
+      dispatch(setSucessMsgUser(msg));
+      dispatch(addFriend(user));
+    });
     socket.on("errormessage", (message) => dispatch(setErrorMsgUser(message)));
     socket.on("friendonline", ({ uid }) => {
       dispatch(setFriendOnline(uid));

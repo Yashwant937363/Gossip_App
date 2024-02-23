@@ -52,6 +52,11 @@ body {
     grid-template-columns: 40px auto;
   }
 }
+@media screen and (min-width: 600px) and (max-width: 750px) {
+  .searchpeople .searchandreqitems .searchandreqitem {
+    grid-template-columns: 8fr 20fr 3fr;
+  }
+}
 
 @media screen and (max-width: 430px) {
   .profilepage .profileform {

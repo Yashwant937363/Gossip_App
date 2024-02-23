@@ -10,6 +10,7 @@
   padding: 20px;
   border-radius: 23px;
   background-color: var(--fourth);
+  width: min(90vw, 400px);
 }
 
 .profilepage .profile {

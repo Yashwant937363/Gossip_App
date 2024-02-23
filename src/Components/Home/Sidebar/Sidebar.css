@@ -17,6 +17,21 @@
 .sidebarlist::-webkit-scrollbar {
   width: 0px;
 }
+.sidebarlist .nochats {
+  border-top: 1px solid var(--fourth);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70%;
+  padding: 20px;
+  opacity: 0.5;
+  line-height: 2rem;
+}
+
+.sidebarlist .nochats .nochatsicon {
+  font-size: 4rem;
+}
 
 .sidebarlist .chats {
   font-size: 1.5rem;

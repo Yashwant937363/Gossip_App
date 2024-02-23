@@ -89,6 +89,9 @@ const chatSlice = createSlice({
     addChat: (state, action) => {
       state.chats = [...original(state.chats), action.payload];
     },
+    addFriend: (state, action) => {
+      state.friends = [...original(state.friends), action.payload];
+    },
     setSeenMessages: (state, action) => {
       const uid = action.payload;
       let copyobject;
@@ -166,6 +169,7 @@ export const {
   setFriendOnline,
   setFriendOffline,
   addChat,
+  addFriend,
   setSeenMessages,
   setReceivedMessages,
 } = chatSlice.actions;

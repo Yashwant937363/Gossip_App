@@ -4,6 +4,7 @@ import "./SideBar.css";
 import {
   PeopleFill,
   PersonFillAdd,
+  PersonFillSlash,
   PlusCircleFill,
 } from "react-bootstrap-icons";
 import SeachPeople from "./SeachPeople/SeachPeople";
@@ -42,7 +43,10 @@ export default function SideBar() {
           />
         ))
       ) : (
-        <div>Please Enter UID and Request the Friends to Chat</div>
+        <div className="nochats">
+          <PersonFillSlash className="nochatsicon"></PersonFillSlash>
+          <span>No Friends</span>
+        </div>
       )}
     </div>
   );

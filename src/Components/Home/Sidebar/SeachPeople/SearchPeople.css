@@ -21,14 +21,17 @@
   outline: 0px;
 }
 
+.searchpeople .searchandreqitems {
+  border-top: 1px solid var(--fourth);
+  margin: 10px;
+}
+
 .searchpeople .searchandreqitems .searchandreqitem {
   display: grid;
-  grid-template-columns: 3fr 20fr 3fr;
+  grid-template-columns: 6fr 20fr 3fr;
   align-items: center;
   padding: 5%;
   gap: 5px;
-  border-top: 1px solid var(--fifth);
-  border-bottom: 1px solid var(--fifth);
 }
 
 .searchpeople .searchandreqitems .searchandreqitem .seachitemtext {

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ChatText,
+  Envelope,
+  EnvelopeSlashFill,
   PersonFill,
   SendFill,
   X,
@@ -129,7 +131,10 @@ export default function ChatWindow(props) {
             )
           )
         ) : (
-          <div>No Messages</div>
+          <div className="nochats">
+            <EnvelopeSlashFill></EnvelopeSlashFill>
+            <div>No Messages</div>
+          </div>
         )}
       </div>
 
