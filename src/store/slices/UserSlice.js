@@ -39,18 +39,21 @@ export const signInUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk("getuser", async ({ authtoken }) => {
-  try {
-    const response = await fetch(getPath("getuser"), {
-      method: "POST",
-      headers: { authtoken },
-    });
-    const data = await response.json();
-    return { data: data, status: response.status };
-  } catch (error) {
-    console.log("Automatic Login : " + error);
+export const getUser = createAsyncThunk(
+  getPath("getuser"),
+  async ({ authtoken }) => {
+    try {
+      const response = await fetch(getPath("getuser"), {
+        method: "POST",
+        headers: { authtoken },
+      });
+      const data = await response.json();
+      return { data: data, status: response.status };
+    } catch (error) {
+      console.log("Automatic Login : " + error);
+    }
   }
-});
+);
 
 const userSlice = createSlice({
   name: "user",
