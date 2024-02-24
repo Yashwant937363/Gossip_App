@@ -59,6 +59,25 @@ body {
 }
 
 @media screen and (max-width: 430px) {
+  .account .form {
+    font-size: 0.9rem;
+    grid-gap: 5px;
+  }
+  .account .form > * {
+    display: flex;
+    align-items: center;
+  }
+  .account .form .password {
+    width: 80%;
+  }
+
+  .account #signup {
+    padding: 15px;
+  }
+  .account #signup {
+    padding: 65px 15px;
+  }
+
   .profilepage .profileform {
     grid-template-columns: repeat(7, 1fr);
   }
@@ -72,4 +91,7 @@ body {
   .profilepage .profileform .withicon {
     grid-column: 3 / span 5;
   }
+}
+
+@media screen and (max-width: 310px) {
 }
