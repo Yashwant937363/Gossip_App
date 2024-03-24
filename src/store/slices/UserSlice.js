@@ -164,7 +164,7 @@ const userSlice = createSlice({
         console.log(action.payload);
         const { profile, authtoken, dob, fullname, uid, username, msg } =
           action.payload.data;
-        state.profile = profile !== "" ? SERVER_URL + profile : "";
+        state.profile = profile;
         state.authtoken = authtoken;
         Cookies.set("authtoken", authtoken);
         state.dob = dob;
@@ -197,7 +197,7 @@ const userSlice = createSlice({
         state.email = user.email;
         state.uid = user.uid;
         state.dob = user.dob;
-        state.profile = user.profile !== "" ? SERVER_URL + user.profile : "";
+        state.profile = user.profile;
         state.isLogin = true;
       } else {
         state.errormsg = data.error;

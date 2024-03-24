@@ -147,7 +147,7 @@ const chatSlice = createSlice({
         updatedFriends.map((item) => {
           if (item.profile !== "") {
             if (!item.profile.startsWith(SERVER_URL)) {
-              item.profile = SERVER_URL + item.profile;
+              item.profile = item.profile;
             }
           }
           copyArray.push(item);
