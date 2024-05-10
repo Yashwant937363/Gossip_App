@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { setOnline } from "./slices/UserSlice";
-import { func } from "prop-types";
 import { addChat } from "./slices/ChatSlice";
+import { func } from "prop-types";
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 
 export const socket = io(SERVER_URL, {
@@ -82,6 +82,22 @@ export function sendMessage({ fromuid, touid, message, dispatch }) {
 
 export function seenMessages({ fromuid, touid }) {
   socket.emit("chat:seenmessages", { fromuid, touid });
+}
+
+export function sendOutgoingVideoCall({ fromuid, touid, offer }) {
+  socket.emit("call:videocalloutgoing", { fromuid, touid, offer });
+}
+
+export function sendVideoCallAnswer({ touid, answer }) {
+  socket.emit("call:videocallanswer", { touid, answer });
+}
+
+export function sendVideoCallPeerNegoNeeded({ offer, touid }) {
+  socket.emit("call:peer-nego-needed", { offer, to: touid });
+}
+
+export function videoCallCalnceled({ touid }) {
+  socket.emit("call:videocallcanceled", { touid });
 }
 
 export function disconnectSocket() {

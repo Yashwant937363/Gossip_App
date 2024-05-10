@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import ChatWindow from "./ChatWindow/ChatWindow";
 import { socket } from "../../store/socket";
 import SideBar from "./Sidebar/SideBar";
+import CallWindow from "./ChatWindow/Call/Call";
 
 export default function Home() {
   const isLogin = useSelector((state) => state.user.isLogin);
   const openedchat = useSelector((state) => state.UIState.openedchat);
+  const isCallStarted = useSelector((state) => state.call.isCallStarted);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,6 +35,7 @@ export default function Home() {
       ) : (
         <div className="closedchat">Click on Chat to Open The Chat</div>
       )}
+      {isCallStarted && <CallWindow />}
     </div>
   );
 }

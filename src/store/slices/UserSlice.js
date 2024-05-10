@@ -159,9 +159,7 @@ const userSlice = createSlice({
       state.isPending = true;
     });
     builder.addCase(signInUser.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (action.payload.status < 300 && action.payload.status >= 200) {
-        console.log(action.payload);
         const { profile, authtoken, dob, fullname, uid, username, msg } =
           action.payload.data;
         state.profile = profile;

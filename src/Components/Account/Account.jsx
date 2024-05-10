@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchChats, fetchFriends } from "../../store/slices/ChatSlice";
 import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
 import Cookies from "js-cookie";
+import HomeLoader from "../Home/HomeLoader/HomeLoader";
 
 export default function Account() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function Account() {
   const isLogin = useSelector((state) => state.user.isLogin);
   const navigate = useNavigate();
   const authtoken = useSelector((state) => state.user.authtoken);
+  const isPending = useSelector((state) => state.user.isPending);
 
   useEffect(() => {
     const authtoken = Cookies.get("authtoken");
@@ -30,8 +32,8 @@ export default function Account() {
     }
   }, [isLogin, navigate]);
 
-  if (isLogin) {
-    return null;
+  if (isPending) {
+    return <HomeLoader />;
   }
   return (
     <div className="account">

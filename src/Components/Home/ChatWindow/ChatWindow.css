@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 60px calc(100vh - 45px - 110px) 50px;
+  grid-template-rows: 60px calc(100dvh - 45px - 110px) 50px;
   transition: all;
   animation: fade 0.3s ease-in forwards;
 }
@@ -20,7 +21,7 @@
 
 .chatwindow .profilebar {
   display: grid;
-  grid-template-columns: 30px 60px auto;
+  grid-template-columns: 30px 60px auto 100px;
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
@@ -57,6 +58,27 @@
   height: 80%;
   width: 80%;
   border-radius: 50%;
+}
+
+.chatwindow .profilebar .profilebarusername {
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.chatwindow .profilebar .callicons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 15px);
+  color: white;
+  background-color: var(--fifth);
+  border-radius: 14px;
+  gap: 5px;
+}
+
+.chatwindow .profilebar .callicons .icon {
+  font-size: 1.3rem;
 }
 
 .chatwindow .messagefield {

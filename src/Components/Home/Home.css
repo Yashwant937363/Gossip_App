@@ -1,5 +1,6 @@
 .home {
   height: calc(100vh - 45px);
+  height: calc(100dvh - 45px);
   display: grid;
   grid-template-columns: 3fr 7fr;
 }

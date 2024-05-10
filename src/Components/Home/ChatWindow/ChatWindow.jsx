@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
+  CameraVideoFill,
   ChatText,
   Envelope,
   EnvelopeSlashFill,
   PersonFill,
   SendFill,
+  TelephoneFill,
   X,
 } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
@@ -13,9 +15,15 @@ import "./ChatWindow.css";
 import SendChat from "./SendChat";
 import ReceivedChat from "./Received";
 import { useDispatch, useSelector } from "react-redux";
-import { seenMessages, sendMessage } from "../../../store/socket";
+import {
+  seenMessages,
+  sendMessage,
+  sendOutgoingVideoCall,
+} from "../../../store/socket";
 import { changeOpenedChat } from "../../../store/slices/UISlice";
 import { setSeenMessages } from "../../../store/slices/ChatSlice";
+import { setCallStarted, setType } from "../../../store/slices/CallSlice";
+import PeerService from "../../../service/PeerService";
 
 export default function ChatWindow(props) {
   const {
@@ -31,8 +39,9 @@ export default function ChatWindow(props) {
   const [userchat, setUserChats] = useState(new Array());
   const containerRef = useRef(null);
   const [animation, setAnimation] = useState({ animationName: "fadein" });
-
+  const inputRef = useRef();
   const submitMessage = async (data) => {
+    inputRef.current.focus();
     const touid = openedchat.uid;
     const message = data.message;
     await sendMessage({ fromuid, touid, message, dispatch });
@@ -41,6 +50,22 @@ export default function ChatWindow(props) {
 
   const clearOpenedChat = () => {
     dispatch(changeOpenedChat(false));
+  };
+
+  const handleVideoCall = async () => {
+    dispatch(setType("video"));
+    dispatch(setCallStarted(true));
+    const offer = await PeerService.getOffer();
+    sendOutgoingVideoCall({
+      fromuid: fromuid,
+      touid: openedchat.uid,
+      offer: offer,
+    });
+  };
+
+  const handleAudioCall = () => {
+    dispatch(setType("audio"));
+    dispatch(setCallStarted(true));
   };
 
   useEffect(() => {
@@ -88,7 +113,6 @@ export default function ChatWindow(props) {
         seenMessages({ fromuid: touid, touid: fromuid });
         dispatch(setSeenMessages(fromuid));
       }
-      console.log(lastMessage);
     }
   }, [chats]);
 
@@ -108,8 +132,12 @@ export default function ChatWindow(props) {
             </div>
           )}
         </div>
-        <div className="listItemtext">
+        <div className="profilebarusername">
           <div>{openedchat.username}</div>
+        </div>
+        <div className="callicons">
+          <CameraVideoFill className="icon" onClick={handleVideoCall} />
+          <TelephoneFill className="icon" onClick={handleAudioCall} />
         </div>
       </div>
       <div className="chatcontainer" ref={containerRef}>
@@ -141,6 +169,7 @@ export default function ChatWindow(props) {
       <form className="messagefield" onSubmit={handleSubmit(submitMessage)}>
         <input
           {...register("message", { required: "Empty Message Cannot be Send" })}
+          ref={inputRef}
         />
         <button type="submit">
           <SendFill></SendFill>

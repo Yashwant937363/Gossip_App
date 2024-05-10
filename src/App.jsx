@@ -7,16 +7,13 @@ import NotFound from "./Components/NotFound/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorBar from "./Components/MsgBars/ErrorBar";
 import SuccessBar from "./Components/MsgBars/SuccessBar";
-import WarningBar from "./Components/MsgBars/WarningBar";
 import Account from "./Components/Account/Account";
 import {
   addRequest,
   setErrorMsgUser,
-  setOnline,
   setSucessMsgUser,
 } from "./store/slices/UserSlice";
 import { connecttoserver, socket } from "./store/socket";
-import Cookies from "js-cookie";
 import Profile from "./Components/Profile/Profile";
 import {
   addChat,
@@ -27,6 +24,14 @@ import {
   setSeenMessages,
 } from "./store/slices/ChatSlice";
 import About from "./Components/About/About";
+import {
+  setCallStarted,
+  setFromUid,
+  setIncomingCall,
+  setOffer,
+  setType,
+} from "./store/slices/CallSlice";
+import PeerService from "./service/PeerService";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +58,14 @@ function App() {
     socket.on("friendoffline", ({ uid }) => dispatch(setFriendOffline(uid)));
     socket.on("chat:receivemessage", (newChat) => dispatch(addChat(newChat)));
     socket.on("seenmessages", ({ uid }) => dispatch(setSeenMessages(uid)));
+    socket.on("call:videocallincoming", ({ fromuid, offer }) => {
+      dispatch(setFromUid(fromuid));
+      dispatch(setOffer(offer));
+      dispatch(setType("video"));
+      dispatch(setCallStarted(true));
+      dispatch(setIncomingCall(true));
+    });
+
     // socket.on("disconnetion", () => {
     //   dispatch(setOnline(false))
     // })
@@ -69,6 +82,7 @@ function App() {
       socket.off("friendoffline");
       socket.off("chat:receivemessage");
       socket.off("seenmessages");
+      socket.off("call:videocallincoming");
       // socket.off("disconnection")
       // socket.off("reconnection")
     };
@@ -90,12 +104,13 @@ function App() {
       }, 5000);
     }
   });
+  useEffect(() => {
+    console.log(PeerService.peer.connectionState);
+  }, [PeerService.peer.connectionState]);
   return (
     <>
       {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}
       {errormsguser !== "" ? <ErrorBar msg={errormsguser} /> : null}
-      {/* {(successmsgnote !== '') ? (<SuccessMsgBar msg={successmsgnote} />) : null}
-      {(errormsgnote !== '') ? (<ErrorMsgBar msg={errormsgnote} />) : null} */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navbar title="Gossip App" />}>
