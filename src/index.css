@@ -62,6 +62,7 @@ body {
   .account .form {
     font-size: 0.9rem;
     grid-gap: 5px;
+    grid-row-gap: 10px;
   }
   .account .form > * {
     display: flex;
@@ -71,11 +72,11 @@ body {
     width: 80%;
   }
 
-  .account #signup {
-    padding: 15px;
+  .account .form .errortext {
+    bottom: -16px;
   }
   .account #signup {
-    padding: 65px 15px;
+    padding: 20px;
   }
 
   .profilepage .profileform {

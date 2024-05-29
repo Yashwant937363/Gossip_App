@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./SignIn.css";
 import { useForm } from "react-hook-form";
 import { Envelope, Eye, EyeSlash, Lock } from "react-bootstrap-icons";
@@ -34,7 +34,7 @@ export default function SignIn() {
             onBlur: () => trigger("email"), // Trigger validation on blur
             required: "Please Enter Email",
             pattern: {
-              value: /^\S+@\S+\.\S+$/,
+              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
               message: "Please Enter Valid Email",
             },
           })}
@@ -53,7 +53,7 @@ export default function SignIn() {
               onBlur: () => trigger("password"),
               required: "Please enter Password",
               minLength: {
-                message: "Password have atl least 8 Characters",
+                message: "8 Characters Required",
                 value: 8,
               },
             })}

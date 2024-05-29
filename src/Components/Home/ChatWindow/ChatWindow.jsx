@@ -10,7 +10,6 @@ import {
   TelephoneFill,
   X,
 } from "react-bootstrap-icons";
-import { useForm } from "react-hook-form";
 import "./ChatWindow.css";
 import SendChat from "./SendChat";
 import ReceivedChat from "./Received";
@@ -24,14 +23,10 @@ import { changeOpenedChat } from "../../../store/slices/UISlice";
 import { setSeenMessages } from "../../../store/slices/ChatSlice";
 import { setCallStarted, setType } from "../../../store/slices/CallSlice";
 import PeerService from "../../../service/PeerService";
+import { setErrorMsgUser } from "../../../store/slices/UserSlice";
 
 export default function ChatWindow(props) {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    resetField,
-  } = useForm();
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const fromuid = useSelector((state) => state.user.uid);
   const openedchat = useSelector((state) => state.UIState.openedchat);
@@ -40,12 +35,16 @@ export default function ChatWindow(props) {
   const containerRef = useRef(null);
   const [animation, setAnimation] = useState({ animationName: "fadein" });
   const inputRef = useRef();
-  const submitMessage = async (data) => {
+  const submitMessage = async (e) => {
+    e.preventDefault();
     inputRef.current.focus();
-    const touid = openedchat.uid;
-    const message = data.message;
-    await sendMessage({ fromuid, touid, message, dispatch });
-    resetField("message");
+    if (message.trim !== "") {
+      const touid = openedchat.uid;
+      await sendMessage({ fromuid, touid, message, dispatch });
+      setMessage("");
+    } else {
+      dispatch(setErrorMsgUser("Cannot Send Empty Message"));
+    }
   };
 
   const clearOpenedChat = () => {
@@ -55,6 +54,7 @@ export default function ChatWindow(props) {
   const handleVideoCall = async () => {
     dispatch(setType("video"));
     dispatch(setCallStarted(true));
+    PeerService.create();
     const offer = await PeerService.getOffer();
     sendOutgoingVideoCall({
       fromuid: fromuid,
@@ -115,7 +115,6 @@ export default function ChatWindow(props) {
       }
     }
   }, [chats]);
-
   return (
     <div className="chatwindow" style={animation}>
       <div className="profilebar">
@@ -166,10 +165,11 @@ export default function ChatWindow(props) {
         )}
       </div>
 
-      <form className="messagefield" onSubmit={handleSubmit(submitMessage)}>
+      <form className="messagefield" onSubmit={submitMessage}>
         <input
-          {...register("message", { required: "Empty Message Cannot be Send" })}
           ref={inputRef}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <button type="submit">
           <SendFill></SendFill>

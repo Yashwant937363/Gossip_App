@@ -1,129 +1,126 @@
 .account {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 45px);
-    height: calc(100dvh - 45px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 45px);
+  height: calc(100dvh - 45px);
 }
-
 
 .account .innerswitch {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 23px;
-    border-top-right-radius: 23px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-top-left-radius: 23px;
+  border-top-right-radius: 23px;
 }
 
-.account .innerswitch>div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 50%;
-    border-radius: 23px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    cursor: pointer;
+.account .innerswitch > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 50%;
+  border-radius: 23px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  cursor: pointer;
 }
 
 .account .innerswitch .open {
-    background-color: #245d93;
-    position: relative;
-
+  background-color: #245d93;
+  position: relative;
 }
 
 .account .innerswitch .open::after {
-    content: '';
-    width: 0px;
-    height: 0px;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #245d93;
-    position: absolute;
-    bottom: -10px;
-    z-index: 2;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #245d93;
+  position: absolute;
+  bottom: -10px;
+  z-index: 2;
 }
 
 .account .form {
-    display: grid;
-    grid-template-columns: 3fr 7fr;
-    grid-gap: 10px;
-    font-size: 1.3rem;
-    border-radius: 23px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    padding: 30px;
-    width: min(90vw, 400px);
-    position: relative;
-    z-index: 1;
-    box-sizing: border-box;
-    overflow: hidden;
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  grid-gap: 10px;
+  font-size: 1.3rem;
+  border-radius: 23px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  padding: 30px;
+  width: min(90vw, 400px);
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-
 .account .form .withicon {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .account .form input,
 .account #signup .dob select {
-    background-color: initial;
-    height: 23px;
-    width: 85%;
-    border: none;
-    border-bottom: 1px solid #fff;
-    box-sizing: border-box;
-    color: #fff;
-    display: inline-block;
-    padding: 5px;
-    transition: border-bottom .5s;
+  background-color: initial;
+  height: 23px;
+  width: 85%;
+  border: none;
+  border-bottom: 1px solid #fff;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-block;
+  padding: 5px;
+  transition: border-bottom 0.5s;
 }
 
 .account .form input:focus {
-    outline: 0px;
+  outline: 0px;
 }
 
-.account .form .password{
-    display: inline-block;
-    border-bottom: 1px solid #fff;
-    height: 24px;
+.account .form .password {
+  display: inline-block;
+  border-bottom: 1px solid #fff;
+  height: 24px;
 }
 
-.account .form .password > input{
-    border-bottom: 0px;
+.account .form .password > input {
+  border-bottom: 0px;
 }
-
 
 .account .form .error {
-    color: var(--error);
-    position: relative;
+  color: var(--error);
+  position: relative;
 }
 
-.account .form .error input ,.account .form .error .password{
-    border-bottom-color: var(--error);
+.account .form .error input,
+.account .form .error .password {
+  border-bottom-color: var(--error);
 }
 
 .account .form .errortext {
-    font-size: 0.8rem;
-    position: absolute;
-    bottom: -5px;
-    left : 0px;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -6px;
+  left: 0px;
 }
 
 .account .form .submit {
-    grid-column: span 2;
-    width: 80%;
-    margin: 10px auto;
-    height: 40px;
-    border-radius: 23px;
-    background-color: #3a7cc9;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: white;
-    border: none;
+  grid-column: span 2;
+  width: 80%;
+  margin: 10px auto;
+  height: 40px;
+  border-radius: 23px;
+  background-color: #3a7cc9;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  border: none;
 }

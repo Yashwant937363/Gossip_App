@@ -1,5 +1,5 @@
 class PeerService {
-  constructor() {
+  create() {
     if (!this.peer) {
       this.peer = new RTCPeerConnection({
         iceServers: [
@@ -17,12 +17,10 @@ class PeerService {
 
   async getAnswer(offer) {
     if (this.peer) {
-      // if (this.peer.signalingState !== "stable") {
       await this.peer.setRemoteDescription(offer);
       const ans = await this.peer.createAnswer();
       await this.peer.setLocalDescription(new RTCSessionDescription(ans));
       return ans;
-      // }
     }
   }
 

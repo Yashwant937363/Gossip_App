@@ -59,6 +59,7 @@ function App() {
     socket.on("chat:receivemessage", (newChat) => dispatch(addChat(newChat)));
     socket.on("seenmessages", ({ uid }) => dispatch(setSeenMessages(uid)));
     socket.on("call:videocallincoming", ({ fromuid, offer }) => {
+      PeerService.create();
       dispatch(setFromUid(fromuid));
       dispatch(setOffer(offer));
       dispatch(setType("video"));
@@ -104,9 +105,6 @@ function App() {
       }, 5000);
     }
   });
-  useEffect(() => {
-    console.log(PeerService.peer.connectionState);
-  }, [PeerService.peer.connectionState]);
   return (
     <>
       {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}

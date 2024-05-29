@@ -1,25 +1,31 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { TelephoneFill } from "react-bootstrap-icons";
+import {
+  CameraVideoFill,
+  CameraVideoOffFill,
+  MicFill,
+  MicMuteFill,
+  TelephoneFill,
+} from "react-bootstrap-icons";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import PeerService from "../../../../service/PeerService";
 import {
   sendVideoCallAnswer,
   sendVideoCallPeerNegoNeeded,
-  socket,
   videoCallCalnceled,
 } from "../../../../store/socket";
 import { setErrorMsgUser } from "../../../../store/slices/UserSlice";
 import {
   clearCalls,
   setCallAccepted,
+  setCallStarted,
   setIncomingCall,
 } from "../../../../store/slices/CallSlice";
 
 export default function VideoCall() {
   const dispatch = useDispatch();
   const [myStream, setMyStream] = useState(false);
-  const [friendStream, setFriendStream] = useState(false);
+  const [friendStream, setFriendVideoStream] = useState(false);
   const [touid, setToUid] = useState("");
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const [incomingUser, setIncomingUser] = useState(null);
@@ -27,8 +33,9 @@ export default function VideoCall() {
   const fromuid = useSelector((state) => state.call.fromuid);
   const friends = useSelector((state) => state.chat.friends);
   const offer = useSelector((state) => state.call.offer);
-  const isCallAccepted = useSelector((state) => state.call.isCallAccepted);
-  const myuid = useSelector((state) => state.user.uid);
+  const isCallStarted = useSelector((state) => state.call.isCallStarted);
+  const [myVideo, setMyVideo] = useState(true);
+  const [myAudio, setMyAudio] = useState(true);
   const initialLoad = useCallback(async () => {
     const str = await navigator.mediaDevices.getUserMedia({
       audio: true,
@@ -47,15 +54,10 @@ export default function VideoCall() {
   useEffect(() => {
     initialLoad();
   }, []);
-  const sendTracks = useCallback(() => {
-    if (myStream) {
-      for (const track of myStream.getTracks()) {
-        PeerService.addTrack({ track, myStream });
-      }
-    }
-  }, [myStream]);
+
   useEffect(() => {
     socket.on("call:videocallanswer", ({ answer }) => {
+      setCallStarted(answer);
       if (answer) {
         PeerService.setLocalDescription(answer);
       } else {
@@ -66,21 +68,21 @@ export default function VideoCall() {
     socket.on("call:peer-nego-needed", async ({ offer }) => {
       const ans = await PeerService.getAnswer(offer);
       socket.emit("call:peer-nego-done", { to: touid, ans });
+      sendAllTracks();
     });
-    socket.on("call:peer-nego-final", async ({ ans }) => {
+    socket.on("call:peer-nego-final", async ({ ans, from }) => {
       await PeerService.setLocalDescription(ans);
-      socket.emit("call:sendtracks", { to: touid });
-      if (myStream) {
-        sendTracks();
-      } else {
-        console.log("My Stream is not available");
-      }
-    });
-    socket.on("call:requesttracks", () => {
-      sendTracks();
+      setCallStarted(true);
+      socket.emit("call:requesttracks");
     });
     socket.on("call:videocallcanceled", () => {
+      dispatch(setErrorMsgUser("Call Canceled"));
       dispatch(clearCalls());
+    });
+    socket.on("call:requesttracks", () => {
+      for (const track of myStream.getTracks()) {
+        PeerService.addTrack({ track, myStream });
+      }
     });
     return () => {
       socket.off("call:videocallanswer");
@@ -89,18 +91,19 @@ export default function VideoCall() {
     };
   }, []);
   const handleNegoNeeded = useCallback(async () => {
+    setCallStarted(false);
     const offer = await PeerService.getOffer();
     sendVideoCallPeerNegoNeeded({ offer, touid });
   }, []);
   const receivedTracks = (event) => {
     const remoteStream = event.streams;
     if (remoteStream.length > 0) {
-      setFriendStream(remoteStream[0]);
+      setFriendVideoStream(remoteStream[0]);
     }
   };
   useEffect(() => {
-    PeerService.peer.addEventListener("track", receivedTracks);
-    PeerService.peer.addEventListener("negotiationneeded", handleNegoNeeded);
+    PeerService.peer?.addEventListener("track", receivedTracks);
+    PeerService.peer?.addEventListener("negotiationneeded", handleNegoNeeded);
     return () => {
       PeerService.peer?.removeEventListener("track", receivedTracks);
       PeerService.peer?.removeEventListener(
@@ -113,21 +116,25 @@ export default function VideoCall() {
     if (offer) {
       const ans = await PeerService.getAnswer(offer);
       sendVideoCallAnswer({ touid: fromuid, answer: ans });
-      console.log("Offer Send");
       dispatch(setIncomingCall(false));
+      sendAllTracks();
+      socket.emit("call:sendtracks", { to });
     } else {
       dispatch(setErrorMsgUser("Offer Not Found"));
     }
   };
-  const stopMedia = () => {
+  const stopMedia = async () => {
     myStream.getTracks().forEach((track) => {
-      if (track.readyState === "live") {
-        track.stop();
-      }
+      track.stop();
     });
   };
+  const sendAllTracks = () => {
+    for (const track of myStream.getTracks()) {
+      PeerService.addTrack({ track, myStream });
+    }
+  };
   const callRejected = () => {
-    sendVideoCallAnswer({ to: fromuid, answer: false });
+    sendVideoCallAnswer({ touid: fromuid, answer: false });
     PeerService.disconnect();
     stopMedia();
     dispatch(clearCalls());
@@ -138,14 +145,42 @@ export default function VideoCall() {
     videoCallCalnceled({ touid });
     dispatch(clearCalls());
   };
+
+  const sendTracks = async () => {
+    if (myStream) {
+      for (const track of myStream.getTracks()) {
+        if (track.kind === "video" && myVideo) {
+          PeerService.addTrack({ track, myStream });
+        }
+        if (track.kind === "audio" && myAudio) {
+          PeerService.addTrack({ track, myStream });
+        }
+      }
+    }
+  };
+  const sendVideo = () => {
+    setMyVideo(true);
+    sendTracks();
+  };
+  const sendAudio = () => {
+    setMyAudio(true);
+    sendTracks();
+  };
+  const muteVideo = () => {
+    setMyVideo(false);
+    sendTracks();
+  };
+  const muteAudio = () => {
+    setMyAudio(false);
+    sendTracks();
+  };
   return (
     <div className="videocall">
       {friendStream ? (
         <ReactPlayer
           playing
-          muted
           url={friendStream}
-          height={"calc(100vh - 105px)"}
+          height={"calc(100dvh - 115px)"}
           width={"100vw"}
           className="friendvideo"
         />
@@ -184,8 +219,17 @@ export default function VideoCall() {
           </>
         ) : (
           <>
+            {myAudio ? (
+              <MicMuteFill onClick={muteAudio} />
+            ) : (
+              <MicFill onClick={sendAudio} />
+            )}
             <TelephoneFill className="endcall" onClick={callCanceled} />
-            <button onClick={sendTracks}>send tracks</button>
+            {myVideo ? (
+              <CameraVideoOffFill onClick={muteVideo} />
+            ) : (
+              <CameraVideoFill onClick={sendVideo} />
+            )}
           </>
         )}
       </div>
