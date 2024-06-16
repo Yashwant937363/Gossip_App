@@ -99,6 +99,7 @@ export function sendVideoCallPeerNegoNeeded({ offer, touid }) {
 export function videoCallCalnceled({ touid }) {
   socket.emit("call:videocallcanceled", { touid });
 }
+
 export function sendOutgoingAudioCall({ fromuid, touid, offer }) {
   socket.emit("call:audiocalloutgoing", { fromuid, touid, offer });
 }

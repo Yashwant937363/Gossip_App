@@ -4,15 +4,14 @@ import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import PeerService from "../../../../service/PeerService";
 import {
+  audioCallCalnceled,
   sendAudioCallAnswer,
   sendAudioCallPeerNegoNeeded,
   socket,
-  audioCallCalnceled,
 } from "../../../../store/socket";
 import { setErrorMsgUser } from "../../../../store/slices/UserSlice";
 import {
   clearCalls,
-  setCallAccepted,
   setCallStarted,
   setIncomingCall,
 } from "../../../../store/slices/CallSlice";
@@ -20,7 +19,7 @@ import {
 export default function AudioCall() {
   const dispatch = useDispatch();
   const [myStream, setMyStream] = useState(false);
-  const [friendStream, setFriendAudioStream] = useState(false);
+  const [friendStream, setFriendStream] = useState(false);
   const [touid, setToUid] = useState("");
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const [incomingUser, setIncomingUser] = useState(null);
@@ -28,10 +27,10 @@ export default function AudioCall() {
   const fromuid = useSelector((state) => state.call.fromuid);
   const friends = useSelector((state) => state.chat.friends);
   const offer = useSelector((state) => state.call.offer);
-  const isCallStarted = useSelector((state) => state.call.isCallStarted);
   const initialLoad = useCallback(async () => {
     const str = await navigator.mediaDevices.getUserMedia({
       audio: true,
+      video: false,
     });
     setMyStream(str);
     if (fromuid) {
@@ -46,13 +45,7 @@ export default function AudioCall() {
   useEffect(() => {
     initialLoad();
   }, []);
-  const sendTracks = useCallback(() => {
-    if (myStream) {
-      for (const track of myStream.getTracks()) {
-        PeerService.addTrack({ track, myStream });
-      }
-    }
-  }, [myStream]);
+
   useEffect(() => {
     socket.on("call:audiocallanswer", ({ answer }) => {
       setCallStarted(answer);
@@ -66,16 +59,21 @@ export default function AudioCall() {
     socket.on("call:peer-nego-needed", async ({ offer }) => {
       const ans = await PeerService.getAnswer(offer);
       socket.emit("call:peer-nego-done", { to: touid, ans });
+      sendAllTracks();
     });
-    socket.on("call:peer-nego-final", async ({ ans }) => {
+    socket.on("call:peer-nego-final", async ({ ans, from }) => {
       await PeerService.setLocalDescription(ans);
       setCallStarted(true);
-    });
-    socket.on("call:requesttracks", () => {
-      sendTracks();
+      socket.emit("call:requesttracks");
     });
     socket.on("call:audiocallcanceled", () => {
+      dispatch(setErrorMsgUser("Call Canceled"));
       dispatch(clearCalls());
+    });
+    socket.on("call:requesttracks", () => {
+      for (const track of myStream.getTracks()) {
+        PeerService.addTrack({ track, myStream });
+      }
     });
     return () => {
       socket.off("call:audiocallanswer");
@@ -91,7 +89,7 @@ export default function AudioCall() {
   const receivedTracks = (event) => {
     const remoteStream = event.streams;
     if (remoteStream.length > 0) {
-      setFriendAudioStream(remoteStream[0]);
+      setFriendStream(remoteStream[0]);
     }
   };
   useEffect(() => {
@@ -108,10 +106,10 @@ export default function AudioCall() {
   const callAccepted = async () => {
     if (offer) {
       const ans = await PeerService.getAnswer(offer);
-      console.log(ans);
       sendAudioCallAnswer({ touid: fromuid, answer: ans });
-      console.log("Offer Send");
       dispatch(setIncomingCall(false));
+      sendAllTracks();
+      socket.emit("call:sendtracks", { to });
     } else {
       dispatch(setErrorMsgUser("Offer Not Found"));
     }
@@ -121,8 +119,13 @@ export default function AudioCall() {
       track.stop();
     });
   };
+  const sendAllTracks = () => {
+    for (const track of myStream.getTracks()) {
+      PeerService.addTrack({ track, myStream });
+    }
+  };
   const callRejected = () => {
-    sendAudioCallAnswer({ to: fromuid, answer: false });
+    sendAudioCallAnswer({ touid: fromuid, answer: false });
     PeerService.disconnect();
     stopMedia();
     dispatch(clearCalls());
@@ -133,36 +136,19 @@ export default function AudioCall() {
     audioCallCalnceled({ touid });
     dispatch(clearCalls());
   };
-  useEffect(() => {
-    if (!friendStream && isCallStarted) {
-      socket.emit("call:sendtracks", { to: touid });
-    }
-  }, [PeerService.peer.signalingState]);
 
-  const getInfo = () => {
-    console.log("Connection State : ", PeerService.peer.connectionState);
-    console.log("Signaling State : ", PeerService.peer.signalingState);
-    console.log("Ice Connection State", PeerService.peer.iceConnectionState);
-    console.log("Ice Gathering State", PeerService.peer.iceGatheringState);
-    console.log(
-      "On Connection State Change",
-      PeerService.peer.onconnectionstatechange
-    );
-    console.log("Friend Stream", !friendStream);
-    console.log("Call Started : ", isCallStarted);
-  };
   return (
-    <div className="audiocall">
+    <div className="videocall">
       {friendStream ? (
         <ReactPlayer
           playing
           url={friendStream}
           height={"calc(100dvh - 115px)"}
           width={"100vw"}
-          className="friendaudio"
+          className="friendvideo"
         />
       ) : (
-        <div className="loadingaudio">
+        <div className="loadingvideo">
           {openedchat ? (
             <>
               <span>{openedchat.username}</span>
@@ -173,7 +159,7 @@ export default function AudioCall() {
             <>
               <span>{incomingUser.username}</span>
               <img src={incomingUser.profile} alt="userprofiephoto" />
-              <span>audio Call</span>
+              <span>Audio Call</span>
             </>
           ) : null}
         </div>
@@ -183,7 +169,7 @@ export default function AudioCall() {
           playing
           muted
           url={myStream}
-          className="myaudio"
+          className="myvideo"
           height={"30dvh"}
           width={"30dvw"}
         />
@@ -193,14 +179,9 @@ export default function AudioCall() {
           <>
             <TelephoneFill className="endcall" onClick={callRejected} />
             <TelephoneFill className="pickcall" onClick={callAccepted} />
-            <button onClick={getInfo}>getinfo</button>
           </>
         ) : (
-          <>
-            <TelephoneFill className="endcall" onClick={callCanceled} />
-            <button onClick={sendTracks}>send tracks</button>
-            <button onClick={getInfo}>getinfo</button>
-          </>
+          <TelephoneFill className="endcall" onClick={callCanceled} />
         )}
       </div>
     </div>

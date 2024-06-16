@@ -1,23 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  CameraVideoFill,
-  CameraVideoOffFill,
-  MicFill,
-  MicMuteFill,
-  TelephoneFill,
-} from "react-bootstrap-icons";
+import { TelephoneFill } from "react-bootstrap-icons";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import PeerService from "../../../../service/PeerService";
 import {
   sendVideoCallAnswer,
   sendVideoCallPeerNegoNeeded,
+  socket,
   videoCallCalnceled,
 } from "../../../../store/socket";
 import { setErrorMsgUser } from "../../../../store/slices/UserSlice";
 import {
   clearCalls,
-  setCallAccepted,
   setCallStarted,
   setIncomingCall,
 } from "../../../../store/slices/CallSlice";
@@ -33,9 +27,6 @@ export default function VideoCall() {
   const fromuid = useSelector((state) => state.call.fromuid);
   const friends = useSelector((state) => state.chat.friends);
   const offer = useSelector((state) => state.call.offer);
-  const isCallStarted = useSelector((state) => state.call.isCallStarted);
-  const [myVideo, setMyVideo] = useState(true);
-  const [myAudio, setMyAudio] = useState(true);
   const initialLoad = useCallback(async () => {
     const str = await navigator.mediaDevices.getUserMedia({
       audio: true,
@@ -80,8 +71,12 @@ export default function VideoCall() {
       dispatch(clearCalls());
     });
     socket.on("call:requesttracks", () => {
-      for (const track of myStream.getTracks()) {
-        PeerService.addTrack({ track, myStream });
+      try {
+        for (const track of myStream.getTracks()) {
+          PeerService.addTrack({ track, myStream });
+        }
+      } catch (error) {
+        sendAllTracks();
       }
     });
     return () => {
@@ -118,7 +113,7 @@ export default function VideoCall() {
       sendVideoCallAnswer({ touid: fromuid, answer: ans });
       dispatch(setIncomingCall(false));
       sendAllTracks();
-      socket.emit("call:sendtracks", { to });
+      socket.emit("call:sendtracks", { to: touid });
     } else {
       dispatch(setErrorMsgUser("Offer Not Found"));
     }
@@ -129,6 +124,7 @@ export default function VideoCall() {
     });
   };
   const sendAllTracks = () => {
+    console.log(myStream);
     for (const track of myStream.getTracks()) {
       PeerService.addTrack({ track, myStream });
     }
@@ -146,34 +142,6 @@ export default function VideoCall() {
     dispatch(clearCalls());
   };
 
-  const sendTracks = async () => {
-    if (myStream) {
-      for (const track of myStream.getTracks()) {
-        if (track.kind === "video" && myVideo) {
-          PeerService.addTrack({ track, myStream });
-        }
-        if (track.kind === "audio" && myAudio) {
-          PeerService.addTrack({ track, myStream });
-        }
-      }
-    }
-  };
-  const sendVideo = () => {
-    setMyVideo(true);
-    sendTracks();
-  };
-  const sendAudio = () => {
-    setMyAudio(true);
-    sendTracks();
-  };
-  const muteVideo = () => {
-    setMyVideo(false);
-    sendTracks();
-  };
-  const muteAudio = () => {
-    setMyAudio(false);
-    sendTracks();
-  };
   return (
     <div className="videocall">
       {friendStream ? (
@@ -218,19 +186,7 @@ export default function VideoCall() {
             <TelephoneFill className="pickcall" onClick={callAccepted} />
           </>
         ) : (
-          <>
-            {myAudio ? (
-              <MicMuteFill onClick={muteAudio} />
-            ) : (
-              <MicFill onClick={sendAudio} />
-            )}
-            <TelephoneFill className="endcall" onClick={callCanceled} />
-            {myVideo ? (
-              <CameraVideoOffFill onClick={muteVideo} />
-            ) : (
-              <CameraVideoFill onClick={sendVideo} />
-            )}
-          </>
+          <TelephoneFill className="endcall" onClick={callCanceled} />
         )}
       </div>
     </div>

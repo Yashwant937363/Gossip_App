@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ArrowLeft,
   CameraVideoFill,
-  ChatText,
-  Envelope,
+  ChevronLeft,
   EnvelopeSlashFill,
   PersonFill,
   SendFill,
@@ -17,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   seenMessages,
   sendMessage,
+  sendOutgoingAudioCall,
   sendOutgoingVideoCall,
 } from "../../../store/socket";
 import { changeOpenedChat } from "../../../store/slices/UISlice";
@@ -63,9 +62,16 @@ export default function ChatWindow(props) {
     });
   };
 
-  const handleAudioCall = () => {
+  const handleAudioCall = async () => {
     dispatch(setType("audio"));
     dispatch(setCallStarted(true));
+    PeerService.create();
+    const offer = await PeerService.getOffer();
+    sendOutgoingAudioCall({
+      fromuid: fromuid,
+      touid: openedchat.uid,
+      offer: offer,
+    });
   };
 
   useEffect(() => {
@@ -118,10 +124,10 @@ export default function ChatWindow(props) {
   return (
     <div className="chatwindow" style={animation}>
       <div className="profilebar">
-        <ArrowLeft
+        <ChevronLeft
           className="arrowlefticon"
           onClick={clearOpenedChat}
-        ></ArrowLeft>
+        ></ChevronLeft>
         <div className="outerimg">
           {openedchat.profile !== "" ? (
             <img className="chatprofileimg" src={openedchat.profile} alt="" />

@@ -41,7 +41,14 @@ function App() {
   const uid = useSelector((state) => state.user.uid);
   const successmsguser = useSelector((state) => state.user.successmsg);
   const errormsguser = useSelector((state) => state.user.errormsg);
-
+  const initializeIncomingCall = ({ fromuid, offer, type }) => {
+    PeerService.create();
+    dispatch(setType(type));
+    dispatch(setFromUid(fromuid));
+    dispatch(setOffer(offer));
+    dispatch(setCallStarted(true));
+    dispatch(setIncomingCall(true));
+  };
   useEffect(() => {
     socket.on("requestfromuser", ({ uid, profile, username }) =>
       dispatch(addRequest({ uid, profile, username }))
@@ -59,12 +66,10 @@ function App() {
     socket.on("chat:receivemessage", (newChat) => dispatch(addChat(newChat)));
     socket.on("seenmessages", ({ uid }) => dispatch(setSeenMessages(uid)));
     socket.on("call:videocallincoming", ({ fromuid, offer }) => {
-      PeerService.create();
-      dispatch(setFromUid(fromuid));
-      dispatch(setOffer(offer));
-      dispatch(setType("video"));
-      dispatch(setCallStarted(true));
-      dispatch(setIncomingCall(true));
+      initializeIncomingCall({ fromuid, offer, type: "video" });
+    });
+    socket.on("call:audiocallincoming", ({ fromuid, offer }) => {
+      initializeIncomingCall({ fromuid, offer, type: "audio" });
     });
 
     // socket.on("disconnetion", () => {
@@ -84,6 +89,7 @@ function App() {
       socket.off("chat:receivemessage");
       socket.off("seenmessages");
       socket.off("call:videocallincoming");
+      socket.off("call:audiocallincoming");
       // socket.off("disconnection")
       // socket.off("reconnection")
     };
