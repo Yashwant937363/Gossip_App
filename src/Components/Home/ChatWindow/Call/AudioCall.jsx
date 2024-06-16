@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { TelephoneFill } from "react-bootstrap-icons";
+import { MicFill, TelephoneFill } from "react-bootstrap-icons";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import PeerService from "../../../../service/PeerService";
@@ -181,7 +181,10 @@ export default function AudioCall() {
             <TelephoneFill className="pickcall" onClick={callAccepted} />
           </>
         ) : (
-          <TelephoneFill className="endcall" onClick={callCanceled} />
+          <>
+            <TelephoneFill className="endcall" onClick={callCanceled} />
+            <MicFill onClick={sendAllTracks}></MicFill>
+          </>
         )}
       </div>
     </div>

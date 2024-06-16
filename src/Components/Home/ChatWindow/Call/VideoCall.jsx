@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { TelephoneFill } from "react-bootstrap-icons";
+import { CameraVideoFill, TelephoneFill } from "react-bootstrap-icons";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import PeerService from "../../../../service/PeerService";
@@ -186,7 +186,10 @@ export default function VideoCall() {
             <TelephoneFill className="pickcall" onClick={callAccepted} />
           </>
         ) : (
-          <TelephoneFill className="endcall" onClick={callCanceled} />
+          <>
+            <TelephoneFill className="endcall" onClick={callCanceled} />
+            <CameraVideoFill onClick={sendAllTracks}></CameraVideoFill>
+          </>
         )}
       </div>
     </div>
