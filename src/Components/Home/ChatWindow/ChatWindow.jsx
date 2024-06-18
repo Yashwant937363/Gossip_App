@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   CameraVideoFill,
   ChevronLeft,
+  EmojiSmileFill,
   EnvelopeSlashFill,
   PersonFill,
   SendFill,
@@ -23,6 +24,8 @@ import { setSeenMessages } from "../../../store/slices/ChatSlice";
 import { setCallStarted, setType } from "../../../store/slices/CallSlice";
 import PeerService from "../../../service/PeerService";
 import { setErrorMsgUser } from "../../../store/slices/UserSlice";
+import EmojiPicker from "@emoji-mart/react";
+import { Data } from "emoji-mart";
 
 export default function ChatWindow(props) {
   const [message, setMessage] = useState("");
@@ -33,6 +36,8 @@ export default function ChatWindow(props) {
   const [userchat, setUserChats] = useState(new Array());
   const containerRef = useRef(null);
   const [animation, setAnimation] = useState({ animationName: "fadein" });
+  const [isEmojiOpened, setEmojiOpened] = useState(false);
+  const [isEmojiClicked, setEmojiClicked] = useState(false);
   const inputRef = useRef();
   const submitMessage = async (e) => {
     e.preventDefault();
@@ -121,6 +126,26 @@ export default function ChatWindow(props) {
       }
     }
   }, [chats]);
+
+  const closeEmojiSection = () => {
+    setEmojiOpened(false);
+  };
+  const openEmojiSection = () => {
+    setEmojiOpened(true);
+    setEmojiClicked(true);
+    setTimeout(() => {
+      setEmojiClicked(false);
+    }, 100);
+  };
+  const outsideClickedEmojiSection = () => {
+    if (!isEmojiClicked) {
+      closeEmojiSection();
+    }
+  };
+  const emojiSeleted = (data) => {
+    setMessage(message + data.native);
+  };
+  useEffect(() => console.log(isEmojiOpened), [isEmojiOpened]);
   return (
     <div className="chatwindow" style={animation}>
       <div className="profilebar">
@@ -172,6 +197,27 @@ export default function ChatWindow(props) {
       </div>
 
       <form className="messagefield" onSubmit={submitMessage}>
+        {isEmojiOpened && (
+          <div className="emojipicker">
+            <EmojiPicker
+              data={Data}
+              onEmojiSelect={emojiSeleted}
+              onClickOutside={outsideClickedEmojiSection}
+              icons="solid"
+              previewPosition="none"
+              searchPosition="top"
+              set="facebook"
+            ></EmojiPicker>
+          </div>
+        )}
+        {isEmojiOpened ? (
+          <X className="emoji" onClick={closeEmojiSection}></X>
+        ) : (
+          <EmojiSmileFill
+            className="emoji"
+            onClick={openEmojiSection}
+          ></EmojiSmileFill>
+        )}
         <input
           ref={inputRef}
           value={message}
