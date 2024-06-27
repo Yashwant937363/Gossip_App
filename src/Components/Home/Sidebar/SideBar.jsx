@@ -38,7 +38,6 @@ export default function SideBar() {
             username={item.username}
             uid={item.uid}
             profile={item.profile}
-            lastmessage={item.uid}
             online={item.online}
           />
         ))

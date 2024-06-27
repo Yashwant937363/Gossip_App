@@ -32,6 +32,7 @@ import {
   setType,
 } from "./store/slices/CallSlice";
 import PeerService from "./service/PeerService";
+import ChatWindow from "./Components/Home/ChatWindow/ChatWindow";
 
 function App() {
   const dispatch = useDispatch();
@@ -118,7 +119,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navbar title="Gossip App" />}>
-            <Route index element={<Home />} />
+            <Route index element={<Home />}></Route>
+            <Route path="chat" element={<Home />}>
+              <Route path=":uid" element={<ChatWindow />} />
+            </Route>
             <Route path="/login" element={<Account />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/about" element={<About />} />

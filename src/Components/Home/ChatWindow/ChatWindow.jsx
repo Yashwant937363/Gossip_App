@@ -26,6 +26,7 @@ import PeerService from "../../../service/PeerService";
 import { setErrorMsgUser } from "../../../store/slices/UserSlice";
 import EmojiPicker from "@emoji-mart/react";
 import { Data } from "emoji-mart";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ChatWindow(props) {
   const [message, setMessage] = useState("");
@@ -39,6 +40,9 @@ export default function ChatWindow(props) {
   const [isEmojiOpened, setEmojiOpened] = useState(false);
   const [isEmojiClicked, setEmojiClicked] = useState(false);
   const inputRef = useRef();
+  const navigate = useNavigate();
+  const { uid } = useParams();
+  const friends = useSelector((state) => state.chat.friends);
   const submitMessage = async (e) => {
     e.preventDefault();
     inputRef.current.focus();
@@ -53,6 +57,7 @@ export default function ChatWindow(props) {
 
   const clearOpenedChat = () => {
     dispatch(changeOpenedChat(false));
+    navigate("/");
   };
 
   const handleVideoCall = async () => {
@@ -145,7 +150,14 @@ export default function ChatWindow(props) {
   const emojiSeleted = (data) => {
     setMessage(message + data.native);
   };
-  useEffect(() => console.log(isEmojiOpened), [isEmojiOpened]);
+  useEffect(() => {
+    const index = friends.findIndex((friend) => friend.uid === uid);
+    dispatch(changeOpenedChat(friends[index]));
+    if (openedchat) {
+      const touid = fromuid;
+      seenMessages({ fromuid: uid, touid: touid });
+    }
+  }, []);
   return (
     <div className="chatwindow" style={animation}>
       <div className="profilebar">
@@ -205,7 +217,7 @@ export default function ChatWindow(props) {
               onClickOutside={outsideClickedEmojiSection}
               icons="solid"
               previewPosition="none"
-              searchPosition="top"
+              searchPosition="none"
               set="facebook"
             ></EmojiPicker>
           </div>

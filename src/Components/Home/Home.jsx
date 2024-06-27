@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Home.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatWindow from "./ChatWindow/ChatWindow";
 import { socket } from "../../store/socket";
 import SideBar from "./Sidebar/SideBar";
@@ -12,7 +12,7 @@ export default function Home() {
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const isCallStarted = useSelector((state) => state.call.isCallStarted);
   const navigate = useNavigate();
-
+  const { uid } = useParams();
   useEffect(() => {
     if (!isLogin) {
       navigate("/login");
@@ -30,8 +30,8 @@ export default function Home() {
   return (
     <div className="home">
       <SideBar></SideBar>
-      {openedchat ? (
-        <ChatWindow />
+      {uid ? (
+        <Outlet></Outlet>
       ) : (
         <div className="closedchat">Click on Chat to Open The Chat</div>
       )}

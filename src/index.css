@@ -1,9 +1,10 @@
 :root {
   --first: #f8e559;
-  --second: hsl(273, 100%, 70%);
-  --third: hsl(264, 96%, 63%);
-  --fourth: hsl(264, 62%, 52%);
-  --fifth: hsl(263, 70%, 42%);
+  --second: hsl(273, 100%, 76%);
+  --third: hsl(273, 100%, 70%);
+  --fourth: hsl(264, 96%, 63%);
+  --fifth: hsl(264, 62%, 52%);
+  --sixth: hsl(263, 70%, 42%);
   --error: #ff4040;
   --blackshadow: #000;
 }

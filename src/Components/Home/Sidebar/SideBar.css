@@ -91,6 +91,8 @@
   box-sizing: border-box;
   border-top: 1px solid var(--fourth);
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .sidebarlist .listItem .profileimgbox {
