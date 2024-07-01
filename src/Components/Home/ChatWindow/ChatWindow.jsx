@@ -157,6 +157,9 @@ export default function ChatWindow(props) {
       const touid = fromuid;
       seenMessages({ fromuid: uid, touid: touid });
     }
+    return () => {
+      dispatch(changeOpenedChat(false));
+    };
   }, []);
   return (
     <div className="chatwindow" style={animation}>

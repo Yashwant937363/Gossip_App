@@ -201,6 +201,8 @@
 .chatwindow .chatcontainer .sendchat {
   display: inline-flex;
   flex-wrap: wrap;
+  justify-content: end;
+  max-width: 70%;
   background-color: var(--second);
   float: right;
   padding: 7px;
@@ -231,6 +233,10 @@
   position: absolute;
   right: -7px;
   bottom: 0px;
+}
+
+.chatwindow .chat .sendchat .chattext {
+  overflow-wrap: anywhere;
 }
 
 .chatwindow .chat .timecheck {

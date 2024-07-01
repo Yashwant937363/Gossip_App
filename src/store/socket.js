@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { setOnline } from "./slices/UserSlice";
+import { setErrorMsgUser, setOnline } from "./slices/UserSlice";
 import { addChat } from "./slices/ChatSlice";
 import { func } from "prop-types";
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
@@ -73,6 +73,7 @@ export function sendMessage({ fromuid, touid, message, dispatch }) {
           dispatch(addChat(userResponse));
           resolve(userResponse);
         } else {
+          // dispatch(setErrorMsgUser("empty message connot be send"));
           reject(new Error("Message has been not Send"));
         }
       }
