@@ -235,7 +235,7 @@
   bottom: 0px;
 }
 
-.chatwindow .chat .sendchat .chattext {
+.chatwindow .chat .chattext {
   overflow-wrap: anywhere;
 }
 
@@ -262,6 +262,8 @@
   display: inline-flex;
   flex-wrap: wrap;
   background-color: var(--second);
+  justify-content: end;
+  max-width: 70%;
   float: left;
   padding: 7px;
   margin: 15px;
@@ -291,4 +293,14 @@
   position: absolute;
   left: -7px;
   bottom: 0px;
+}
+
+.chatwindow .chatcontainer .date {
+  border-radius: 23px;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 120px;
+  padding: 2px;
+  margin: 20px auto;
+  text-align: center;
+  display: inline;
 }
