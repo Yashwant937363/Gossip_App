@@ -31,6 +31,21 @@ export default function ChatWindow(props) {
   const navigate = useNavigate();
   const { uid } = useParams();
   const friends = useSelector((state) => state.chat.friends);
+<<<<<<< HEAD
+=======
+  const submitMessage = async (e) => {
+    const text = message;
+    setMessage("")
+    e.preventDefault();
+    inputRef.current.focus();
+    if (text.trim().length !== "") {
+      const touid = openedchat.uid;
+      await sendMessage({ fromuid, touid, message:text, dispatch });
+    } else {
+      dispatch(setErrorMsgUser("Cannot Send Empty Message"));
+    }
+  };
+>>>>>>> 70892373f67d349fedded8cde6c97bffa68894fc
 
   const clearOpenedChat = () => {
     dispatch(changeOpenedChat(false));
@@ -96,7 +111,7 @@ export default function ChatWindow(props) {
     return () => {
       dispatch(changeOpenedChat(false));
     };
-  }, []);
+  }, [uid]);
   return (
     <div className="chatwindow" style={animation}>
       <div className="profilebar">
