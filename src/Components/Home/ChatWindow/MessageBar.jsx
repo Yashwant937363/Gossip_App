@@ -3,7 +3,7 @@ import EmojiPicker from "@emoji-mart/react";
 import { Data } from "emoji-mart";
 import { sendMessage } from "../../../store/socket";
 import { useRef, useState } from "react";
-import { EmojiSmileFill, SendFill, X } from "react-bootstrap-icons";
+import { EmojiSmile, EmojiSmileFill, SendFill, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function MessageBar() {
@@ -62,10 +62,7 @@ export default function MessageBar() {
       {isEmojiOpened ? (
         <X className="emoji" onClick={closeEmojiSection}></X>
       ) : (
-        <EmojiSmileFill
-          className="emoji"
-          onClick={openEmojiSection}
-        ></EmojiSmileFill>
+        <EmojiSmile className="emoji" onClick={openEmojiSection}></EmojiSmile>
       )}
       <input
         ref={inputRef}

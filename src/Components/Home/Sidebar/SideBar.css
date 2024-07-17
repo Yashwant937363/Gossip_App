@@ -1,5 +1,5 @@
 .sidebarlist {
-  background-color: var(--third);
+  background-color: white;
   overflow-y: scroll;
   animation: fadein 0.4s ease-in forwards;
 }
@@ -89,7 +89,6 @@
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  border-top: 1px solid var(--fourth);
   cursor: pointer;
   text-decoration: none;
   color: inherit;
@@ -135,5 +134,5 @@
 }
 
 .sidebarlist .listItem.openeditem {
-  background-color: var(--fourth);
+  background-color: var(--transparent-black);
 }

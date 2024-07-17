@@ -36,7 +36,7 @@
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  background-color: var(--fourth);
+  background-color: color-mix(in srgb, var(--transparent-black) 80%, white);
   overflow: hidden;
 }
 
@@ -82,8 +82,7 @@
   justify-content: center;
   align-items: center;
   height: calc(100% - 15px);
-  color: white;
-  background-color: var(--fifth);
+  background-color: white;
   border-radius: 14px;
   gap: 5px;
 }
@@ -93,7 +92,7 @@
 }
 
 .chatwindow .messagefield {
-  background-color: var(--fourth);
+  background-color: color-mix(in srgb, var(--transparent-black) 80%, white);
   grid-gap: 10px;
   box-sizing: border-box;
   display: grid;
@@ -127,15 +126,14 @@
   --sixth: 90, 32, 182;
   --error: #ff4040;
   --blackshadow: #000;
+  --emoji-background: 255, 255, 255;
 
   /* var(--first) rgb value */
   --rgb-accent: 248, 229, 89;
-  /* var(--sixth) rgb value*/
-  --rgb-background: 90, 32, 182;
-  /* var(--second) rgb value with hsl l value 90%*/
-  --rgb-color: 232, 204, 255;
+  /* var(--emoji-background) rgb value*/
+  --rgb-background: 255, 255, 255;
 
-  --shadow: 5px 5px 15px -8px rebeccapurple;
+  --shadow: 5px 5px 15px -8px black;
 }
 
 .messagefield .emojipicker button {
@@ -144,7 +142,6 @@
 
 .chatwindow .messagefield .emoji {
   font-size: 23px;
-  color: var(--first);
   margin: auto;
 }
 
@@ -152,8 +149,8 @@
 .chatwindow .messagefield button {
   border-radius: 15px;
   border: 0px;
-  background-color: var(--third);
-  box-shadow: inset 0px 0px 5px 0px var(--blackshadow);
+  background-color: color-mix(in srgb, var(--transparent-black) 80%, white);
+  box-shadow: inset 0px 0px 2px 0px var(--blackshadow);
   display: flex;
   align-items: center;
 }
@@ -164,8 +161,9 @@
 }
 
 .chatwindow .messagefield button {
-  color: var(--first);
   justify-content: center;
+  /* background-color: color-mix(in srgb, var(--first) 80%, white); */
+  background-color: var(--first);
 }
 
 .chatwindow .messagefield input:focus {
@@ -203,7 +201,7 @@
   flex-wrap: wrap;
   justify-content: end;
   max-width: 70%;
-  background-color: var(--second);
+  background-color: color-mix(in srgb, var(--second) 30%, white);
   float: right;
   padding: 7px;
   margin: 15px;
@@ -227,7 +225,7 @@
 
 .chatwindow .chatcontainer .sendchat::after {
   content: "";
-  border-bottom: 14px solid var(--second);
+  border-bottom: 14px solid color-mix(in srgb, var(--second) 30%, white);
   border-right: 14px solid transparent;
   border-left: 14px solid transparent;
   position: absolute;
@@ -258,10 +256,14 @@
   color: skyblue;
 }
 
+.chatwindow .chatcontainer {
+  background: url("https://static.whatsapp.net/rsrc.php/v3/yl/r/gi_DckOUM5a.png");
+}
+
 .chatwindow .chatcontainer .receivedchat {
   display: inline-flex;
   flex-wrap: wrap;
-  background-color: var(--second);
+  background-color: white;
   justify-content: end;
   max-width: 70%;
   float: left;
@@ -287,7 +289,7 @@
 
 .chatwindow .chatcontainer .receivedchat::after {
   content: "";
-  border-bottom: 14px solid var(--second);
+  border-bottom: 14px solid white;
   border-right: 14px solid transparent;
   border-left: 14px solid transparent;
   position: absolute;
@@ -297,7 +299,7 @@
 
 .chatwindow .chatcontainer .date {
   border-radius: 23px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.9);
   width: 120px;
   padding: 2px;
   margin: 20px auto;

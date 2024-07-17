@@ -9,7 +9,7 @@
   box-shadow: 0px 0px 20px 0px black;
   padding: 20px;
   border-radius: 23px;
-  background-color: var(--fourth);
+  background-color: white;
   width: min(90vw, 400px);
 }
 

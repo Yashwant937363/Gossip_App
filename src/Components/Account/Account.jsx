@@ -39,6 +39,15 @@ export default function Account() {
     <div className="account">
       <style>
         {`
+            :root {
+              --font-color: white;
+            }
+            .title{
+              color:var(--first)
+            }
+            .navbar{
+              background-color:rgba(0, 0, 0, 0.5)
+            }
             body{
                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzPLoLzdNHFfCGCMOO2D1IANkNFoyd2Kv_Ow&usqp=CAU");
             }

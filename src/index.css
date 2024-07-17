@@ -7,6 +7,10 @@
   --sixth: hsl(263, 70%, 42%);
   --error: #ff4040;
   --blackshadow: #000;
+  --background: #efeae2;
+  --emoji-background: white;
+  --font-color: rgb(84, 101, 111);
+  --transparent-black: rgba(240, 242, 245);
 }
 
 * {
@@ -15,8 +19,8 @@
 }
 
 body {
-  color: white;
-  background-color: var(--fifth);
+  color: var(--font-color);
+  background-color: var(--background);
   background-position-x: left !important;
   background-position-y: bottom !important;
   background-repeat: no-repeat !important;

@@ -2,7 +2,7 @@
   position: absolute;
   left: 5px;
   top: 8px;
-  color: var(--first);
+  color: black;
 }
 
 .navbar {
@@ -10,7 +10,7 @@
   list-style-type: none;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--transparent-black);
   color: white;
   height: 45px;
   position: relative;
@@ -34,7 +34,6 @@
 .menu {
   display: none;
   font-size: 30px;
-  color: var(--first);
 }
 
 .icons .cross {
@@ -53,7 +52,7 @@
 }
 
 #list li .link {
-  color: var(--second);
+  color: var(--font-color);
   padding: 30px 15px;
   margin: 5px;
   text-decoration: none;
@@ -98,7 +97,7 @@
   }
 
   #list li .active span::after {
-    content: '';
+    content: "";
     width: 100%;
     position: absolute;
     bottom: -2px;
@@ -150,7 +149,6 @@
   border-radius: 50%;
   font-size: 1.2rem;
 }
-
 
 .navbar .profile img {
   display: inline-block;
