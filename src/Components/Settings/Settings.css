@@ -1,0 +1,24 @@
+.settings {
+  position: relative;
+  z-index: 1;
+}
+
+.settings:nth-child(2) {
+  animation: fade 0.3s ease-in forwards;
+}
+
+.mainpage {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 10%,
+    var(--theme-mode)
+  );
+  height: calc(100vh - 45px);
+  height: calc(100dvh - 45px);
+  width: 100vw;
+  width: 100dvw;
+  z-index: 2;
+}

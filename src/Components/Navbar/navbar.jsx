@@ -4,8 +4,6 @@ import { NavLink, Outlet } from "react-router-dom";
 import "./navbar.css";
 import { List, PersonFill, X } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import CustomSelect from "../ThemeSelect/ThemeSelect";
-import ThemeSelect from "../ThemeSelect/ThemeSelect";
 
 function Navbar(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,11 +64,10 @@ function Navbar(props) {
               checked={isMenuOpen}
               readOnly
             />
-            {/* <ThemeSelect></ThemeSelect>  */}
             <NavLink
               onClick={handleNavlinkClick}
               className="link profilelink"
-              to="/profile"
+              to="/settings"
             >
               <div className="profile">
                 {profile !== "" && isLogin ? (

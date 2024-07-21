@@ -2,7 +2,7 @@
   position: absolute;
   left: 5px;
   top: 8px;
-  color: var(--first);
+  color: var(--text-color);
 }
 
 .navbar {
@@ -98,7 +98,7 @@
   }
 
   #list li .active span::after {
-    content: '';
+    content: "";
     width: 100%;
     position: absolute;
     bottom: -2px;
@@ -150,7 +150,6 @@
   border-radius: 50%;
   font-size: 1.2rem;
 }
-
 
 .navbar .profile img {
   display: inline-block;

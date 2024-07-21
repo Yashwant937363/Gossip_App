@@ -7,6 +7,15 @@
   --sixth: hsl(263, 70%, 42%);
   --error: #ff4040;
   --blackshadow: #000;
+
+  --opposite-theme-mode: white;
+  --theme-color: aqua;
+  --theme-mode: black;
+  --text-color: color-mix(
+    in srgb,
+    var(--theme-color) 25%,
+    var(--opposite-theme-mode)
+  );
 }
 
 * {
@@ -15,8 +24,12 @@
 }
 
 body {
-  color: white;
-  background-color: var(--fifth);
+  color: var(--text-color);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 10%,
+    var(--theme-mode)
+  );
   background-position-x: left !important;
   background-position-y: bottom !important;
   background-repeat: no-repeat !important;
@@ -31,7 +44,8 @@ body {
   .closedchat {
     display: none !important;
   }
-  .chatwindow {
+  .chatwindow,
+  mainpage {
     animation: scalein 0.3s ease-in forwards;
   }
 

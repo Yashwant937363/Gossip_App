@@ -14,7 +14,6 @@ import {
   setSucessMsgUser,
 } from "./store/slices/UserSlice";
 import { connecttoserver, socket } from "./store/socket";
-import Profile from "./Components/Profile/Profile";
 import {
   addChat,
   addFriend,
@@ -33,6 +32,9 @@ import {
 } from "./store/slices/CallSlice";
 import PeerService from "./service/PeerService";
 import ChatWindow from "./Components/Home/ChatWindow/ChatWindow";
+import Settings from "./Components/Settings/Settings";
+import Profile from "./Components/Settings/Profile/Profile";
+import Themes from "./Components/Settings/Themes/Themes";
 
 function App() {
   const dispatch = useDispatch();
@@ -112,6 +114,16 @@ function App() {
       }, 5000);
     }
   });
+  const themeColor = useSelector((state) => state.theme.themeColor);
+  const themeMode = useSelector((state) => state.theme.themeMode);
+  useEffect(() => {
+    document.documentElement.style.setProperty("--theme-mode", themeMode);
+    document.documentElement.style.setProperty("--theme-color", themeColor);
+    document.documentElement.style.setProperty(
+      "--opposite-theme-mode",
+      themeMode === "white" ? "black" : "white"
+    );
+  }, [themeColor, themeMode]);
   return (
     <>
       {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}
@@ -124,8 +136,11 @@ function App() {
               <Route path=":uid" element={<ChatWindow />} />
             </Route>
             <Route path="/login" element={<Account />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/about" element={<About />} />
+            <Route path="/settings" element={<Settings />}>
+              <Route path="profile" element={<Profile />}></Route>
+              <Route path="themes" element={<Themes />}></Route>
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

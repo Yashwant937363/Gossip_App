@@ -2,7 +2,7 @@ import { setErrorMsgUser } from "../../../store/slices/UserSlice";
 import EmojiPicker from "@emoji-mart/react";
 import { Data } from "emoji-mart";
 import { sendMessage } from "../../../store/socket";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EmojiSmileFill, SendFill, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -70,6 +70,7 @@ export default function MessageBar() {
       <input
         ref={inputRef}
         value={message}
+        placeholder="Type a message"
         onChange={(e) => setMessage(e.target.value)}
       />
       <button type="submit">

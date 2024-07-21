@@ -1,0 +1,27 @@
+body {
+  overflow: hidden;
+}
+
+.settingsidebar {
+  height: calc(100vh - 45px);
+  height: calc(100dvh - 45px);
+}
+
+.settingsidebar .listitem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.settingsidebar .listitem:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 20%,
+    var(--theme-mode)
+  );
+}
