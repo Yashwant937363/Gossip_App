@@ -278,12 +278,12 @@
 }
 
 .chatwindow .chatcontainer {
-  /* background: url("https://static.whatsapp.net/rsrc.php/v3/yl/r/gi_DckOUM5a.png"); */
+  /* background: url("https://static.whatsapp.net/rsrc.php/v3/yl/r/gi_DckOUM5a.png");
   background-position-x: left !important;
   background-position-y: bottom !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
-  background-size: cover !important;
+  background-size: cover !important; */
 }
 
 .chatwindow .chatcontainer .receivedchat {

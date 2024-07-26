@@ -13,7 +13,7 @@
   --theme-mode: black;
   --text-color: color-mix(
     in srgb,
-    var(--theme-color) 25%,
+    var(--theme-color) 23%,
     var(--opposite-theme-mode)
   );
 }

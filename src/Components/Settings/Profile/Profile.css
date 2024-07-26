@@ -1,6 +1,7 @@
 .profilecontainer {
   line-height: 2rem;
   padding: 20px;
+  text-align: center;
 }
 
 .profilecontainer .profile {

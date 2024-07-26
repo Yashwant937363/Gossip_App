@@ -21,6 +21,35 @@
 .sidebarlist::-webkit-scrollbar {
   width: 0px;
 }
+
+.sidebarlist .sideprofile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10% 0px;
+  animation: pulldown 1s ease forwards;
+}
+
+@keyframes pulldown {
+  0% {
+    --height: calc(25% + 5% + 5px + 10%);
+    transform: translateX(var(-var(--height)));
+  }
+  100% {
+    --height: calc(25% + 5% + 5px + 10%);
+    transform: translateX(var(-var(--height)));
+  }
+}
+
+.sidebarlist .sideprofile img {
+  border-radius: 50%;
+  width: 25%;
+  margin: 5%;
+  border: 5px dashed
+    color-mix(in srgb, var(--theme-color) 50%, var(--theme-mode));
+  border-style: groove;
+}
+
 .sidebarlist .nochats {
   display: flex;
   justify-content: center;

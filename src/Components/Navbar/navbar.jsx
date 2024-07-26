@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useHref } from "react-router-dom";
 import "./navbar.css";
-import { List, PersonFill, X } from "react-bootstrap-icons";
+import { GearWide, List, PersonFill, X } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 
 function Navbar(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const profile = useSelector((state) => state.user.profile);
   const isLogin = useSelector((state) => state.user.isLogin);
-
+  const url = useHref();
   const handleMenuToggle = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -51,7 +51,11 @@ function Navbar(props) {
             </li>
           </ul>
           <div className="icons">
-            <label htmlFor="togglemenu" onClick={handleMenuToggle}>
+            <label
+              htmlFor="togglemenu"
+              className="togglemenu"
+              onClick={handleMenuToggle}
+            >
               {isMenuOpen ? (
                 <X className="icon menu" />
               ) : (
@@ -69,13 +73,17 @@ function Navbar(props) {
               className="link profilelink"
               to="/settings"
             >
-              <div className="profile">
-                {profile !== "" && isLogin ? (
-                  <img src={profile} alt="" />
-                ) : (
-                  <PersonFill></PersonFill>
-                )}
-              </div>
+              {url !== "/" ? (
+                <div className="profile">
+                  {profile !== "" && isLogin ? (
+                    <img src={profile} alt="" />
+                  ) : (
+                    <PersonFill></PersonFill>
+                  )}
+                </div>
+              ) : (
+                <GearWide className="settingicon"></GearWide>
+              )}
             </NavLink>
           </div>
         </nav>

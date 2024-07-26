@@ -138,7 +138,6 @@ const userSlice = createSlice({
       state.isPending = true;
     });
     builder.addCase(signUpUser.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (action.payload.status < 300 && action.payload.status >= 200) {
         state.authtoken = action.payload.data.authtoken;
         state.uid = action.payload.data.uid;
@@ -160,13 +159,12 @@ const userSlice = createSlice({
     });
     builder.addCase(signInUser.fulfilled, (state, action) => {
       if (action.payload.status < 300 && action.payload.status >= 200) {
-        const { profile, authtoken, dob, fullname, uid, username, msg } =
+        const { profile, authtoken, dob, fullname, uid, username } =
           action.payload.data;
         state.profile = profile;
         state.authtoken = authtoken;
         Cookies.set("authtoken", authtoken);
         state.dob = dob;
-        state.successmsg = msg;
         state.fullname = fullname;
         state.username = username;
         state.uid = uid;
@@ -188,8 +186,7 @@ const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       const { data, status } = action.payload;
       if (status < 300 && status >= 200) {
-        const { user, msg } = data;
-        state.successmsg = msg;
+        const { user } = data;
         state.username = user.username;
         state.fullname = { firstname: user.firstname, lastname: user.lastname };
         state.email = user.email;
@@ -204,7 +201,6 @@ const userSlice = createSlice({
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.errormsg = action.payload;
-      console.log(action.payload);
       state.isPending = false;
     });
   },

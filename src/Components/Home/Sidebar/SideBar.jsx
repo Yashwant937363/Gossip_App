@@ -9,13 +9,17 @@ import {
 } from "react-bootstrap-icons";
 import SeachPeople from "./SeachPeople/SeachPeople";
 import { useSelector } from "react-redux";
+import SideProfile from "./SideProfile";
+import { useHref } from "react-router-dom";
 
 export default function SideBar() {
   const requests = useSelector((state) => state.user.requests);
   const friends = useSelector((state) => state.chat.friends);
   const [addperson, setAddPerson] = useState(false);
+  const url = useHref();
   return (
     <div className="sidebarlist">
+      {url === "/" && <SideProfile />}
       <h3 className="chats">
         <span className="chatstext">Chats</span>
         {/* <div className='groupaddicon'>
