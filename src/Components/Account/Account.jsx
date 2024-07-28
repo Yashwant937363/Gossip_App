@@ -8,6 +8,7 @@ import { fetchChats, fetchFriends } from "../../store/slices/ChatSlice";
 import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
 import Cookies from "js-cookie";
 import HomeLoader from "../Home/HomeLoader/HomeLoader";
+import { setThemeColor, setThemeMode } from "../../store/slices/ThemeSlice";
 
 export default function Account() {
   const dispatch = useDispatch();

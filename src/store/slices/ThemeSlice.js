@@ -5,42 +5,65 @@ const themeSlice = createSlice({
   initialState: {
     themeMode: "black",
     themeColor: "aqua",
+    colors: {
+      rgbBackground: "179, 255, 255",
+      rgbText: "0, 59, 59",
+      rgbAccent: "0, 255, 255",
+    },
     colorStyle: [
       {
         name: "Red",
         color: "red",
-        light: {
-          rgbBackground: "255, 217, 217",
-          rgbText: "64, 0, 0",
-          rgbAccent: "255, 53, 53",
-        },
-        dark: {
-          rgbBackground: "64, 0, 0",
-          rgbText: "255, 191, 191",
-          rgbAccent: "202, 0, 0",
+        colors: {
+          rgbBackground: "255, 179, 179",
+          rgbText: "59, 0, 0",
+          rgbAccent: "255, 0, 0",
         },
       },
       {
         name: "Green",
         color: "lime",
-        // these values are not of lime
-        light: {
-          rgbBackground: "64, 0, 0",
-          rgbText: "255, 191, 191",
-          rgbAccent: "202, 0, 0",
+        colors: {
+          rgbBackground: "179, 255, 179",
+          rgbText: "0, 59, 0",
+          rgbAccent: "0, 255, 0",
         },
       },
       {
         name: "Blue",
         color: "aqua",
+        colors: {
+          rgbBackground: "179, 255, 255",
+          rgbText: "0, 59, 59",
+          rgbAccent: "0, 255, 255",
+        },
       },
       {
         name: "Pink",
         color: "hotpink",
+        colors: {
+          rgbBackground: "255, 210, 233",
+          rgbText: "59, 24, 41",
+          rgbAccent: "255, 105, 180",
+        },
       },
       {
         name: "Purple",
         color: "blueviolet",
+        colors: {
+          rgbBackground: "220, 191, 246",
+          rgbText: "32 10 52",
+          rgbAccent: "138, 43, 226",
+        },
+      },
+      {
+        name: "Yellow",
+        color: "yellow",
+        colors: {
+          rgbBackground: "255, 255, 179",
+          rgbText: "59, 59, 0",
+          rgbAccent: "255, 255, 0",
+        },
       },
     ],
   },
@@ -51,8 +74,11 @@ const themeSlice = createSlice({
     setThemeColor: (state, action) => {
       state.themeColor = action.payload;
     },
+    setColors: (state, action) => {
+      state.colors = action.payload;
+    },
   },
 });
 
-export const { setThemeMode, setThemeColor } = themeSlice.actions;
+export const { setThemeMode, setThemeColor, setColors } = themeSlice.actions;
 export default themeSlice.reducer;

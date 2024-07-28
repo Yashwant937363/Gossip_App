@@ -1,4 +1,5 @@
 import React from "react";
+import { PersonFill } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 
 export default function SideProfile() {
@@ -6,7 +7,13 @@ export default function SideProfile() {
   const username = useSelector((state) => state.user.username);
   return (
     <div className="sideprofile">
-      <img src={profile} className="profile" alt="" />
+      {profile !== "" ? (
+        <img src={profile} className="profile" alt="" />
+      ) : (
+        <div className="profilewrapper profile">
+          <PersonFill></PersonFill>
+        </div>
+      )}
       <h2>Welcome {username}</h2>
     </div>
   );

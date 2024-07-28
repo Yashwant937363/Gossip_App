@@ -141,7 +141,9 @@ const userSlice = createSlice({
       if (action.payload.status < 300 && action.payload.status >= 200) {
         state.authtoken = action.payload.data.authtoken;
         state.uid = action.payload.data.uid;
-        Cookies.set("authtoken", action.payload.data.authtoken);
+        Cookies.set("authtoken", action.payload.data.authtoken, {
+          expires: 365,
+        });
         state.isLogin = true;
       } else {
         state.errormsg = action.payload.data.error;
@@ -163,7 +165,7 @@ const userSlice = createSlice({
           action.payload.data;
         state.profile = profile;
         state.authtoken = authtoken;
-        Cookies.set("authtoken", authtoken);
+        Cookies.set("authtoken", authtoken, { expires: 365 });
         state.dob = dob;
         state.fullname = fullname;
         state.username = username;

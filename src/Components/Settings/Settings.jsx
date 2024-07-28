@@ -6,7 +6,6 @@ import SettingsSidebar from "./SettingsSidebar/SettingsSidebar";
 
 export default function Settings() {
   const url = useHref();
-  console.log(url);
   return (
     <div className="home settings">
       <SettingsSidebar></SettingsSidebar>

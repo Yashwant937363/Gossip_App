@@ -41,7 +41,19 @@
   }
 }
 
-.sidebarlist .sideprofile img {
+.sidebarlist .profilewrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  aspect-ratio: 1/1;
+  font-size: 3rem;
+  margin: 5%;
+  background-color: var(--opposite-theme-mode);
+  color: color-mix(in srgb, var(--theme-color) 25%, var(--theme-mode));
+}
+
+.sidebarlist .sideprofile .profile {
   border-radius: 50%;
   width: 25%;
   margin: 5%;
@@ -124,7 +136,7 @@
 
 .sidebarlist .listItem {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 60px calc(100% - 80px);
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
@@ -160,6 +172,12 @@
   justify-content: space-around;
 }
 
+.sidebarlist .listItem .listItemtext .usernamewithdate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .sidebarlist .listItem .personfillicon {
   font-size: 2rem;
   color: black;
@@ -170,6 +188,12 @@
   justify-content: center;
   align-items: center;
   margin: 5%;
+}
+
+.sidebarlist .listItem .lastmessage {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sidebarlist .listItem.openeditem {

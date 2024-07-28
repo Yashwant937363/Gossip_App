@@ -105,3 +105,31 @@
   display: flex;
   align-items: center;
 }
+
+.colorlist .colorlistitem .defaultcolor {
+  overflow: hidden;
+  border: 1px solid var(--opposite-theme-mode);
+  position: relative;
+}
+
+.colorlist .colorlistitem .defaultcolor::before,
+.colorlist .colorlistitem .defaultcolor::after {
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 50%;
+}
+.colorlist .colorlistitem .defaultcolor::before {
+  left: 0px;
+  background-color: white;
+}
+.colorlist .colorlistitem .defaultcolor::after {
+  right: 0px;
+  background-color: black;
+}
+
+.colorlist .colorlistitem .checkicon {
+  position: absolute;
+  z-index: 1;
+  color: var(--text-color);
+}

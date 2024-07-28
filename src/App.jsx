@@ -35,6 +35,8 @@ import ChatWindow from "./Components/Home/ChatWindow/ChatWindow";
 import Settings from "./Components/Settings/Settings";
 import Profile from "./Components/Settings/Profile/Profile";
 import Themes from "./Components/Settings/Themes/Themes";
+import { setThemeColor, setThemeMode } from "./store/slices/ThemeSlice";
+import Cookies from "js-cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -116,6 +118,7 @@ function App() {
   });
   const themeColor = useSelector((state) => state.theme.themeColor);
   const themeMode = useSelector((state) => state.theme.themeMode);
+  const colors = useSelector((state) => state.theme.colors);
   useEffect(() => {
     document.documentElement.style.setProperty("--theme-mode", themeMode);
     document.documentElement.style.setProperty("--theme-color", themeColor);
@@ -123,7 +126,35 @@ function App() {
       "--opposite-theme-mode",
       themeMode === "white" ? "black" : "white"
     );
+    document.documentElement.style.setProperty(
+      "--rgb-accent",
+      colors.rgbAccent
+    );
+    if (themeMode == "white") {
+      document.documentElement.style.setProperty(
+        "--rgb-background",
+        colors.rgbBackground
+      );
+      document.documentElement.style.setProperty("--rgb-color", colors.rgbText);
+    } else {
+      document.documentElement.style.setProperty(
+        "--rgb-background",
+        colors.rgbText
+      );
+      document.documentElement.style.setProperty(
+        "--rgb-color",
+        colors.rgbBackground
+      );
+    }
   }, [themeColor, themeMode]);
+  useEffect(() => {
+    const themeColor = Cookies.get("themeColor");
+    const themeMode = Cookies.get("themeMode");
+    if (themeColor && themeMode) {
+      dispatch(setThemeColor(themeColor));
+      dispatch(setThemeMode(themeMode));
+    }
+  }, []);
   return (
     <>
       {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}

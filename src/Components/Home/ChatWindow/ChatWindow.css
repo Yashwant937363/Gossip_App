@@ -163,7 +163,7 @@
 }
 
 .chatwindow .messagefield input {
-  color: white;
+  color: var(--text-color);
   background-color: color-mix(
     in srgb,
     var(--theme-color) 15%,
@@ -277,15 +277,6 @@
   color: skyblue;
 }
 
-.chatwindow .chatcontainer {
-  /* background: url("https://static.whatsapp.net/rsrc.php/v3/yl/r/gi_DckOUM5a.png");
-  background-position-x: left !important;
-  background-position-y: bottom !important;
-  background-repeat: no-repeat !important;
-  background-attachment: fixed !important;
-  background-size: cover !important; */
-}
-
 .chatwindow .chatcontainer .receivedchat {
   display: inline-flex;
   flex-wrap: wrap;
@@ -335,8 +326,7 @@
     var(--theme-color) 5%,
     var(--opposite-theme-mode) 5%
   );
-  width: 120px;
-  padding: 2px;
+  padding: 3px 15px;
   margin: 20px auto;
   text-align: center;
   display: inline;
