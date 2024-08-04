@@ -27,7 +27,13 @@ export default function SideBar() {
         return message;
       }
     }
-    return null;
+    let newDate = new Date();
+    const newMessage = {
+      Sender_ID: uid,
+      Receiver_ID: uid,
+      createdAt: newDate.toISOString(),
+    };
+    return newMessage;
   };
 
   useEffect(() => {
