@@ -37,6 +37,7 @@ import Profile from "./Components/Settings/Profile/Profile";
 import Themes from "./Components/Settings/Themes/Themes";
 import { setThemeColor, setThemeMode } from "./store/slices/ThemeSlice";
 import Cookies from "js-cookie";
+import Translation from "./Components/Settings/Translation/Translation";
 
 function App() {
   const dispatch = useDispatch();
@@ -171,6 +172,7 @@ function App() {
             <Route path="/settings" element={<Settings />}>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="themes" element={<Themes />}></Route>
+              <Route path="translation" element={<Translation />}></Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>

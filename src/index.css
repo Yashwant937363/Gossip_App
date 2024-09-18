@@ -37,6 +37,12 @@ body {
   background-size: cover !important;
 }
 
+@media screen and (min-width: 600px) {
+  .goback {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .home {
     grid-template-columns: 1fr;
@@ -102,7 +108,4 @@ body {
   .profilepage .profileform .withicon {
     grid-column: 3 / span 5;
   }
-}
-
-@media screen and (max-width: 310px) {
 }

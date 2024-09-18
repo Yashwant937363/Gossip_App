@@ -5,6 +5,18 @@ body {
 .settingsidebar {
   height: calc(100vh - 45px);
   height: calc(100dvh - 45px);
+  font-size: 1.1rem;
+  padding: 5px;
+}
+
+.settingsidebar h2 {
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.settingsidebar h2 .arrowlefticon {
+  margin-right: 5px;
 }
 
 .settingsidebar .listitem {
@@ -12,7 +24,7 @@ body {
   align-items: center;
   gap: 5px;
   padding: 10px;
-  border-bottom: 1px solid var(--text-color);
+  padding-left: 20px;
   color: var(--text-color);
   text-decoration: none;
   cursor: pointer;

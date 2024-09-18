@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { NavLink, Outlet, useHref } from "react-router-dom";
+import { NavLink, Outlet, useHref, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { GearWide, List, PersonFill, X } from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changePreviousPath } from "../../store/slices/UISlice";
 
 function Navbar(props) {
+  const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const profile = useSelector((state) => state.user.profile);
   const isLogin = useSelector((state) => state.user.isLogin);
   const url = useHref();
+  const location = useLocation();
   const handleMenuToggle = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -17,6 +20,12 @@ function Navbar(props) {
   const handleNavlinkClick = () => {
     setIsMenuOpen(false);
   };
+
+  useEffect(() => {
+    if (!location.pathname.startsWith("/settings")) {
+      dispatch(changePreviousPath(location.pathname));
+    }
+  }, [location]);
   return (
     <>
       <header>

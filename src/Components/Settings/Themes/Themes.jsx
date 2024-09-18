@@ -8,6 +8,7 @@ import {
 import { Check } from "react-bootstrap-icons";
 import "./Themes.css";
 import Cookies from "js-cookie";
+import GoBackButton from "../../Buttons/GoBackButton/GoBackButton";
 
 export default function Themes() {
   const dispatch = useDispatch();
@@ -38,33 +39,38 @@ export default function Themes() {
                 }
             `}
       </style>
-      <h3> Theme Mode</h3>
-      <div className="thememodes">
-        <label className="radio-container">
-          light
-          <input
-            type="radio"
-            name="thememode"
-            id=""
-            value="white"
-            checked={themeMode === "white" && "checked"}
-            onChange={toggleTheme}
-          />
-          <span className="checkmark whitecheckmark"></span>
-        </label>
-        <label className="radio-container">
-          dark
-          <input
-            type="radio"
-            name="thememode"
-            id=""
-            value="black"
-            onChange={toggleTheme}
-          />
-          <span className="checkmark blackcheckmark"></span>
-        </label>
+      <h2 className="settings-heading">
+        <GoBackButton /> Themes
+      </h2>
+      <div className="themes-section">
+        <h3>Theme Mode</h3>
+        <div className="thememodes">
+          <label className="radio-container">
+            light
+            <input
+              type="radio"
+              name="thememode"
+              id=""
+              value="white"
+              checked={themeMode === "white" && "checked"}
+              onChange={toggleTheme}
+            />
+            <span className="checkmark whitecheckmark"></span>
+          </label>
+          <label className="radio-container">
+            dark
+            <input
+              type="radio"
+              name="thememode"
+              id=""
+              value="black"
+              onChange={toggleTheme}
+            />
+            <span className="checkmark blackcheckmark"></span>
+          </label>
+        </div>
       </div>
-      <div>
+      <div className="themes-section">
         <h3>Theme Colors</h3>
         <div className="colorlist">
           <div

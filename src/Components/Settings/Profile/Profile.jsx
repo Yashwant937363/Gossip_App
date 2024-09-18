@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { clear, setErrorMsgUser } from "../../../store/slices/UserSlice";
 import { disconnectSocket } from "../../../store/socket";
+import GoBackButton from "../../Buttons/GoBackButton/GoBackButton";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ export default function Profile() {
 
   return (
     <div className="profilecontainer mainpage">
+      <h2 className="settings-heading">
+        <GoBackButton />
+        Profile
+      </h2>
       <div className="profile">
         {profile ? (
           <img src={profile} className="profileimg" />

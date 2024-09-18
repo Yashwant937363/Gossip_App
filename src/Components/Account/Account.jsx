@@ -40,8 +40,11 @@ export default function Account() {
     <div className="account">
       <style>
         {`
+            .navbar{
+              background-color:color-mix(in srgb, transparent 30%,var(--theme-mode));
+            }
             body{
-               background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzPLoLzdNHFfCGCMOO2D1IANkNFoyd2Kv_Ow&usqp=CAU");
+               background:url("https://wallpapers.com/images/hd/lush-green-forest-neblzag5t76yolal.jpg");
             }
          `}
       </style>

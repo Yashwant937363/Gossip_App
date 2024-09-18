@@ -1,5 +1,4 @@
 .themepage {
-  padding: 20px;
   animation: fade 0.3s ease-in forwards;
 }
 
@@ -13,6 +12,10 @@
     opacity: 1;
     transform: translateX(0px);
   }
+}
+
+.themepage .themes-section {
+  margin: 20px;
 }
 
 .thememodes input[type="radio"] {
