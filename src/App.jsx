@@ -14,7 +14,6 @@ import {
   setSucessMsgUser,
 } from "./store/slices/UserSlice";
 import { connecttoserver, socket } from "./store/socket";
-import Profile from "./Components/Profile/Profile";
 import {
   addChat,
   addFriend,
@@ -33,6 +32,12 @@ import {
 } from "./store/slices/CallSlice";
 import PeerService from "./service/PeerService";
 import ChatWindow from "./Components/Home/ChatWindow/ChatWindow";
+import Settings from "./Components/Settings/Settings";
+import Profile from "./Components/Settings/Profile/Profile";
+import Themes from "./Components/Settings/Themes/Themes";
+import { setThemeColor, setThemeMode } from "./store/slices/ThemeSlice";
+import Cookies from "js-cookie";
+import Translation from "./Components/Settings/Translation/Translation";
 
 function App() {
   const dispatch = useDispatch();
@@ -112,6 +117,45 @@ function App() {
       }, 5000);
     }
   });
+  const themeColor = useSelector((state) => state.theme.themeColor);
+  const themeMode = useSelector((state) => state.theme.themeMode);
+  const colors = useSelector((state) => state.theme.colors);
+  useEffect(() => {
+    document.documentElement.style.setProperty("--theme-mode", themeMode);
+    document.documentElement.style.setProperty("--theme-color", themeColor);
+    document.documentElement.style.setProperty(
+      "--opposite-theme-mode",
+      themeMode === "white" ? "black" : "white"
+    );
+    document.documentElement.style.setProperty(
+      "--rgb-accent",
+      colors.rgbAccent
+    );
+    if (themeMode == "white") {
+      document.documentElement.style.setProperty(
+        "--rgb-background",
+        colors.rgbBackground
+      );
+      document.documentElement.style.setProperty("--rgb-color", colors.rgbText);
+    } else {
+      document.documentElement.style.setProperty(
+        "--rgb-background",
+        colors.rgbText
+      );
+      document.documentElement.style.setProperty(
+        "--rgb-color",
+        colors.rgbBackground
+      );
+    }
+  }, [themeColor, themeMode]);
+  useEffect(() => {
+    const themeColor = Cookies.get("themeColor");
+    const themeMode = Cookies.get("themeMode");
+    if (themeColor && themeMode) {
+      dispatch(setThemeColor(themeColor));
+      dispatch(setThemeMode(themeMode));
+    }
+  }, []);
   return (
     <>
       {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}
@@ -124,8 +168,12 @@ function App() {
               <Route path=":uid" element={<ChatWindow />} />
             </Route>
             <Route path="/login" element={<Account />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/about" element={<About />} />
+            <Route path="/settings" element={<Settings />}>
+              <Route path="profile" element={<Profile />}></Route>
+              <Route path="themes" element={<Themes />}></Route>
+              <Route path="translation" element={<Translation />}></Route>
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

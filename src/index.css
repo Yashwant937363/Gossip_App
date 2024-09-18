@@ -28,6 +28,12 @@ body {
   background-size: cover !important;
 }
 
+@media screen and (min-width: 600px) {
+  .goback {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .home {
     grid-template-columns: 1fr;
@@ -35,7 +41,8 @@ body {
   .closedchat {
     display: none !important;
   }
-  .chatwindow {
+  .chatwindow,
+  mainpage {
     animation: scalein 0.3s ease-in forwards;
   }
 
@@ -52,11 +59,6 @@ body {
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 900px) {
-  .sidebarlist .listItem {
-    grid-template-columns: 40px auto;
-  }
-}
 @media screen and (min-width: 600px) and (max-width: 750px) {
   .searchpeople .searchandreqitems .searchandreqitem {
     grid-template-columns: 8fr 20fr 3fr;
@@ -97,7 +99,4 @@ body {
   .profilepage .profileform .withicon {
     grid-column: 3 / span 5;
   }
-}
-
-@media screen and (max-width: 310px) {
 }

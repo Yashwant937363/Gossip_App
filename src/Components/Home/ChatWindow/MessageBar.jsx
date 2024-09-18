@@ -67,6 +67,7 @@ export default function MessageBar() {
       <input
         ref={inputRef}
         value={message}
+        placeholder="Type a message"
         onChange={(e) => setMessage(e.target.value)}
       />
       <button type="submit">

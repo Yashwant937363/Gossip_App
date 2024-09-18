@@ -1,0 +1,138 @@
+.themepage {
+  animation: fade 0.3s ease-in forwards;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.themepage .themes-section {
+  margin: 20px;
+}
+
+.thememodes input[type="radio"] {
+  display: none;
+}
+
+.thememodes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px 0px;
+}
+
+.radio-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Style the checkmark */
+.radio-container .checkmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 50%,
+    var(--opposite-theme-mode) 10%
+  );
+  border-radius: 50%;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .checkmark {
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 50%,
+    var(--opposite-theme-mode) 70%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-container .checkmark:after {
+  content: "";
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border-radius: 50%;
+  background: white;
+}
+
+/* Show the indicator when checked */
+.radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.colorlist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  margin: 20px 0px;
+}
+
+.colorlist .colorlistitem {
+  display: grid;
+  grid-template-columns: 11fr 12fr;
+  gap: 10px;
+}
+
+.colorlist .colorlistitem .color {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  color: black;
+}
+
+.colorlist .colorlistitem .name {
+  display: flex;
+  align-items: center;
+}
+
+.colorlist .colorlistitem .defaultcolor {
+  overflow: hidden;
+  border: 1px solid var(--opposite-theme-mode);
+  position: relative;
+}
+
+.colorlist .colorlistitem .defaultcolor::before,
+.colorlist .colorlistitem .defaultcolor::after {
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 50%;
+}
+.colorlist .colorlistitem .defaultcolor::before {
+  left: 0px;
+  background-color: white;
+}
+.colorlist .colorlistitem .defaultcolor::after {
+  right: 0px;
+  background-color: black;
+}
+
+.colorlist .colorlistitem .checkicon {
+  position: absolute;
+  z-index: 1;
+  color: var(--text-color);
+}
