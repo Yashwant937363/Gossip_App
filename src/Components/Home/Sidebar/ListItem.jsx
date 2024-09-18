@@ -4,34 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function ListItem(props) {
-  const { lastMessage } = props;
   const dispatch = useDispatch();
   const openedchat = useSelector((state) => state.UIState.openedchat);
+  const [lastMessage, setLastMessage] = useState("");
   const { profile, username, online, uid } = props;
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const now = new Date();
-
-    const isSameDay = date.toDateString() === now.toDateString();
-    const isYesterday =
-      date.toDateString() ===
-      new Date(now.setDate(now.getDate() - 1)).toDateString();
-    const isSameYear = date.getFullYear() === new Date().getFullYear();
-
-    if (isSameDay) {
-      return date.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-    } else if (isYesterday) {
-      return "yesterday";
-    } else if (isSameYear) {
-      return date.toLocaleDateString([], { day: "numeric", month: "short" });
-    } else {
-      return date.toLocaleDateString([], { month: "short", year: "numeric" });
-    }
-  }
+  useEffect(() => {}, []);
   return (
     <Link
       to={`/chat/${uid}`}
@@ -48,13 +25,8 @@ export default function ListItem(props) {
         )}
       </div>
       <div className="listItemtext">
-        <div className="usernamewithdate">
-          <h3>{username}</h3>
-          <div>{formatDate(lastMessage.createdAt)}</div>
-        </div>
-        <div className="lastmessage">
-          {lastMessage?.text && lastMessage.text}
-        </div>
+        <h3>{username}</h3>
+        <div>{lastMessage}</div>
       </div>
     </Link>
   );

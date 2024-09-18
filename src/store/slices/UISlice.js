@@ -1,20 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const UISlice = createSlice({
-  name: "UIState",
-  initialState: {
-    openedchat: false,
-    previousPath: "/",
-  },
-  reducers: {
-    changeOpenedChat: (state, action) => {
-      state.openedchat = action.payload;
+    name: 'UIState',
+    initialState: {
+        openedchat: false
     },
-    changePreviousPath: (state, action) => {
-      state.previousPath = action.payload;
-    },
-  },
-});
+    reducers: {
+        changeOpenedChat: (state, action) => {
+            state.openedchat = action.payload
+        }
+    }
+})
 
-export const { changeOpenedChat, changePreviousPath } = UISlice.actions;
-export default UISlice.reducer;
+export const { changeOpenedChat } = UISlice.actions
+export default UISlice.reducer

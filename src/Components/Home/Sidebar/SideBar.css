@@ -17,48 +17,8 @@
 .sidebarlist::-webkit-scrollbar {
   width: 0px;
 }
-
-.sidebarlist .sideprofile {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 10% 0px;
-  animation: pulldown 1s ease forwards;
-}
-
-@keyframes pulldown {
-  0% {
-    --height: calc(25% + 5% + 5px + 10%);
-    transform: translateX(var(-var(--height)));
-  }
-  100% {
-    --height: calc(25% + 5% + 5px + 10%);
-    transform: translateX(var(-var(--height)));
-  }
-}
-
-.sidebarlist .profilewrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25%;
-  aspect-ratio: 1/1;
-  font-size: 3rem;
-  margin: 5%;
-  background-color: var(--opposite-theme-mode);
-  color: color-mix(in srgb, var(--theme-color) 25%, var(--theme-mode));
-}
-
-.sidebarlist .sideprofile .profile {
-  border-radius: 50%;
-  width: 25%;
-  margin: 5%;
-  border: 5px dashed
-    color-mix(in srgb, var(--theme-color) 50%, var(--theme-mode));
-  border-style: groove;
-}
-
 .sidebarlist .nochats {
+  border-top: 1px solid var(--fourth);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,13 +37,6 @@
   font-size: 1.5rem;
   display: flex;
   padding: 15px 10px;
-  position: relative;
-  z-index: 1;
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 15%,
-    var(--theme-mode)
-  );
 }
 
 .sidebarlist .chats .chatstext {
@@ -132,7 +85,7 @@
 
 .sidebarlist .listItem {
   display: grid;
-  grid-template-columns: 60px calc(100% - 80px);
+  grid-template-columns: 1fr 5fr;
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
@@ -168,12 +121,6 @@
   justify-content: space-around;
 }
 
-.sidebarlist .listItem .listItemtext .usernamewithdate {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .sidebarlist .listItem .personfillicon {
   font-size: 2rem;
   color: black;
@@ -184,12 +131,6 @@
   justify-content: center;
   align-items: center;
   margin: 5%;
-}
-
-.sidebarlist .listItem .lastmessage {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .sidebarlist .listItem.openeditem {

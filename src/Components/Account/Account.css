@@ -27,11 +27,7 @@
 }
 
 .account .innerswitch .open {
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 60%,
-    var(--theme-mode)
-  );
+  background-color: #245d93;
   position: relative;
 }
 
@@ -41,8 +37,7 @@
   height: 0px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid
-    color-mix(in srgb, var(--theme-color) 60%, var(--theme-mode));
+  border-top: 10px solid #245d93;
   position: absolute;
   bottom: -10px;
   z-index: 2;
@@ -56,7 +51,7 @@
   border-radius: 23px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
-  background-color: color-mix(in srgb, transparent 70%, var(--theme-mode));
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
   padding: 30px;
   width: min(90vw, 400px);
@@ -123,11 +118,7 @@
   margin: 10px auto;
   height: 40px;
   border-radius: 23px;
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 50%,
-    var(--theme-mode)
-  );
+  background-color: #3a7cc9;
   font-size: 1.1rem;
   font-weight: bold;
   color: white;

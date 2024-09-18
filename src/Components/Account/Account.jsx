@@ -8,7 +8,6 @@ import { fetchChats, fetchFriends } from "../../store/slices/ChatSlice";
 import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
 import Cookies from "js-cookie";
 import HomeLoader from "../Home/HomeLoader/HomeLoader";
-import { setThemeColor, setThemeMode } from "../../store/slices/ThemeSlice";
 
 export default function Account() {
   const dispatch = useDispatch();
@@ -50,7 +49,7 @@ export default function Account() {
               background-color:rgba(0, 0, 0, 0.5)
             }
             body{
-               background:url("https://wallpapers.com/images/hd/lush-green-forest-neblzag5t76yolal.jpg");
+               background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzPLoLzdNHFfCGCMOO2D1IANkNFoyd2Kv_Ow&usqp=CAU");
             }
          `}
       </style>

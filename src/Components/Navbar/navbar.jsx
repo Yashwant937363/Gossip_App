@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { NavLink, Outlet, useHref, useLocation } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import "./navbar.css";
-import { GearWide, List, PersonFill, X } from "react-bootstrap-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { changePreviousPath } from "../../store/slices/UISlice";
+import { List, PersonFill, X } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
+import CustomSelect from "../ThemeSelect/ThemeSelect";
+import ThemeSelect from "../ThemeSelect/ThemeSelect";
 
 function Navbar(props) {
-  const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const profile = useSelector((state) => state.user.profile);
   const isLogin = useSelector((state) => state.user.isLogin);
-  const url = useHref();
-  const location = useLocation();
+
   const handleMenuToggle = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -20,12 +19,6 @@ function Navbar(props) {
   const handleNavlinkClick = () => {
     setIsMenuOpen(false);
   };
-
-  useEffect(() => {
-    if (!location.pathname.startsWith("/settings")) {
-      dispatch(changePreviousPath(location.pathname));
-    }
-  }, [location]);
   return (
     <>
       <header>
@@ -60,11 +53,7 @@ function Navbar(props) {
             </li>
           </ul>
           <div className="icons">
-            <label
-              htmlFor="togglemenu"
-              className="togglemenu"
-              onClick={handleMenuToggle}
-            >
+            <label htmlFor="togglemenu" onClick={handleMenuToggle}>
               {isMenuOpen ? (
                 <X className="icon menu" />
               ) : (
@@ -77,22 +66,19 @@ function Navbar(props) {
               checked={isMenuOpen}
               readOnly
             />
+            {/* <ThemeSelect></ThemeSelect>  */}
             <NavLink
               onClick={handleNavlinkClick}
               className="link profilelink"
-              to="/settings"
+              to="/profile"
             >
-              {url !== "/" ? (
-                <div className="profile">
-                  {profile !== "" && isLogin ? (
-                    <img src={profile} alt="" />
-                  ) : (
-                    <PersonFill></PersonFill>
-                  )}
-                </div>
-              ) : (
-                <GearWide className="settingicon"></GearWide>
-              )}
+              <div className="profile">
+                {profile !== "" && isLogin ? (
+                  <img src={profile} alt="" />
+                ) : (
+                  <PersonFill></PersonFill>
+                )}
+              </div>
             </NavLink>
           </div>
         </nav>

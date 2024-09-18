@@ -59,7 +59,7 @@
 }
 
 #list li .link.active {
-  color: color-mix(in srgb, var(--theme-color) 80%, var(--opposite-theme-mode));
+  color: var(--first);
 }
 
 @media (max-width: 500px) {
@@ -78,11 +78,8 @@
   #list li .link {
     display: block;
     text-align: center;
-    background-color: color-mix(
-      in srgb,
-      var(--theme-color) 30%,
-      var(--theme-mode)
-    );
+    background-color: var(--third);
+    color: white;
     padding: 30px 15px;
     margin: 15px;
     border-radius: 23px;
@@ -93,6 +90,7 @@
   }
 
   #list li .active span {
+    color: var(--first);
     position: relative;
     top: 0px;
     padding-bottom: 2px;
@@ -100,13 +98,11 @@
 
   #list li .active span::after {
     content: "";
-    content: "";
     width: 100%;
     position: absolute;
     bottom: -2px;
     left: -1px;
-    border: 1px solid
-      color-mix(in srgb, var(--theme-color) 80%, var(--opposite-theme-mode));
+    border: 1px solid var(--first);
   }
 
   .menu {
@@ -138,26 +134,20 @@
   height: 35px;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .navbar .profilelink.active {
-  outline: 2px solid
-    color-mix(in srgb, var(--theme-color) 50%, var(--theme-mode));
+  outline: 2px solid var(--first);
 }
 
 .navbar .profile {
   display: inline-grid;
   place-items: center;
-  background-color: var(--opposite-theme-mode);
-  color: var(--theme-mode);
+  background-color: white;
   height: 100%;
   aspect-ratio: 1/1;
   border-radius: 50%;
   font-size: 1.2rem;
-  animation: fadein 0.6s ease forwards;
 }
 
 .navbar .profile img {

@@ -9,6 +9,7 @@ import CallWindow from "./ChatWindow/Call/Call";
 
 export default function Home() {
   const isLogin = useSelector((state) => state.user.isLogin);
+  const openedchat = useSelector((state) => state.UIState.openedchat);
   const isCallStarted = useSelector((state) => state.call.isCallStarted);
   const navigate = useNavigate();
   const { uid } = useParams();

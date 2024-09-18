@@ -60,8 +60,8 @@
 }
 
 .chatwindow .profilebar .outerimg .personfillicon {
-  background-color: var(--theme-mode);
-  color: var(--text-color);
+  background-color: white;
+  color: black;
   font-size: 1.5rem;
   display: flex;
   justify-content: center;
@@ -111,24 +111,10 @@
   animation: fade 0.5s ease-in forwards;
 }
 
-[data-theme="dark"] {
-  --em-rgb-background: red !important;
-}
-
-:root {
-  --rgb-accent: 0, 0, 255;
-  --rgb-background: 0, 0, 0;
-  --rgb-color: 255, 255, 255;
-  --shadow: 5px 5px 15px -8px color-mix(in srgb, var(--theme-color) 25%, var(--theme-mode));
-
-  --mixed-color-accent: color-mix(in srgb, #ff0000 50%, #00ff00 50%);
-  --mixed-color-background: color-mix(in srgb, #0000ff 50%, #ffff00 50%);
-  --mixed-color-text: color-mix(in srgb, #ff00ff 50%, #00ffff 50%);
-}
-
 .chatwindow .messagefield .emojipicker em-emoji-picker {
-  --border-radius: 23px;
-  --category-icon-size: 1.5rem;
+  --background-rgb: 85, 170, 255;
+  --border-radius: 24px;
+  --category-icon-size: 24px;
   --color-border-over: rgba(0, 0, 0, 0.1);
   --color-border: rgba(0, 0, 0, 0.05);
 
@@ -170,13 +156,7 @@
 }
 
 .chatwindow .messagefield input {
-  color: var(--text-color);
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 15%,
-    var(--theme-mode)
-  );
-  box-shadow: inset 0px 0px 2px 0px var(--opposite-theme-mode);
+  color: white;
   padding: 0px 10px;
 }
 
