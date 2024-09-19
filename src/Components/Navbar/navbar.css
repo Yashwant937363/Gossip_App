@@ -2,7 +2,7 @@
   position: absolute;
   left: 5px;
   top: 8px;
-  color: black;
+  color: var(--text-color);
 }
 
 .navbar {
@@ -10,8 +10,11 @@
   list-style-type: none;
   justify-content: center;
   align-items: center;
-  background-color: var(--transparent-black);
-  color: white;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 10%,
+    var(--theme-mode)
+  );
   height: 45px;
   position: relative;
   z-index: 5;
@@ -52,14 +55,14 @@
 }
 
 #list li .link {
-  color: var(--font-color);
+  color: var(--text-color);
   padding: 30px 15px;
   margin: 5px;
   text-decoration: none;
 }
 
 #list li .link.active {
-  color: var(--first);
+  color: color-mix(in srgb, var(--theme-color) 80%, var(--opposite-theme-mode));
 }
 
 @media (max-width: 500px) {
@@ -78,8 +81,11 @@
   #list li .link {
     display: block;
     text-align: center;
-    background-color: var(--third);
-    color: white;
+    background-color: color-mix(
+      in srgb,
+      var(--theme-color) 30%,
+      var(--theme-mode)
+    );
     padding: 30px 15px;
     margin: 15px;
     border-radius: 23px;
@@ -90,7 +96,6 @@
   }
 
   #list li .active span {
-    color: var(--first);
     position: relative;
     top: 0px;
     padding-bottom: 2px;
@@ -102,7 +107,8 @@
     position: absolute;
     bottom: -2px;
     left: -1px;
-    border: 1px solid var(--first);
+    border: 1px solid
+      color-mix(in srgb, var(--theme-color) 80%, var(--opposite-theme-mode));
   }
 
   .menu {
@@ -134,20 +140,26 @@
   height: 35px;
   aspect-ratio: 1/1;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar .profilelink.active {
-  outline: 2px solid var(--first);
+  outline: 2px solid
+    color-mix(in srgb, var(--theme-color) 50%, var(--theme-mode));
 }
 
 .navbar .profile {
   display: inline-grid;
   place-items: center;
-  background-color: white;
+  background-color: var(--opposite-theme-mode);
+  color: var(--theme-mode);
   height: 100%;
   aspect-ratio: 1/1;
   border-radius: 50%;
   font-size: 1.2rem;
+  animation: fadein 0.6s ease forwards;
 }
 
 .navbar .profile img {
@@ -156,4 +168,15 @@
   width: 35px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+.navbar .icons .togglemenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar .settingicon {
+  color: var(--text-color);
+  font-size: 28px;
 }

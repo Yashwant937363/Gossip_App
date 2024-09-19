@@ -36,7 +36,11 @@
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  background-color: color-mix(in srgb, var(--transparent-black) 80%, white);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 30%,
+    var(--theme-mode)
+  );
   overflow: hidden;
 }
 
@@ -60,8 +64,8 @@
 }
 
 .chatwindow .profilebar .outerimg .personfillicon {
-  background-color: white;
-  color: black;
+  background-color: var(--theme-mode);
+  color: var(--text-color);
   font-size: 1.5rem;
   display: flex;
   justify-content: center;
@@ -82,7 +86,11 @@
   justify-content: center;
   align-items: center;
   height: calc(100% - 15px);
-  background-color: white;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 15%,
+    var(--theme-mode)
+  );
   border-radius: 14px;
   gap: 5px;
 }
@@ -92,7 +100,11 @@
 }
 
 .chatwindow .messagefield {
-  background-color: color-mix(in srgb, var(--transparent-black) 80%, white);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 30%,
+    var(--theme-mode)
+  );
   grid-gap: 10px;
   box-sizing: border-box;
   display: grid;
@@ -111,29 +123,26 @@
   animation: fade 0.5s ease-in forwards;
 }
 
+[data-theme="dark"] {
+  --em-rgb-background: red !important;
+}
+
+:root {
+  --rgb-accent: 0, 0, 255;
+  --rgb-background: 0, 0, 0;
+  --rgb-color: 255, 255, 255;
+  --shadow: 5px 5px 15px -8px color-mix(in srgb, var(--theme-color) 25%, var(--theme-mode));
+
+  --mixed-color-accent: color-mix(in srgb, #ff0000 50%, #00ff00 50%);
+  --mixed-color-background: color-mix(in srgb, #0000ff 50%, #ffff00 50%);
+  --mixed-color-text: color-mix(in srgb, #ff00ff 50%, #00ffff 50%);
+}
+
 .chatwindow .messagefield .emojipicker em-emoji-picker {
-  --background-rgb: 85, 170, 255;
-  --border-radius: 24px;
-  --category-icon-size: 24px;
+  --border-radius: 23px;
+  --category-icon-size: 1.5rem;
   --color-border-over: rgba(0, 0, 0, 0.1);
   --color-border: rgba(0, 0, 0, 0.05);
-
-  --first: #f8e559;
-  --second: 200, 133, 255;
-  --third: hsl(273, 100%, 70%);
-  --fourth: hsl(264, 96%, 63%);
-  --fifth: hsl(264, 62%, 52%);
-  --sixth: 90, 32, 182;
-  --error: #ff4040;
-  --blackshadow: #000;
-  --emoji-background: 255, 255, 255;
-
-  /* var(--first) rgb value */
-  --rgb-accent: 248, 229, 89;
-  /* var(--emoji-background) rgb value*/
-  --rgb-background: 255, 255, 255;
-
-  --shadow: 5px 5px 15px -8px black;
 }
 
 .messagefield .emojipicker button {
@@ -149,21 +158,28 @@
 .chatwindow .messagefield button {
   border-radius: 15px;
   border: 0px;
-  background-color: color-mix(in srgb, var(--transparent-black) 80%, white);
-  box-shadow: inset 0px 0px 2px 0px var(--blackshadow);
   display: flex;
   align-items: center;
 }
 
 .chatwindow .messagefield input {
-  color: white;
+  color: var(--text-color);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 15%,
+    var(--theme-mode)
+  );
+  box-shadow: inset 0px 0px 2px 0px var(--opposite-theme-mode);
   padding: 0px 10px;
 }
 
 .chatwindow .messagefield button {
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 75%,
+    var(--theme-mode) 10%
+  );
   justify-content: center;
-  /* background-color: color-mix(in srgb, var(--first) 80%, white); */
-  background-color: var(--first);
 }
 
 .chatwindow .messagefield input:focus {
@@ -201,7 +217,11 @@
   flex-wrap: wrap;
   justify-content: end;
   max-width: 70%;
-  background-color: color-mix(in srgb, var(--second) 30%, white);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 60%,
+    var(--theme-mode)
+  );
   float: right;
   padding: 7px;
   margin: 15px;
@@ -225,7 +245,8 @@
 
 .chatwindow .chatcontainer .sendchat::after {
   content: "";
-  border-bottom: 14px solid color-mix(in srgb, var(--second) 30%, white);
+  border-bottom: 14px solid
+    color-mix(in srgb, var(--theme-color) 60%, var(--theme-mode));
   border-right: 14px solid transparent;
   border-left: 14px solid transparent;
   position: absolute;
@@ -256,14 +277,14 @@
   color: skyblue;
 }
 
-.chatwindow .chatcontainer {
-  background: url("https://static.whatsapp.net/rsrc.php/v3/yl/r/gi_DckOUM5a.png");
-}
-
 .chatwindow .chatcontainer .receivedchat {
   display: inline-flex;
   flex-wrap: wrap;
-  background-color: white;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 30%,
+    var(--theme-mode)
+  );
   justify-content: end;
   max-width: 70%;
   float: left;
@@ -289,7 +310,8 @@
 
 .chatwindow .chatcontainer .receivedchat::after {
   content: "";
-  border-bottom: 14px solid white;
+  border-bottom: 14px solid
+    color-mix(in srgb, var(--theme-color) 30%, var(--theme-mode));
   border-right: 14px solid transparent;
   border-left: 14px solid transparent;
   position: absolute;
@@ -299,9 +321,12 @@
 
 .chatwindow .chatcontainer .date {
   border-radius: 23px;
-  background-color: rgba(255, 255, 255, 0.9);
-  width: 120px;
-  padding: 2px;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 5%,
+    var(--opposite-theme-mode) 5%
+  );
+  padding: 3px 15px;
   margin: 20px auto;
   text-align: center;
   display: inline;

@@ -1,13 +1,29 @@
 .searchpeople {
-  border-top: 2px solid var(--fourth);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--theme-color) 25%, var(--opposite-theme-mode));
+  animation: slide-down 0.5s ease forwards;
+  z-index: -1;
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(-40px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .searchpeople .searchfield {
   border-radius: 15px;
   border: 0px;
-  background-color: var(--fourth);
-  color: white;
-  box-shadow: inset 0px 0px 5px 0px var(--blackshadow);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 25%,
+    var(--theme-mode)
+  );
+  color: var(--text-color);
+  box-shadow: inset 0px 0px 2px 0px var(--blackshadow);
   display: flex;
   align-items: center;
   width: calc(100% - 10px);
@@ -22,7 +38,6 @@
 }
 
 .searchpeople .searchandreqitems {
-  border-top: 1px solid var(--fourth);
   margin: 10px;
 }
 

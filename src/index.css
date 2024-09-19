@@ -7,10 +7,15 @@
   --sixth: hsl(263, 70%, 42%);
   --error: #ff4040;
   --blackshadow: #000;
-  --background: #efeae2;
-  --emoji-background: white;
-  --font-color: rgb(84, 101, 111);
-  --transparent-black: rgba(240, 242, 245);
+
+  --opposite-theme-mode: white;
+  --theme-color: aqua;
+  --theme-mode: black;
+  --text-color: color-mix(
+    in srgb,
+    var(--theme-color) 23%,
+    var(--opposite-theme-mode)
+  );
 }
 
 * {
@@ -19,13 +24,23 @@
 }
 
 body {
-  color: var(--font-color);
-  background-color: var(--background);
+  color: var(--text-color);
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 10%,
+    var(--theme-mode)
+  );
   background-position-x: left !important;
   background-position-y: bottom !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
   background-size: cover !important;
+}
+
+@media screen and (min-width: 600px) {
+  .goback {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -35,7 +50,8 @@ body {
   .closedchat {
     display: none !important;
   }
-  .chatwindow {
+  .chatwindow,
+  mainpage {
     animation: scalein 0.3s ease-in forwards;
   }
 
@@ -52,11 +68,6 @@ body {
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 900px) {
-  .sidebarlist .listItem {
-    grid-template-columns: 40px auto;
-  }
-}
 @media screen and (min-width: 600px) and (max-width: 750px) {
   .searchpeople .searchandreqitems .searchandreqitem {
     grid-template-columns: 8fr 20fr 3fr;
@@ -97,7 +108,4 @@ body {
   .profilepage .profileform .withicon {
     grid-column: 3 / span 5;
   }
-}
-
-@media screen and (max-width: 310px) {
 }
