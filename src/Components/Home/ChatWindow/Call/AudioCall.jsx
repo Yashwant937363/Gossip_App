@@ -3,18 +3,18 @@ import { MicFill, TelephoneFill } from "react-bootstrap-icons";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import PeerService from "../../../../service/PeerService";
-import {
-  audioCallCalnceled,
-  sendAudioCallAnswer,
-  sendAudioCallPeerNegoNeeded,
-  socket,
-} from "../../../../store/socket";
 import { setErrorMsgUser } from "../../../../store/slices/UserSlice";
 import {
   clearCalls,
   setCallStarted,
   setIncomingCall,
 } from "../../../../store/slices/CallSlice";
+import {
+  audioCallCalnceled,
+  sendAudioCallAnswer,
+  sendAudioCallPeerNegoNeeded,
+} from "../../../../socket/call";
+import { socket } from "../../../../socket/main";
 
 export default function AudioCall() {
   const dispatch = useDispatch();

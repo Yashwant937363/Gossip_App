@@ -1,10 +1,10 @@
 import { setErrorMsgUser } from "../../../store/slices/UserSlice";
 import EmojiPicker from "@emoji-mart/react";
 import { Data } from "emoji-mart";
-import { sendMessage } from "../../../store/socket";
 import { useEffect, useRef, useState } from "react";
 import { EmojiSmileFill, SendFill, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { sendMessage } from "../../../socket/main";
 
 export default function MessageBar() {
   const dispatch = useDispatch();

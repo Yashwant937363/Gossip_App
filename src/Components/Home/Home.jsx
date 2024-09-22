@@ -3,9 +3,9 @@ import "./Home.css";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatWindow from "./ChatWindow/ChatWindow";
-import { socket } from "../../store/socket";
 import SideBar from "./Sidebar/SideBar";
 import CallWindow from "./ChatWindow/Call/Call";
+import { socket } from "../../socket/main";
 
 export default function Home() {
   const isLogin = useSelector((state) => state.user.isLogin);

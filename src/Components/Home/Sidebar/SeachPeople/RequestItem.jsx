@@ -4,15 +4,13 @@ import {
   PersonFill,
   XSquareFill,
 } from "react-bootstrap-icons";
-import { requestAnswer, sendChatRequest } from "../../../../store/socket";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeRequest,
   setSucessMsgUser,
 } from "../../../../store/slices/UserSlice";
 import { addFriend } from "../../../../store/slices/ChatSlice";
-
-const SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
+import { requestAnswer } from "../../../../socket/main";
 
 export default function RequestItem(props) {
   const touid = useSelector((state) => state.user.uid);

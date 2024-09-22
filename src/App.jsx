@@ -13,7 +13,7 @@ import {
   setErrorMsgUser,
   setSucessMsgUser,
 } from "./store/slices/UserSlice";
-import { connecttoserver, socket } from "./store/socket";
+
 import {
   addChat,
   addFriend,
@@ -38,6 +38,7 @@ import Themes from "./Components/Settings/Themes/Themes";
 import { setThemeColor, setThemeMode } from "./store/slices/ThemeSlice";
 import Cookies from "js-cookie";
 import Translation from "./Components/Settings/Translation/Translation";
+import { connecttoserver, socket } from "./socket/main";
 
 function App() {
   const dispatch = useDispatch();

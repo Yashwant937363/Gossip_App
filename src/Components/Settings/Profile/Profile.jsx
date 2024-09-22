@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { clear, setErrorMsgUser } from "../../../store/slices/UserSlice";
-import { disconnectSocket } from "../../../store/socket";
 import GoBackButton from "../../Buttons/GoBackButton/GoBackButton";
+import { disconnectSocket } from "../../../socket/main";
 
 export default function Profile() {
   const dispatch = useDispatch();

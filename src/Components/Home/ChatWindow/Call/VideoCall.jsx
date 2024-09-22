@@ -6,9 +6,9 @@ import PeerService from "../../../../service/PeerService";
 import {
   sendVideoCallAnswer,
   sendVideoCallPeerNegoNeeded,
-  socket,
   videoCallCalnceled,
-} from "../../../../store/socket";
+} from "../../../../socket/call";
+import { socket } from "../../../../socket/main";
 import { setErrorMsgUser } from "../../../../store/slices/UserSlice";
 import {
   clearCalls,

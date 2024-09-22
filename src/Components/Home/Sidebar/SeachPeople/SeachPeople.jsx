@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./SearchPeople.css";
 import SeachItem from "./SeachItem";
-import { findusers, socket } from "../../../../store/socket";
 import { useSelector } from "react-redux";
 import RequestItem from "./RequestItem";
+import { findusers } from "../../../../socket/main";
 
 export default function SeachPeople() {
   const [users, setUsers] = useState([]);

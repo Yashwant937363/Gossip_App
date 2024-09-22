@@ -7,11 +7,6 @@ import {
 } from "react-bootstrap-icons";
 import "./ChatWindow.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  seenMessages,
-  sendOutgoingAudioCall,
-  sendOutgoingVideoCall,
-} from "../../../store/socket";
 import { changeOpenedChat } from "../../../store/slices/UISlice";
 import { setSeenMessages } from "../../../store/slices/ChatSlice";
 import { setCallStarted, setType } from "../../../store/slices/CallSlice";
@@ -19,6 +14,11 @@ import PeerService from "../../../service/PeerService";
 import { useNavigate, useParams } from "react-router-dom";
 import MessageBar from "./MessageBar";
 import ChatContainer from "./ChatContainer";
+import {
+  sendOutgoingAudioCall,
+  sendOutgoingVideoCall,
+} from "../../../socket/call";
+import { seenMessages } from "../../../socket/main";
 
 export default function ChatWindow(props) {
   const dispatch = useDispatch();
