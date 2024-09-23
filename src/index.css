@@ -11,11 +11,12 @@
   --opposite-theme-mode: white;
   --theme-color: aqua;
   --theme-mode: black;
-  --text-color: color-mix(
+  --text-color: color-mix(in srgb, grey 23%, var(--opposite-theme-mode));
+  /* --text-color: color-mix(
     in srgb,
     var(--theme-color) 23%,
     var(--opposite-theme-mode)
-  );
+  ); */
 }
 
 * {
@@ -25,11 +26,7 @@
 
 body {
   color: var(--text-color);
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 10%,
-    var(--theme-mode)
-  );
+  background-color: color-mix(in srgb, grey 5%, var(--theme-mode));
   background-position-x: left !important;
   background-position-y: bottom !important;
   background-repeat: no-repeat !important;

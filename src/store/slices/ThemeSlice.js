@@ -22,7 +22,7 @@ const themeSlice = createSlice({
       },
       {
         name: "Green",
-        color: "lime",
+        color: "#01bd2a",
         colors: {
           rgbBackground: "179, 255, 179",
           rgbText: "0, 59, 0",

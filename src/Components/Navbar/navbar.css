@@ -10,11 +10,7 @@
   list-style-type: none;
   justify-content: center;
   align-items: center;
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 10%,
-    var(--theme-mode)
-  );
+  background-color: color-mix(in srgb, transparent 30%, var(--theme-mode));
   height: 45px;
   position: relative;
   z-index: 5;

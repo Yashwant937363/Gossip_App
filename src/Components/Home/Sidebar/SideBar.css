@@ -1,7 +1,7 @@
 .sidebarlist {
   background-color: color-mix(
     in srgb,
-    var(--theme-color) 15%,
+    var(--opposite-theme-mode) 5%,
     var(--theme-mode)
   );
   overflow-y: scroll;
@@ -83,11 +83,6 @@
   padding: 15px 10px;
   position: relative;
   z-index: 1;
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 15%,
-    var(--theme-mode)
-  );
 }
 
 .sidebarlist .chats .chatstext {
@@ -199,7 +194,7 @@
 .sidebarlist .listItem.openeditem {
   background-color: color-mix(
     in srgb,
-    var(--theme-color) 25%,
+    var(--theme-color) 15%,
     var(--theme-mode)
   );
 }

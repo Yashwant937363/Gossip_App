@@ -8,13 +8,9 @@
 }
 
 .mainpage {
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 10%,
-    var(--theme-mode)
-  );
   height: calc(100vh - 45px);
   height: calc(100dvh - 45px);
+  background-color: color-mix(in srgb, grey 5%, var(--theme-mode));
 }
 
 .settings-heading {
