@@ -1,30 +1,20 @@
-import { setErrorMsgUser } from "../../../store/slices/UserSlice";
 import EmojiPicker from "@emoji-mart/react";
 import { Data } from "emoji-mart";
 import { useEffect, useRef, useState } from "react";
 import { EmojiSmileFill, SendFill, X } from "react-bootstrap-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../../../socket/main";
 
-export default function MessageBar() {
-  const dispatch = useDispatch();
+export default function MessageBar(props) {
+  const { submitMessage } = props;
+  const sendMessage = (e) => {
+    e.preventDefault();
+    inputRef.current.focus();
+    submitMessage(message);
+    setMessage("");
+  };
   const [isEmojiOpened, setEmojiOpened] = useState(false);
-  const fromuid = useSelector((state) => state.user.uid);
-  const openedchat = useSelector((state) => state.UIState.openedchat);
   const [isEmojiClicked, setEmojiClicked] = useState(false);
   const [message, setMessage] = useState("");
   const inputRef = useRef();
-  const submitMessage = async (e) => {
-    e.preventDefault();
-    inputRef.current.focus();
-    if (message.trim !== "") {
-      const touid = openedchat.uid;
-      await sendMessage({ fromuid, touid, message, dispatch });
-      setMessage("");
-    } else {
-      dispatch(setErrorMsgUser("Cannot Send Empty Message"));
-    }
-  };
   const outsideClickedEmojiSection = () => {
     if (!isEmojiClicked) {
       closeEmojiSection();
@@ -45,7 +35,7 @@ export default function MessageBar() {
     }, 100);
   };
   return (
-    <form className="messagefield" onSubmit={submitMessage}>
+    <form className="messagefield" onSubmit={sendMessage}>
       {isEmojiOpened && (
         <div className="emojipicker">
           <EmojiPicker

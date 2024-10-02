@@ -39,6 +39,7 @@ import { setThemeColor, setThemeMode } from "./store/slices/ThemeSlice";
 import Cookies from "js-cookie";
 import Translation from "./Components/Settings/Translation/Translation";
 import { connecttoserver, socket } from "./socket/main";
+import ChatBot from "./Components/ChatBot/ChatBot";
 
 function App() {
   const dispatch = useDispatch();
@@ -165,6 +166,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navbar title="Gossip App" />}>
             <Route index element={<Home />}></Route>
+            <Route path="/chatbot" element={<ChatBot />} />
             <Route path="chat" element={<Home />}>
               <Route path=":uid" element={<ChatWindow />} />
             </Route>

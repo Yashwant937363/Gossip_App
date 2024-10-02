@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { PersonFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ListItem(props) {
   const { lastMessage } = props;
   const dispatch = useDispatch();
+  const path = useLocation().pathname;
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const { profile, username, online, uid } = props;
   function formatDate(dateString) {
+    if (dateString == undefined) {
+      return "";
+    }
     const date = new Date(dateString);
     const now = new Date();
 
@@ -34,8 +38,12 @@ export default function ListItem(props) {
   }
   return (
     <Link
-      to={`/chat/${uid}`}
-      className={openedchat.uid === uid ? "openeditem listItem" : "listItem"}
+      to={uid == "chatbot" ? `/chatbot` : `/chat/${uid}`}
+      className={
+        openedchat?.uid === uid || (path === "/chatbot" && uid === "chatbot")
+          ? "openeditem listItem"
+          : "listItem"
+      }
     >
       <div className="profileimgbox">
         <div className={online ? "dot online" : "dot offline"}></div>

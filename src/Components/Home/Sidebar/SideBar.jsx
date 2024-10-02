@@ -10,9 +10,10 @@ import {
 import SeachPeople from "./SeachPeople/SeachPeople";
 import { useSelector } from "react-redux";
 import SideProfile from "./SideProfile";
-import { useHref } from "react-router-dom";
+import { useHref, useLocation } from "react-router-dom";
 
 export default function SideBar() {
+  const path = useLocation();
   const requests = useSelector((state) => state.user.requests);
   const friends = useSelector((state) => state.chat.friends);
   const uid = useSelector((state) => state.user.uid);
@@ -57,40 +58,61 @@ export default function SideBar() {
   }, [chats]);
 
   return (
-    <div className="sidebarlist">
-      {url === "/" && <SideProfile />}
-      <h3 className="chats">
-        <span className="chatstext">Chats</span>
-        {/* <div className='groupaddicon'>
+    <>
+      <style>
+        {`
+          .sidebarlist{
+            animation: ${
+              path.pathname === "/"
+                ? `
+  fadein 0.4s ease-in forwards`
+                : `none`
+            }  ;
+          }
+        `}
+      </style>
+      <div className="sidebarlist">
+        {url === "/" && <SideProfile />}
+        <h3 className="chats">
+          <span className="chatstext">Chats</span>
+          {/* <div className='groupaddicon'>
                     <PeopleFill />
                     <PlusCircleFill className='pluscirclefill' />
                 </div> */}
-        <div className="addperson">
-          {requests.length !== 0 ? <div className="reddot"></div> : null}
-          <PersonFillAdd
-            onClick={() => setAddPerson(!addperson)}
-            className="addpersonicon"
-          />
-        </div>
-      </h3>
-      {addperson ? <SeachPeople></SeachPeople> : null}
-      {friends.length !== 0 ? (
-        sortedFriends.map((item, index) => (
-          <ListItem
-            key={index}
-            username={item?.username}
-            uid={item.uid}
-            profile={item.profile}
-            online={item.online}
-            lastMessage={findLastMessageByUID(item.uid)}
-          />
-        ))
-      ) : (
-        <div className="nochats">
-          <PersonFillSlash className="nochatsicon"></PersonFillSlash>
-          <span>No Friends</span>
-        </div>
-      )}
-    </div>
+          <div className="addperson">
+            {requests.length !== 0 ? <div className="reddot"></div> : null}
+            <PersonFillAdd
+              onClick={() => setAddPerson(!addperson)}
+              className="addpersonicon"
+            />
+          </div>
+        </h3>
+        {addperson ? <SeachPeople></SeachPeople> : null}
+        <ListItem
+          username="Chatbot"
+          uid={"chatbot"}
+          profile=""
+          online={true}
+          lastMessage={""}
+        ></ListItem>
+        {friends.length !== 0 ? (
+          sortedFriends.map((item, index) => (
+            <ListItem
+              key={index}
+              username={item?.username}
+              uid={item.uid}
+              profile={item.profile}
+              online={item.online}
+              lastMessage={findLastMessageByUID(item.uid)}
+            />
+          ))
+        ) : (
+          <div className="nochats">
+            <PersonFillSlash className="nochatsicon"></PersonFillSlash>
+            <span>No Friends</span>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

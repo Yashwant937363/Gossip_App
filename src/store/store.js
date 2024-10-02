@@ -4,6 +4,7 @@ import UserSlice from "./slices/UserSlice";
 import ChatReducer from "./slices/ChatSlice";
 import CallSlice from "./slices/CallSlice";
 import ThemeSlice from "./slices/ThemeSlice";
+import AIChatBotSlice from "./slices/AIChatBotSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     chat: ChatReducer,
     call: CallSlice,
     theme: ThemeSlice,
+    chatbot: AIChatBotSlice,
   },
 });

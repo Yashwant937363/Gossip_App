@@ -18,7 +18,9 @@ export default function SendChat(props) {
         <div className="timecheck">
           <div>{time}</div>
           <div>
-            {status === true ? (
+            {status === "chatbot" ? (
+              <></>
+            ) : status === true ? (
               <CheckAll className="readcheck check" />
             ) : status === false ? (
               <CheckAll className="receivedcheck check" />

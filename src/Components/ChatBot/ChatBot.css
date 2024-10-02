@@ -1,0 +1,20 @@
+.chatbot .tones {
+  background-color: initial;
+  height: 23px;
+  width: 85%;
+  border: none;
+  box-sizing: border-box;
+  outline: none;
+  color: var(--text-color);
+  display: inline-block;
+  padding: 5px;
+  transition: border-bottom 0.5s;
+}
+
+.chatbot .tones option {
+  background-color: color-mix(
+    in srgb,
+    var(--opposite-theme-color) 30%,
+    var(--theme-color)
+  );
+}

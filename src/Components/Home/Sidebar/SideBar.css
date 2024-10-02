@@ -5,7 +5,6 @@
     var(--theme-mode)
   );
   overflow-y: scroll;
-  animation: fadein 0.4s ease-in forwards;
 }
 
 @keyframes fadein {

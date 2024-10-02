@@ -18,7 +18,7 @@ import {
   sendOutgoingAudioCall,
   sendOutgoingVideoCall,
 } from "../../../socket/call";
-import { seenMessages } from "../../../socket/main";
+import { seenMessages, sendMessage } from "../../../socket/main";
 
 export default function ChatWindow(props) {
   const dispatch = useDispatch();
@@ -26,6 +26,14 @@ export default function ChatWindow(props) {
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const chats = useSelector((state) => state.chat.chats);
 
+  const submitMessage = async (message) => {
+    if (message.trim !== "") {
+      const touid = openedchat.uid;
+      await sendMessage({ fromuid, touid, message, dispatch });
+    } else {
+      dispatch(setErrorMsgUser("Cannot Send Empty Message"));
+    }
+  };
   const [animation, setAnimation] = useState({ animationName: "fadein" });
   const navigate = useNavigate();
   const { uid } = useParams();
@@ -87,7 +95,18 @@ export default function ChatWindow(props) {
 
   useEffect(() => {
     const index = friends.findIndex((friend) => friend.uid === uid);
-    dispatch(changeOpenedChat(friends[index]));
+    if (index > -1) {
+      dispatch(changeOpenedChat(friends[index]));
+    } else {
+      dispatch(
+        changeOpenedChat({
+          uid: "chatbot",
+          username: "ChatBot",
+          profile: "",
+          online: true,
+        })
+      );
+    }
     if (openedchat) {
       const touid = fromuid;
       seenMessages({ fromuid: uid, touid: touid });
@@ -104,8 +123,8 @@ export default function ChatWindow(props) {
           onClick={clearOpenedChat}
         ></ChevronLeft>
         <div className="outerimg">
-          {openedchat.profile !== "" ? (
-            <img className="chatprofileimg" src={openedchat.profile} alt="" />
+          {openedchat?.profile !== "" ? (
+            <img className="chatprofileimg" src={openedchat?.profile} alt="" />
           ) : (
             <div className="personfillicon">
               <PersonFill></PersonFill>
@@ -121,7 +140,7 @@ export default function ChatWindow(props) {
         </div>
       </div>
       <ChatContainer></ChatContainer>
-      <MessageBar></MessageBar>
+      <MessageBar submitMessage={submitMessage}></MessageBar>
     </div>
   );
 }
