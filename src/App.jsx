@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Navbar from "./Components/Navbar/navbar";
 import Home from "./Components/Home/Home";
+import Chat from "./Components/Chat/Chat";
 import NotFound from "./Components/NotFound/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorBar from "./Components/MsgBars/ErrorBar";
@@ -31,7 +32,7 @@ import {
   setType,
 } from "./store/slices/CallSlice";
 import PeerService from "./service/PeerService";
-import ChatWindow from "./Components/Home/ChatWindow/ChatWindow";
+import ChatWindow from "./Components/Chat/ChatWindow/ChatWindow";
 import Settings from "./Components/Settings/Settings";
 import Profile from "./Components/Settings/Profile/Profile";
 import Themes from "./Components/Settings/Themes/Themes";
@@ -164,10 +165,10 @@ function App() {
       {errormsguser !== "" ? <ErrorBar msg={errormsguser} /> : null}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navbar title="Gossip App" />}>
+          <Route path="/" element={<Navbar title="Gossip AI" />}>
             <Route index element={<Home />}></Route>
             <Route path="/chatbot" element={<ChatBot />} />
-            <Route path="chat" element={<Home />}>
+            <Route path="chat" element={<Chat />}>
               <Route path=":uid" element={<ChatWindow />} />
             </Route>
             <Route path="/login" element={<Account />} />

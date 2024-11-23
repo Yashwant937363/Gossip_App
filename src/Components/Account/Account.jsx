@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchChats, fetchFriends } from "../../store/slices/ChatSlice";
 import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
 import Cookies from "js-cookie";
-import HomeLoader from "../Home/HomeLoader/HomeLoader";
+import HomeLoader from "../Chat/HomeLoader/HomeLoader";
 import { setThemeColor, setThemeMode } from "../../store/slices/ThemeSlice";
 
 export default function Account() {
@@ -29,7 +29,7 @@ export default function Account() {
   useEffect(() => {
     if (isLogin) {
       dispatch(fetchFriends({ authtoken }));
-      navigate("/");
+      navigate("/chat");
     }
   }, [isLogin, navigate]);
 

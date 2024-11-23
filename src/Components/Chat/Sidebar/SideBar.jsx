@@ -63,7 +63,7 @@ export default function SideBar() {
         {`
           .sidebarlist{
             animation: ${
-              path.pathname === "/"
+              path.pathname === "/chat"
                 ? `
   fadein 0.4s ease-in forwards`
                 : `none`
@@ -72,7 +72,7 @@ export default function SideBar() {
         `}
       </style>
       <div className="sidebarlist">
-        {url === "/" && <SideProfile />}
+        {url === "/chat" && <SideProfile />}
         <h3 className="chats">
           <span className="chatstext">Chats</span>
           {/* <div className='groupaddicon'>

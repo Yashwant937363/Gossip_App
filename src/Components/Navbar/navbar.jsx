@@ -82,7 +82,7 @@ function Navbar(props) {
               className="link profilelink"
               to="/settings"
             >
-              {url !== "/" ? (
+              {url !== "/chat" ? (
                 <div className="profile">
                   {profile !== "" && isLogin ? (
                     <img src={profile} alt="" />

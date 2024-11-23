@@ -4,7 +4,7 @@ const UISlice = createSlice({
   name: "UIState",
   initialState: {
     openedchat: false,
-    previousPath: "/",
+    previousPath: "/chat",
   },
   reducers: {
     changeOpenedChat: (state, action) => {

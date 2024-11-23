@@ -1,11 +1,11 @@
 import React from "react";
-import "../Home.css";
+import "../Chat.css";
 import "../Sidebar/SideBar.css";
 import "./HomeLoader.css";
 
 export default function HomeLoader() {
   return (
-    <div className="home homeloader">
+    <div className="chat homeloader">
       <div className="sidebarlist">
         <div className="chats">
           <span className="loading">Chats</span>

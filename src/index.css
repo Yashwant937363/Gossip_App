@@ -41,7 +41,7 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-  .home {
+  .chat {
     grid-template-columns: 1fr;
   }
   .closedchat {
@@ -72,6 +72,10 @@ body {
 }
 
 @media screen and (max-width: 430px) {
+  .home .footer .social-text{
+    display: none;
+  }
+
   .account .form {
     font-size: 0.9rem;
     grid-gap: 5px;

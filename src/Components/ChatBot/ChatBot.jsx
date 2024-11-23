@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import SideBar from "../Home/Sidebar/SideBar";
+import SideBar from "../Chat/Sidebar/SideBar";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Robot } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, changeTone } from "../../store/slices/AIChatBotSlice";
-import MessageBar from "../Home/ChatWindow/MessageBar";
+import MessageBar from "../Chat/ChatWindow/MessageBar";
 import { sendChatBotPrompt } from "../../socket/ai";
-import ReceivedChat from "../Home/ChatWindow/Received";
-import SendChat from "../Home/ChatWindow/SendChat";
+import ReceivedChat from "../Chat/ChatWindow/Received";
+import SendChat from "../Chat/ChatWindow/SendChat";
 import "./ChatBot.css";
 
 export default function ChatBot() {
@@ -31,7 +31,7 @@ export default function ChatBot() {
   }, [openedchat]);
   useEffect(() => {
     if (!isLogin) {
-      navigate("/");
+      navigate("/chat");
     }
   }, []);
   const submitMessage = async (message) => {
@@ -52,14 +52,14 @@ export default function ChatBot() {
     console.log(messages);
   }, [messages]);
   return (
-    <div className="home chatbot">
+    <div className="chat chatbot">
       <SideBar></SideBar>
 
       <div className="chatwindow" style={animation}>
         <div className="profilebar">
           <ChevronLeft
             className="arrowlefticon"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/chat")}
           ></ChevronLeft>
           <div className="outerimg">
             <div className="personfillicon">

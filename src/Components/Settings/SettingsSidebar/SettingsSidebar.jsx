@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 
 export default function SettingsSidebar() {
   const previousPath = useSelector((state) => state.UIState.previousPath);
+  const isLogin = useSelector((state) => state.user.isLogin);
+  console.log(isLogin);
   const navigate = useNavigate();
   const goBack = () => navigate(previousPath);
   return (
@@ -21,9 +23,11 @@ export default function SettingsSidebar() {
         <ChevronLeft onClick={goBack} className="arrowlefticon"></ChevronLeft>
         <span>Settings</span>
       </h2>
-      <Link to="/settings/profile" className="listitem">
-        <PersonFill></PersonFill> Profile
-      </Link>
+      {isLogin && (
+        <Link to="/settings/profile" className="listitem">
+          <PersonFill></PersonFill> Profile
+        </Link>
+      )}
       <Link to="/settings/themes" className="listitem">
         <PaletteFill />
         Themes
