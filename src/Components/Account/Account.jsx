@@ -9,6 +9,7 @@ import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
 import Cookies from "js-cookie";
 import HomeLoader from "../Chat/HomeLoader/HomeLoader";
 import { setThemeColor, setThemeMode } from "../../store/slices/ThemeSlice";
+import ConnectedNodesBackground from "./ConnectedNodesBackground";
 
 export default function Account() {
   const dispatch = useDispatch();
@@ -38,13 +39,23 @@ export default function Account() {
   }
   return (
     <div className="account">
+      <ConnectedNodesBackground />
       <style>
         {`
             .navbar{
               background-color:color-mix(in srgb, transparent 30%,var(--theme-mode));
             }
-            body{
-               background:url("https://wallpapers.com/images/hd/lush-green-forest-neblzag5t76yolal.jpg");
+            body {
+              position: relative;
+            }
+
+            .threebackground {
+              height: 100%;
+              width: 100%;
+              position: absolute !important;
+              top: 0;
+              left: 0;
+              z-index: -1;
             }
          `}
       </style>

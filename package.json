@@ -13,6 +13,8 @@
   "dependencies": {
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
+    "@react-three/drei": "^9.120.4",
+    "@react-three/fiber": "^8.17.10",
     "@reduxjs/toolkit": "^2.0.1",
     "agora-rtc-react": "^2.3.0",
     "agora-rtc-sdk-ng": "^4.22.2",
