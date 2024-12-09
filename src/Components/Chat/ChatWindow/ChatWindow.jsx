@@ -9,16 +9,15 @@ import "./ChatWindow.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeOpenedChat } from "../../../store/slices/UISlice";
 import { setSeenMessages } from "../../../store/slices/ChatSlice";
-import { setCallStarted, setType } from "../../../store/slices/CallSlice";
-import PeerService from "../../../service/PeerService";
 import { useNavigate, useParams } from "react-router-dom";
 import MessageBar from "./MessageBar";
 import ChatContainer from "./ChatContainer";
+import { seenMessages, sendMessage, socket } from "../../../socket/main";
 import {
-  sendOutgoingAudioCall,
-  sendOutgoingVideoCall,
-} from "../../../socket/call";
-import { seenMessages, sendMessage } from "../../../socket/main";
+  initializeVideoCall,
+  setChannel,
+} from "../../../store/slices/CallSlice";
+import { sendOutgoingVideoCall } from "../../../socket/call";
 
 export default function ChatWindow(props) {
   const dispatch = useDispatch();
@@ -45,28 +44,12 @@ export default function ChatWindow(props) {
   };
 
   const handleVideoCall = async () => {
-    dispatch(setType("video"));
-    dispatch(setCallStarted(true));
-    PeerService.create();
-    const offer = await PeerService.getOffer();
-    sendOutgoingVideoCall({
-      fromuid: fromuid,
-      touid: openedchat.uid,
-      offer: offer,
-    });
+    sendOutgoingVideoCall({ fromuid: fromuid, touid: openedchat.uid });
+    dispatch(initializeVideoCall({ type: "video", caller: openedchat }));
+    setChannel(fromuid);
   };
 
-  const handleAudioCall = async () => {
-    dispatch(setType("audio"));
-    dispatch(setCallStarted(true));
-    PeerService.create();
-    const offer = await PeerService.getOffer();
-    sendOutgoingAudioCall({
-      fromuid: fromuid,
-      touid: openedchat.uid,
-      offer: offer,
-    });
-  };
+  const handleAudioCall = async () => {};
 
   useEffect(() => {
     setAnimation({});
@@ -135,8 +118,8 @@ export default function ChatWindow(props) {
           <div>{openedchat.username}</div>
         </div>
         <div className="callicons">
-          <CameraVideoFill className="icon" onClick={handleVideoCall} />
-          <TelephoneFill className="icon" onClick={handleAudioCall} />
+          <CameraVideoFill className="callicon" onClick={handleVideoCall} />
+          <TelephoneFill className="callicon" onClick={handleAudioCall} />
         </div>
       </div>
       <ChatContainer></ChatContainer>

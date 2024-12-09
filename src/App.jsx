@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Navbar from "./Components/Navbar/navbar";
@@ -24,14 +24,6 @@ import {
   setSeenMessages,
 } from "./store/slices/ChatSlice";
 import About from "./Components/About/About";
-import {
-  setCallStarted,
-  setFromUid,
-  setIncomingCall,
-  setOffer,
-  setType,
-} from "./store/slices/CallSlice";
-import PeerService from "./service/PeerService";
 import ChatWindow from "./Components/Chat/ChatWindow/ChatWindow";
 import Settings from "./Components/Settings/Settings";
 import Profile from "./Components/Settings/Profile/Profile";
@@ -41,6 +33,9 @@ import Cookies from "js-cookie";
 import Translation from "./Components/Settings/Translation/Translation";
 import { connecttoserver, socket } from "./socket/main";
 import ChatBot from "./Components/ChatBot/ChatBot";
+import { cancelVideoCall, initializeVideoCall } from "./store/slices/CallSlice";
+import { store } from "./store/store";
+import { videoCallRingingReceiverSide } from "./socket/call";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,14 +45,8 @@ function App() {
   const uid = useSelector((state) => state.user.uid);
   const successmsguser = useSelector((state) => state.user.successmsg);
   const errormsguser = useSelector((state) => state.user.errormsg);
-  const initializeIncomingCall = ({ fromuid, offer, type }) => {
-    PeerService.create();
-    dispatch(setType(type));
-    dispatch(setFromUid(fromuid));
-    dispatch(setOffer(offer));
-    dispatch(setCallStarted(true));
-    dispatch(setIncomingCall(true));
-  };
+  const friends = useSelector((state) => state.chat.friends);
+  const varFriends = new Array(...friends);
   useEffect(() => {
     socket.on("requestfromuser", ({ uid, profile, username }) =>
       dispatch(addRequest({ uid, profile, username }))
@@ -74,13 +63,16 @@ function App() {
     socket.on("friendoffline", ({ uid }) => dispatch(setFriendOffline(uid)));
     socket.on("chat:receivemessage", (newChat) => dispatch(addChat(newChat)));
     socket.on("seenmessages", ({ uid }) => dispatch(setSeenMessages(uid)));
-    socket.on("call:videocallincoming", ({ fromuid, offer }) => {
-      initializeIncomingCall({ fromuid, offer, type: "video" });
+    socket.on("call:videocallincoming", ({ fromuid }) => {
+      const currentFriends = store.getState().chat.friends;
+      const user = currentFriends.find((user) => user.uid === fromuid);
+      videoCallRingingReceiverSide({ fromuid });
+      dispatch(initializeVideoCall({ type: "incomingvideo", caller: user }));
     });
-    socket.on("call:audiocallincoming", ({ fromuid, offer }) => {
-      initializeIncomingCall({ fromuid, offer, type: "audio" });
+    socket.on("call:videocallcanceled", () => {
+      dispatch(setErrorMsgUser("Call Ended"));
+      dispatch(cancelVideoCall());
     });
-
     // socket.on("disconnetion", () => {
     //   dispatch(setOnline(false))
     // })
@@ -98,7 +90,7 @@ function App() {
       socket.off("chat:receivemessage");
       socket.off("seenmessages");
       socket.off("call:videocallincoming");
-      socket.off("call:audiocallincoming");
+      socket.off("call:videocallcanceled");
       // socket.off("disconnection")
       // socket.off("reconnection")
     };

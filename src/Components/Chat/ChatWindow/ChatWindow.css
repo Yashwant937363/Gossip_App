@@ -88,15 +88,16 @@
   height: calc(100% - 15px);
   background-color: color-mix(
     in srgb,
-    var(--opposite-theme-mode) 10%,
+    var(--opposite-theme-mode) 15%,
     var(--theme-mode)
   );
   border-radius: 14px;
-  gap: 5px;
 }
 
-.chatwindow .profilebar .callicons .icon {
+.chatwindow .profilebar .callicons .callicon {
   font-size: 1.3rem;
+  padding: 10px;
+  cursor:pointer
 }
 
 .chatwindow .messagefield {

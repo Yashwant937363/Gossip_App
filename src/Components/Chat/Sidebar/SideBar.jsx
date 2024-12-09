@@ -22,6 +22,7 @@ export default function SideBar() {
   const [addperson, setAddPerson] = useState(false);
   const url = useHref();
   const findLastMessageByUID = (uid) => {
+    if (!uid) return;
     const reversedMessages = [...chats].reverse();
     for (const message of reversedMessages) {
       if (message.Sender_ID === uid || message.Receiver_ID === uid) {
@@ -100,10 +101,10 @@ export default function SideBar() {
             <ListItem
               key={index}
               username={item?.username}
-              uid={item.uid}
-              profile={item.profile}
-              online={item.online}
-              lastMessage={findLastMessageByUID(item.uid)}
+              uid={item?.uid}
+              profile={item?.profile}
+              online={item?.online}
+              lastMessage={findLastMessageByUID(item?.uid)}
             />
           ))
         ) : (

@@ -12,6 +12,7 @@
   --theme-color: aqua;
   --theme-mode: black;
   --text-color: color-mix(in srgb, grey 23%, var(--opposite-theme-mode));
+  --body-text-color:black;
   /* --text-color: color-mix(
     in srgb,
     var(--theme-color) 23%,

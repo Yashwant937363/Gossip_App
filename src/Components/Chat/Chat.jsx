@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatWindow from "./ChatWindow/ChatWindow";
 import SideBar from "./Sidebar/SideBar";
-import CallWindow from "./ChatWindow/Call/Call";
+
 import { socket } from "../../socket/main";
+import Call from "./Call/Call";
 
 export default function Chat() {
   const isLogin = useSelector((state) => state.user.isLogin);
-  const isCallStarted = useSelector((state) => state.call.isCallStarted);
+  const callInitialize = useSelector((state) => state.call.callInitialize);
   const navigate = useNavigate();
   const { uid } = useParams();
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Chat() {
       ) : (
         <div className="closedchat">Click on Chat to Open The Chat</div>
       )}
-      {isCallStarted && <CallWindow />}
+      {callInitialize && <Call></Call>}
     </div>
   );
 }

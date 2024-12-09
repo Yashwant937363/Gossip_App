@@ -1,0 +1,138 @@
+.call {
+  height: calc(100vh - 45px);
+  height: calc(100dvh - 45px);
+  width: 100vw;
+  position: fixed;
+  top: 45px;
+  left: 0px;
+  background-color: var(--theme-mode);
+  z-index: 2;
+  display: grid;
+  grid-template-rows: 9fr 1fr;
+}
+
+.call .profileimgbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 20%,
+    var(--theme-mode)
+  );
+  height: 100%;
+  width: 100%;
+}
+
+.call .profileimgbox .personfillicon {
+  font-size: 3rem;
+  padding: 3%;
+  color: black;
+  background-color: white;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3%;
+}
+
+.call .profileimg {
+  width: 50%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: end;
+}
+
+.call .profileimg img {
+  width: 100%;
+
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.call .remote-users {
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 1fr);
+}
+
+.call .local-user {
+  position: absolute;
+  bottom: calc(10px + 10%);
+  right: 10px;
+  height: 30vh;
+  width: 30vw;
+  z-index: 3 !important;
+}
+
+.call .control-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 10%,
+    var(--theme-mode)
+  );
+}
+
+.call .control-buttons .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95%;
+  border: none;
+  aspect-ratio: 1/1;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 1.5rem;
+}
+
+.call .control-buttons .btn:hover {
+  cursor: pointer;
+  color: var(--theme-color);
+}
+
+.call .control-buttons .call-cancel {
+  background-color: red;
+  border-radius: 50%;
+}
+
+.call .control-buttons .call-cancel svg {
+  transform: rotate(135deg);
+}
+
+.call .control-buttons .call-pickup {
+  background-color: green;
+  border-radius: 50%;
+}
+
+.call .control-buttons .call-pickup svg {
+  transition: all 1s ease-in-out;
+  animation: ringing 1s ease-in-out infinite;
+}
+
+@keyframes ringing {
+  0% {
+    transform: rotate(10deg);
+  }
+  10% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(10deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
