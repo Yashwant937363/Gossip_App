@@ -129,7 +129,7 @@ const HeroBackground = (props) => {
       }
     `}
       </style>
-      <div ref={mountRef} className="background herobackground" />;
+      <div ref={mountRef} className="background herobackground" />
     </>
   );
 };
