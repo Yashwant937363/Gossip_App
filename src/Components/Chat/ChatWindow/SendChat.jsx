@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Check, CheckAll } from "react-bootstrap-icons";
 
 export default function SendChat(props) {
+  const { position, message } = props;
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     let hours = date.getHours() % 12 || 12; // Convert 0 to 12
@@ -13,8 +14,8 @@ export default function SendChat(props) {
   const status = props.status;
   return (
     <div className="chat">
-      <div className="sendchat">
-        <div className="chattext">{props.message}</div>
+      <div className={`sendchat ${position}`}>
+        <div className="chattext">{message}</div>
         <div className="timecheck">
           <div>{time}</div>
           <div>

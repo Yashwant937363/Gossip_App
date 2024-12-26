@@ -1,4 +1,5 @@
 export default function ReceivedChat(props) {
+  const { message, position } = props;
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     let hours = date.getHours() % 12 || 12; // Convert 0 to 12
@@ -9,8 +10,8 @@ export default function ReceivedChat(props) {
   const time = formatTime(props.time);
   return (
     <div className="chat">
-      <div className="receivedchat">
-        <div className="chattext">{props.message}</div>
+      <div className={`receivedchat ${position}`}>
+        <div className="chattext">{message}</div>
         <div className="timecheck">{time}</div>
       </div>
     </div>

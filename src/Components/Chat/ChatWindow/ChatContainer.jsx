@@ -39,14 +39,42 @@ export default function ChatContainer() {
       {userchat.length !== 0 ? (
         userchat.map((item, index) => {
           const currentDate = new Date(item.createdAt);
-          const shouldRenderDate =
-            !date ||
-            date.getDate() !== currentDate.getDate() ||
-            date.getMonth() !== currentDate.getMonth() ||
-            date.getFullYear() !== currentDate.getFullYear();
+          const compareDates = (previousDate, currentDate) => {
+            return (
+              !previousDate ||
+              previousDate.getDate() !== currentDate.getDate() ||
+              previousDate.getMonth() !== currentDate.getMonth() ||
+              previousDate.getFullYear() !== currentDate.getFullYear()
+            );
+          };
+          const shouldRenderDate = compareDates(date, currentDate);
           if (shouldRenderDate) {
             date = currentDate;
           }
+          const myPosition = () => {
+            if (index === 0 || shouldRenderDate) {
+              //first chat
+              return "first";
+            } else if (index === userchat.length - 1) {
+              //last chat
+              return userchat[index - 1].Sender_ID === item.Sender_ID
+                ? "last"
+                : "first";
+            }
+            //between chat
+            const nextChatDate = new Date(userchat[index + 1].createdAt);
+            const isNextChatDataDifferent = compareDates(
+              currentDate,
+              nextChatDate
+            );
+            return userchat[index - 1].Sender_ID === item.Sender_ID
+              ? userchat[index + 1].Sender_ID === item.Sender_ID &&
+                !isNextChatDataDifferent
+                ? "between"
+                : "last"
+              : "first";
+          };
+          const position = myPosition();
           return (
             <React.Fragment key={index}>
               {shouldRenderDate && (
@@ -62,12 +90,14 @@ export default function ChatContainer() {
                   message={item.text}
                   status={item.seen}
                   time={item.createdAt}
+                  position={position}
                 />
               ) : (
                 <ReceivedChat
                   key={index}
                   message={item.text}
                   time={item.createdAt}
+                  position={position}
                 />
               )}
             </React.Fragment>

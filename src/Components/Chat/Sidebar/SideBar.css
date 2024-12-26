@@ -137,6 +137,7 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  transition: all 0.1s ease-in;
 }
 
 .sidebarlist .listItem .profileimgbox {

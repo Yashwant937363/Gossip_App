@@ -97,11 +97,15 @@
 .chatwindow .profilebar .callicons .callicon {
   font-size: 1.3rem;
   padding: 10px;
-  cursor:pointer
+  cursor: pointer;
 }
 
 .chatwindow .messagefield {
-  background-color: color-mix( in srgb, var(--opposite-theme-mode) 10%, var(--theme-mode) );
+  background-color: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 10%,
+    var(--theme-mode)
+  );
   grid-gap: 10px;
   box-sizing: border-box;
   display: grid;
@@ -205,7 +209,23 @@
   width: 100%;
 }
 
-.chatwindow .chatcontainer .sendchat {
+.chatwindow .chatcontainer .chat .first {
+  border-radius: 15px;
+  margin-bottom: 2px !important;
+}
+
+.chatwindow .chatcontainer .chat .between {
+  border-radius: 15px;
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+.chatwindow .chatcontainer .chat .last {
+  border-radius: 15px;
+  margin-top: 2px !important;
+}
+
+.chatwindow .chatcontainer .chat .sendchat {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: end;
@@ -220,8 +240,6 @@
   padding-left: 10px;
   margin: 15px;
   position: relative;
-  border-radius: 15px;
-  border-end-end-radius: 0px;
   transition: all;
   opacity: 0;
   animation: sendchat 0.2s ease-in 0.2s forwards;
@@ -236,6 +254,19 @@
     opacity: 1;
     transform: translateX(0px);
   }
+}
+
+.chatwindow .chatcontainer .sendchat.first {
+  border-end-end-radius: 0px;
+}
+
+.chatwindow .chatcontainer .sendchat.between {
+  border-top-right-radius: 0px;
+  border-end-end-radius: 0px;
+}
+
+.chatwindow .chatcontainer .sendchat.last {
+  border-top-right-radius: 0px;
 }
 
 .chatwindow .chat .chattext {
@@ -292,6 +323,19 @@
     opacity: 1;
     transform: translateX(0px);
   }
+}
+
+.chatwindow .chatcontainer .receivedchat.first {
+  border-bottom-left-radius: 0px;
+}
+
+.chatwindow .chatcontainer .receivedchat.between {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.chatwindow .chatcontainer .receivedchat.last {
+  border-top-left-radius: 0px;
 }
 
 .chatwindow .chatcontainer .date {
