@@ -58,7 +58,7 @@ export default function ListItem(props) {
       <div className="listItemtext">
         <div className="usernamewithdate">
           <h3>{username}</h3>
-          <div>{formatDate(lastMessage.createdAt)}</div>
+          <div>{formatDate(lastMessage?.createdAt)}</div>
         </div>
         <div className="lastmessage">
           {lastMessage?.text && lastMessage.text}

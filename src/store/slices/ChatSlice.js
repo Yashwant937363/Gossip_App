@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, original } from "@reduxjs/toolkit";
+import { clear } from "./UserSlice";
 
 const SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 
@@ -14,7 +15,9 @@ export const fetchFriends = createAsyncThunk(
         method: "POST",
         headers: { authtoken },
       });
+      console.log("Response", response);
       const data = await response.json();
+      console.log("Data", data);
       return {
         data: data,
         status: response.status,
@@ -132,6 +135,11 @@ const chatSlice = createSlice({
       });
       state.chats = new Array(...newChats);
     },
+    clearChat: (state, action) => {
+      state.friends = new Array();
+      state.chats = new Array();
+      state.pending = false;
+    },
   },
   extraReducers: (builder) => {
     //Fetching Friends and Chats
@@ -140,8 +148,11 @@ const chatSlice = createSlice({
     });
     builder.addCase(fetchFriends.fulfilled, (state, action) => {
       const { data, status } = action.payload;
-      const { msg, friends, chats } = data;
+      const { error, msg, friends, chats } = data;
       let copyArray = [];
+      if (error) {
+        return;
+      }
       if (status >= 200 && status < 300) {
         const updatedFriends = new Array(...friends);
         updatedFriends.map((item) => {
@@ -172,5 +183,6 @@ export const {
   addFriend,
   setSeenMessages,
   setReceivedMessages,
+  clearChat,
 } = chatSlice.actions;
 export default chatSlice.reducer;

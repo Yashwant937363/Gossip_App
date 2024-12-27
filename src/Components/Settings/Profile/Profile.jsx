@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { clear, setErrorMsgUser } from "../../../store/slices/UserSlice";
 import GoBackButton from "../../Buttons/GoBackButton/GoBackButton";
 import { disconnectSocket } from "../../../socket/main";
+import { clearChat } from "../../../store/slices/ChatSlice";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const logOut = () => {
     dispatch(clear());
+    dispatch(clearChat());
     Cookies.remove("authtoken");
     disconnectSocket();
   };
