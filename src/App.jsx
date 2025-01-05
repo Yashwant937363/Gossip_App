@@ -28,6 +28,7 @@ import ChatWindow from "./Components/Chat/ChatWindow/ChatWindow";
 import Settings from "./Components/Settings/Settings";
 import Profile from "./Components/Settings/Profile/Profile";
 import Themes from "./Components/Settings/Themes/Themes";
+import ImageEditor from "./Components/Chat/ImageEditor/ImageEditor";
 import { setThemeColor, setThemeMode } from "./store/slices/ThemeSlice";
 import Cookies from "js-cookie";
 import Translation from "./Components/Settings/Translation/Translation";
@@ -36,6 +37,7 @@ import ChatBot from "./Components/ChatBot/ChatBot";
 import { cancelVideoCall, initializeVideoCall } from "./store/slices/CallSlice";
 import { store } from "./store/store";
 import { videoCallRingingReceiverSide } from "./socket/call";
+import ImageViewer from "./Components/Chat/ChatWindow/ImageViewer/ImageViewer";
 
 function App() {
   const dispatch = useDispatch();
@@ -161,7 +163,10 @@ function App() {
             <Route index element={<Home />}></Route>
             <Route path="/chatbot" element={<ChatBot />} />
             <Route path="chat" element={<Chat />}>
-              <Route path=":uid" element={<ChatWindow />} />
+              <Route path=":uid" element={<ChatWindow />}>
+                <Route path="sendimage" element={<ImageEditor />} />
+                <Route path="viewimage/:layoutId" element={<ImageViewer />} />
+              </Route>
             </Route>
             <Route path="/login" element={<Account />} />
             <Route path="/about" element={<About />} />

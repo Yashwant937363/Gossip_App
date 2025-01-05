@@ -1,0 +1,149 @@
+@import "../../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../../../../node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import "../../../../node_modules/@syncfusion/ej2-image-editor/styles/material.css";
+
+.editor {
+  background-color: var(--background10);
+}
+
+.image-editor-component {
+  height: calc(100vh - 45px) !important;
+  height: calc(100dvh - 45px) !important ;
+  background-color: var(--background5);
+  border: none;
+}
+
+.e-image-editor .e-toolbar-area {
+  background-color: var(--background15);
+}
+
+.e-image-editor .e-upload-icon::before {
+  color: var(--theme-color) !important;
+}
+
+.e-toolbar .e-toolbar-item .e-tbar-btn {
+  background-color: transparent;
+}
+
+.image-editor-component .e-hscroll .e-scroll-nav {
+  background-color: var(--background30);
+}
+
+.image-editor-component .e-hscroll .e-scroll-nav .e-icons {
+  color: var(--theme-color) !important;
+}
+
+.image-editor-component .e-hscroll:not(.e-scroll-device) .e-scroll-nav:active {
+  background-color: var(--background10);
+}
+
+.image-editor-component .e-toolbar-area .e-toolbar {
+  background-color: var(--background15);
+  border: none;
+}
+
+.image-editor-component .e-toolbar-area .e-toolbar .e-toolbar-items {
+  background-color: transparent;
+}
+
+.image-editor-component
+  .e-toolbar-area
+  .e-toolbar
+  .e-toolbar-items
+  .e-toolbar-item
+  > button {
+  background-color: transparent;
+}
+
+.e-image-editor .e-toolbar .e-toolbar-items .e-tbar-btn.e-btn .e-icons {
+  color: var(--text-color) !important;
+}
+
+.e-image-editor .e-toolbar .e-toolbar-items .e-tbar-btn.e-btn .e-icons.e-check {
+  color: green !important;
+}
+
+.e-image-editor .e-toolbar .e-toolbar-items .e-tbar-btn.e-btn .e-icons.e-close {
+  color: red !important;
+}
+
+.e-image-editor .e-toolbar .e-toolbar-items .e-tbar-btn.e-btn .e-icons:hover {
+  color: var(--theme-color) !important;
+}
+
+.e-toolbar .e-toolbar-item.e-overlay {
+  background-color: transparent;
+}
+
+.e-image-editor .e-toolbar .e-toolbar-items .e-tbar-btn.e-btn.e-selected-btn {
+  background-color: var(--backgrounHover) !important;
+}
+
+.e-dropdown-popup {
+  background-color: var(--background20) !important;
+  color: var(--text-color);
+}
+
+.e-dropdown-popup ul .e-item:hover {
+  background-color: var(--backgrounHover);
+  color: var(--text-color);
+}
+
+.e-dropdown-popup ul .e-item .e-menu-icon,
+.e-btn,
+.e-css.e-btn {
+  color: var(--text-color);
+}
+
+.e-css.e-btn:hover {
+  color: var(--theme-color) !important;
+}
+
+.e-image-editor .e-contextual-toolbar-wrapper {
+  background-color: var(--background15);
+  border: none;
+}
+
+.e-control-wrapper.e-slider-container .e-slider .e-range {
+  background-color: var(--theme-color);
+}
+
+.e-control-wrapper.e-slider-container .e-slider .e-handle {
+  background-color: var(--theme-color);
+  border-color: var(--theme-color);
+}
+
+.e-control-wrapper.e-slider-container .e-slider .e-handle::after {
+  background-color: var(--theme-color) !important;
+}
+
+.image-editor-component .e-ie-drop-browse {
+  color: var(--theme-color);
+}
+
+.editor .btn-send-image {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  aspect-ratio: 1/1;
+  background-color: var(--theme-color);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.editor .btn-send-image.disabled,
+.editor .btn-send-image.disabled > * {
+  background-color: var(--background30);
+  color: var(--background15);
+  cursor: not-allowed;
+}

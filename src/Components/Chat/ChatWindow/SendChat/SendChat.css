@@ -1,0 +1,34 @@
+.chatwindow .chatcontainer .chat .sendchat {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  max-width: 70%;
+  background-color: color-mix(
+    in srgb,
+    var(--theme-color) 40%,
+    var(--theme-mode)
+  );
+  float: right;
+  padding: 7px;
+  padding-left: 10px;
+  margin: 15px;
+  position: relative;
+}
+
+.chatwindow .chatcontainer .sendchat:has(.image) {
+  flex-direction: column;
+  padding: 7px;
+}
+
+.chatwindow .chatcontainer .sendchat.first {
+  border-end-end-radius: 0px;
+}
+
+.chatwindow .chatcontainer .sendchat.between {
+  border-top-right-radius: 0px;
+  border-end-end-radius: 0px;
+}
+
+.chatwindow .chatcontainer .sendchat.last {
+  border-top-right-radius: 0px;
+}

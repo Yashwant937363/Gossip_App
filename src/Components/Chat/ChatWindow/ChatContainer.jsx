@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { EnvelopeSlashFill } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import SendChat from "./SendChat";
-import ReceivedChat from "./Received";
+import SendChat from "./SendChat/SendChat";
+import ReceivedChat from "./ReceiveChat/Received";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ChatContainer() {
+  const navigate = useNavigate();
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const fromuid = useSelector((state) => state.user.uid);
   const containerRef = useRef(null);
@@ -74,6 +76,13 @@ export default function ChatContainer() {
                 : "last"
               : "first";
           };
+          const imageOnClickHandler = () => {
+            if (item.type === "image") {
+              navigate(`viewimage/${index}`, {
+                state: { message: item.text },
+              });
+            }
+          };
           const position = myPosition();
           return (
             <React.Fragment key={index}>
@@ -90,14 +99,18 @@ export default function ChatContainer() {
                   message={item.text}
                   status={item.seen}
                   time={item.createdAt}
+                  type={item.type}
                   position={position}
+                  onImageClick={imageOnClickHandler}
                 />
               ) : (
                 <ReceivedChat
                   key={index}
                   message={item.text}
                   time={item.createdAt}
+                  type={item.type}
                   position={position}
+                  onImageClick={imageOnClickHandler}
                 />
               )}
             </React.Fragment>

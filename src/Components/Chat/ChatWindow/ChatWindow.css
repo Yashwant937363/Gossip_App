@@ -36,11 +36,7 @@
   grid-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  background-color: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 10%,
-    var(--theme-mode)
-  );
+  background-color: var(--background10);
   overflow: hidden;
 }
 
@@ -86,11 +82,7 @@
   justify-content: center;
   align-items: center;
   height: calc(100% - 15px);
-  background-color: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 15%,
-    var(--theme-mode)
-  );
+  background-color: var(--background15);
   border-radius: 14px;
 }
 
@@ -101,21 +93,17 @@
 }
 
 .chatwindow .messagefield {
-  background-color: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 10%,
-    var(--theme-mode)
-  );
-  grid-gap: 10px;
+  display: flex;
+  gap: 10px;
+  background-color: var(--background10);
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 22px 4fr 1fr;
   margin: auto;
   padding: 10px;
   padding-bottom: 12px;
   width: 100%;
   height: 100%;
   position: relative;
+  transition: all 0.4s linear;
 }
 
 .chatwindow .messagefield .emojipicker {
@@ -151,9 +139,23 @@
   background-color: transparent;
 }
 
-.chatwindow .messagefield .emoji {
-  font-size: 23px;
-  margin: auto;
+.chatwindow .messagefield .fileimage {
+  flex: 0 0 1rem;
+  transition: all 0.1s linear;
+}
+
+.chatwindow .messagefield .fileimage.hide {
+  flex: 0 0 0px;
+}
+
+.chatwindow .messagefield .input {
+  flex: 4;
+  display: grid;
+  grid-template-columns: 22px auto;
+  background-color: color-mix(in srgb, grey 5%, var(--theme-mode));
+  border-radius: 23px;
+  gap: 5px;
+  padding: 5px;
 }
 
 .chatwindow .messagefield input,
@@ -166,17 +168,24 @@
 
 .chatwindow .messagefield input {
   color: var(--text-color);
-  padding: 0px 10px;
-  background-color: color-mix(in srgb, grey 5%, var(--theme-mode));
+  background-color: transparent;
+}
+
+.chatwindow .messagefield .icon {
+  font-size: 1.2rem;
+  margin: auto;
+  opacity: 0.5;
 }
 
 .chatwindow .messagefield button {
+  flex: 1;
   background-color: color-mix(
     in srgb,
     var(--theme-color) 75%,
     var(--theme-mode) 10%
   );
   justify-content: center;
+  max-width: 100px;
 }
 
 .chatwindow .messagefield input:focus {
@@ -225,48 +234,9 @@
   margin-top: 2px !important;
 }
 
-.chatwindow .chatcontainer .chat .sendchat {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: end;
-  max-width: 70%;
-  background-color: color-mix(
-    in srgb,
-    var(--theme-color) 40%,
-    var(--theme-mode)
-  );
-  float: right;
-  padding: 7px;
-  padding-left: 10px;
-  margin: 15px;
-  position: relative;
-  transition: all;
-  opacity: 0;
-  animation: sendchat 0.2s ease-in 0.2s forwards;
-}
-
-@keyframes sendchat {
-  0% {
-    opacity: 0;
-    transform: translateX(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
-.chatwindow .chatcontainer .sendchat.first {
-  border-end-end-radius: 0px;
-}
-
-.chatwindow .chatcontainer .sendchat.between {
-  border-top-right-radius: 0px;
-  border-end-end-radius: 0px;
-}
-
-.chatwindow .chatcontainer .sendchat.last {
-  border-top-right-radius: 0px;
+.chatwindow .chatcontainer .chat > * .image {
+  border-radius: 8px;
+  margin-bottom: 5px;
 }
 
 .chatwindow .chat .chattext {
@@ -292,52 +262,6 @@
   color: skyblue;
 }
 
-.chatwindow .chatcontainer .receivedchat {
-  display: inline-flex;
-  flex-wrap: wrap;
-  background-color: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 10%,
-    var(--theme-mode)
-  );
-  justify-content: end;
-  max-width: 70%;
-  float: left;
-  padding: 7px;
-  padding-right: 10px;
-  margin: 15px;
-  position: relative;
-  border-radius: 15px;
-  border-end-start-radius: 0px;
-  transition: all;
-  opacity: 0;
-  animation: receivechat 0.5s ease-in 0.3s forwards;
-}
-
-@keyframes receivechat {
-  0% {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
-.chatwindow .chatcontainer .receivedchat.first {
-  border-bottom-left-radius: 0px;
-}
-
-.chatwindow .chatcontainer .receivedchat.between {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-
-.chatwindow .chatcontainer .receivedchat.last {
-  border-top-left-radius: 0px;
-}
-
 .chatwindow .chatcontainer .date {
   border-radius: 23px;
   background-color: color-mix(
@@ -349,4 +273,14 @@
   margin: 20px auto;
   text-align: center;
   display: inline;
+}
+
+.fullscreen {
+  width: 100vw;
+  height: calc(100vh - 45px) !important;
+  height: calc(100dvh - 45px) !important ;
+  position: fixed;
+  top: 45px;
+  left: 0px;
+  z-index: 2;
 }

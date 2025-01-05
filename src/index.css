@@ -12,17 +12,53 @@
   --theme-color: aqua;
   --theme-mode: black;
   --text-color: color-mix(in srgb, grey 23%, var(--opposite-theme-mode));
-  --body-text-color:black;
+  --body-text-color: black;
   /* --text-color: color-mix(
     in srgb,
     var(--theme-color) 23%,
     var(--opposite-theme-mode)
   ); */
+  --background5: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 5%,
+    var(--theme-mode)
+  );
+  --background10: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 10%,
+    var(--theme-mode)
+  );
+  --background15: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 15%,
+    var(--theme-mode)
+  );
+  --background20: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 20%,
+    var(--theme-mode)
+  );
+  --background30: color-mix(
+    in srgb,
+    var(--opposite-theme-mode) 30%,
+    var(--theme-mode)
+  );
+  --backgrounHover: color-mix(
+    in srgb,
+    var(--theme-mode) 30%,
+    var(--theme-color)
+  );
 }
 
 * {
   margin: 0px;
   padding: 0px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-self: center;
 }
 
 body {
@@ -73,7 +109,7 @@ body {
 }
 
 @media screen and (max-width: 430px) {
-  .home .footer .social-text{
+  .home .footer .social-text {
     display: none;
   }
 

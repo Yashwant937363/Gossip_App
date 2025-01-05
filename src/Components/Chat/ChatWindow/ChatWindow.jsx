@@ -9,7 +9,7 @@ import "./ChatWindow.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeOpenedChat } from "../../../store/slices/UISlice";
 import { setSeenMessages } from "../../../store/slices/ChatSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import MessageBar from "./MessageBar";
 import ChatContainer from "./ChatContainer";
 import { seenMessages, sendMessage, socket } from "../../../socket/main";
@@ -28,7 +28,7 @@ export default function ChatWindow(props) {
   const submitMessage = async (message) => {
     if (message.trim !== "") {
       const touid = openedchat.uid;
-      await sendMessage({ fromuid, touid, message, dispatch });
+      await sendMessage({ fromuid, touid, message, dispatch, type: "text" });
     } else {
       dispatch(setErrorMsgUser("Cannot Send Empty Message"));
     }
@@ -69,6 +69,7 @@ export default function ChatWindow(props) {
 
     if (lastIndex !== -1) {
       const lastMessage = messages[lastIndex];
+      console.log(lastMessage);
       if (lastMessage.seen === false) {
         seenMessages({ fromuid: touid, touid: fromuid });
         dispatch(setSeenMessages(fromuid));
@@ -99,31 +100,38 @@ export default function ChatWindow(props) {
     };
   }, [uid]);
   return (
-    <div className="chatwindow" style={animation}>
-      <div className="profilebar">
-        <ChevronLeft
-          className="arrowlefticon"
-          onClick={clearOpenedChat}
-        ></ChevronLeft>
-        <div className="outerimg">
-          {openedchat?.profile !== "" ? (
-            <img className="chatprofileimg" src={openedchat?.profile} alt="" />
-          ) : (
-            <div className="personfillicon">
-              <PersonFill></PersonFill>
-            </div>
-          )}
+    <>
+      <div className="chatwindow" style={animation}>
+        <div className="profilebar">
+          <ChevronLeft
+            className="arrowlefticon"
+            onClick={clearOpenedChat}
+          ></ChevronLeft>
+          <div className="outerimg">
+            {openedchat?.profile !== "" ? (
+              <img
+                className="chatprofileimg"
+                src={openedchat?.profile}
+                alt=""
+              />
+            ) : (
+              <div className="personfillicon">
+                <PersonFill></PersonFill>
+              </div>
+            )}
+          </div>
+          <div className="profilebarusername">
+            <div>{openedchat.username}</div>
+          </div>
+          <div className="callicons">
+            <CameraVideoFill className="callicon" onClick={handleVideoCall} />
+            <TelephoneFill className="callicon" onClick={handleAudioCall} />
+          </div>
         </div>
-        <div className="profilebarusername">
-          <div>{openedchat.username}</div>
-        </div>
-        <div className="callicons">
-          <CameraVideoFill className="callicon" onClick={handleVideoCall} />
-          <TelephoneFill className="callicon" onClick={handleAudioCall} />
-        </div>
+        <ChatContainer></ChatContainer>
+        <MessageBar submitMessage={submitMessage}></MessageBar>
       </div>
-      <ChatContainer></ChatContainer>
-      <MessageBar submitMessage={submitMessage}></MessageBar>
-    </div>
+      <Outlet />
+    </>
   );
 }

@@ -1,0 +1,33 @@
+.chatwindow .chatcontainer .receivedchat {
+  display: inline-flex;
+  flex-wrap: wrap;
+  background-color: var(--background10);
+  justify-content: end;
+  max-width: 70%;
+  float: left;
+  padding: 7px;
+  padding-right: 10px;
+  margin: 15px;
+  position: relative;
+  border-radius: 15px;
+  border-end-start-radius: 0px;
+  transition: all;
+}
+
+.chatwindow .chatcontainer .receivedchat:has(.image) {
+  flex-direction: column;
+  padding: 7px;
+}
+
+.chatwindow .chatcontainer .receivedchat.first {
+  border-bottom-left-radius: 0px;
+}
+
+.chatwindow .chatcontainer .receivedchat.between {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.chatwindow .chatcontainer .receivedchat.last {
+  border-top-left-radius: 0px;
+}

@@ -1,0 +1,15 @@
+.imageviewer {
+  backdrop-filter: blur(5px);
+}
+
+.imageviewer .viewimage {
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+.imageviewer .viewimage .image {
+  width: 100%;
+  object-fit: contain;
+}

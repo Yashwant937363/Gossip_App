@@ -60,10 +60,7 @@ const chatSlice = createSlice({
       const copyFriends = new Array(...original(state.friends));
       const newFriends = copyFriends.map((item) => {
         copyobject = {
-          uid: item.uid,
-          username: item.username,
-          profile: item.profile,
-          online: item.online,
+          ...item,
         };
         if (item?.uid === action.payload) {
           copyobject.online = true;
@@ -77,10 +74,7 @@ const chatSlice = createSlice({
       const copyFriends = new Array(...original(state.friends));
       const newFriends = copyFriends.map((item) => {
         copyobject = {
-          uid: item.uid,
-          username: item.username,
-          profile: item.profile,
-          online: item.online,
+          ...item,
         };
         if (item?.uid === action.payload) {
           copyobject.online = false;
@@ -101,12 +95,7 @@ const chatSlice = createSlice({
       const copyChats = new Array(...original(state.chats));
       const newChats = copyChats.map((item, index) => {
         copyobject = {
-          Sender_ID: item.Sender_ID,
-          Receiver_ID: item.Receiver_ID,
-          text: item.text,
-          seen: item.seen,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
+          ...item,
         };
         if (copyobject.Receiver_ID === uid) {
           copyobject.seen = true;
@@ -121,12 +110,7 @@ const chatSlice = createSlice({
       const copyChats = new Array(...original(state.chats));
       const newChats = copyChats.map((item, index) => {
         copyobject = {
-          Sender_ID: item.Sender_ID,
-          Receiver_ID: item.Receiver_ID,
-          text: item.text,
-          seen: item.seen,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
+          ...item,
         };
         if (copyobject.Receiver_ID === uid) {
           copyobject.seen = false;

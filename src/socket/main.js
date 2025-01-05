@@ -62,11 +62,11 @@ export function requestAnswer({ fromuid, touid, answer, tousername }) {
   });
 }
 
-export function sendMessage({ fromuid, touid, message, dispatch }) {
+export function sendMessage({ fromuid, touid, message, dispatch, type }) {
   return new Promise((resolve, reject) => {
     socket.emit(
       "chat:sendmessage",
-      { fromuid, touid, message },
+      { fromuid, touid, message, type },
       (userResponse) => {
         if (userResponse) {
           dispatch(addChat(userResponse));

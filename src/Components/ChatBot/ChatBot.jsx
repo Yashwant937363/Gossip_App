@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addMessage, changeTone } from "../../store/slices/AIChatBotSlice";
 import MessageBar from "../Chat/ChatWindow/MessageBar";
 import { sendChatBotPrompt } from "../../socket/ai";
-import ReceivedChat from "../Chat/ChatWindow/Received";
-import SendChat from "../Chat/ChatWindow/SendChat";
+import SendChat from "../Chat/ChatWindow/SendChat/SendChat";
+import ReceivedChat from "../Chat/ChatWindow/ReceiveChat/Received";
 import "./ChatBot.css";
 
 export default function ChatBot() {

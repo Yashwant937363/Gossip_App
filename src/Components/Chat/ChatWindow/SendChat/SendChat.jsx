@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Check, CheckAll } from "react-bootstrap-icons";
+import "./SendChat.css";
+import { motion } from "motion/react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function SendChat(props) {
-  const { position, message } = props;
+  const { layoutId } = useParams();
+  const { position, message, type, onImageClick } = props;
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     let hours = date.getHours() % 12 || 12; // Convert 0 to 12
@@ -14,8 +18,22 @@ export default function SendChat(props) {
   const status = props.status;
   return (
     <div className="chat">
-      <div className={`sendchat ${position}`}>
-        <div className="chattext">{message}</div>
+      <motion.div
+        initial={{ opacity: 0, transform: "translateX(10px)" }}
+        whileInView={{ opacity: 1, transform: "translateX(0px)" }}
+        className={`sendchat ${position}`}
+        onClick={onImageClick}
+      >
+        {type === "text" ? (
+          <div className="chattext">{message}</div>
+        ) : (
+          <motion.img
+            layoutId={layoutId}
+            className="image"
+            src={message}
+            alt=""
+          />
+        )}
         <div className="timecheck">
           <div>{time}</div>
           <div>
@@ -30,7 +48,7 @@ export default function SendChat(props) {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
