@@ -2,13 +2,13 @@
   color: transparent;
 }
 
-.homeloader .loading {
+.loading {
   background-color: rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
 }
 
-.homeloader .loading::before {
+.loading::before {
   content: " ";
   display: block;
   background-color: rgba(255, 255, 255, 0.2);

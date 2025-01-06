@@ -52,7 +52,7 @@ export default function ChatBot() {
     console.log(messages);
   }, [messages]);
   return (
-    <div className="chat chatbot">
+    <div className="chatpage chatbot">
       <SideBar></SideBar>
 
       <div className="chatwindow" style={animation}>
@@ -92,6 +92,8 @@ export default function ChatBot() {
                   key={index}
                   message={value.text}
                   time={value.time}
+                  type={value.type}
+                  position="first"
                 />
               );
             } else {
@@ -100,7 +102,9 @@ export default function ChatBot() {
                   key={index}
                   message={value.text}
                   time={value.time}
+                  type={value.type}
                   status="chatbot"
+                  position="first"
                 ></SendChat>
               );
             }

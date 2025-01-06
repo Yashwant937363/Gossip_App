@@ -6,6 +6,7 @@ const UISlice = createSlice({
     openedchat: false,
     previousPath: "/chat",
     isEditorOpen: false,
+    warningmsg: "",
   },
   reducers: {
     changeOpenedChat: (state, action) => {
@@ -17,9 +18,16 @@ const UISlice = createSlice({
     setEditorOpen: (state, action) => {
       state.isEditorOpen = action.payload;
     },
+    setWarningMsg: (state, action) => {
+      state.warningmsg = action.payload;
+    },
   },
 });
 
-export const { changeOpenedChat, changePreviousPath, setEditorOpen } =
-  UISlice.actions;
+export const {
+  changeOpenedChat,
+  changePreviousPath,
+  setEditorOpen,
+  setWarningMsg,
+} = UISlice.actions;
 export default UISlice.reducer;

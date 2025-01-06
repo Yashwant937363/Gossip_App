@@ -13,3 +13,51 @@
   width: 100%;
   object-fit: contain;
 }
+
+.imageviewer .description-container {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageviewer .description-container .drawer-btn {
+  padding: 0px 30px;
+  background-color: var(--backgrounHover);
+  border: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.imageviewer .description-container .drawer-btn .drawer-icon {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.imageviewer .description-container .description {
+  max-height: 50vh;
+  max-width: 600px;
+  min-width: 200px;
+  overflow-y: scroll;
+  background-color: #00000088;
+  backdrop-filter: blur(2px);
+  padding: 1rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.imageviewer .description-container .description::-webkit-scrollbar {
+  width: 0px;
+}
+
+.imageviewer .description-container .description .loader {
+  color: transparent;
+}
+
+.imageviewer .description-container .description .loader .loading {
+  overflow: hidden;
+  height: 1rem;
+  margin: 5px;
+}

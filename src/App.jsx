@@ -38,6 +38,9 @@ import { cancelVideoCall, initializeVideoCall } from "./store/slices/CallSlice";
 import { store } from "./store/store";
 import { videoCallRingingReceiverSide } from "./socket/call";
 import ImageViewer from "./Components/Chat/ChatWindow/ImageViewer/ImageViewer";
+import { setWarningMsg } from "./store/slices/UISlice";
+import WarningBar from "./Components/MsgBars/WarningBar";
+import { setQuaternionFromProperEuler } from "three/src/math/MathUtils.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,7 +51,7 @@ function App() {
   const successmsguser = useSelector((state) => state.user.successmsg);
   const errormsguser = useSelector((state) => state.user.errormsg);
   const friends = useSelector((state) => state.chat.friends);
-  const varFriends = new Array(...friends);
+  const warningmsg = useSelector((state) => state.UIState.warningmsg);
   useEffect(() => {
     socket.on("requestfromuser", ({ uid, profile, username }) =>
       dispatch(addRequest({ uid, profile, username }))
@@ -113,7 +116,13 @@ function App() {
         dispatch(setErrorMsgUser(""));
       }, 5000);
     }
-  });
+    if (warningmsg !== "") {
+      setTimeout(() => {
+        dispatch(setWarningMsg(""));
+      }, 2000);
+    }
+    console.log(warningmsg);
+  }, [successmsguser, errormsguser, warningmsg]);
   const themeColor = useSelector((state) => state.theme.themeColor);
   const themeMode = useSelector((state) => state.theme.themeMode);
   const colors = useSelector((state) => state.theme.colors);
@@ -157,6 +166,8 @@ function App() {
     <>
       {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}
       {errormsguser !== "" ? <ErrorBar msg={errormsguser} /> : null}
+      {warningmsg !== "" ? <WarningBar msg={warningmsg} /> : null}
+      {}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navbar title="Gossip AI" />}>

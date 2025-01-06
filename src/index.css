@@ -78,7 +78,7 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-  .chat {
+  .chatpage {
     grid-template-columns: 1fr;
   }
   .closedchat {

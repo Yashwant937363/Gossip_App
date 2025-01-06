@@ -8,3 +8,12 @@ export function sendChatBotPrompt({ message, uid, tone }) {
     });
   });
 }
+
+export function getImageDescription({ url }) {
+  return new Promise((resolve, reject) => {
+    socket.emit("ai:image-analyze", { url }, (response) => {
+      console.log(response);
+      resolve(response);
+    });
+  });
+}

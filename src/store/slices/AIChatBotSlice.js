@@ -25,6 +25,7 @@ const AiChatBotSlice = createSlice({
       let chat = {
         text: action.payload.message,
         ai: action.payload.ai,
+        type: "text",
         time: Date.now(),
       };
       messages.push(chat);

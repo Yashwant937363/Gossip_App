@@ -28,7 +28,7 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className="chat">
+    <div className="chatpage">
       <SideBar></SideBar>
       {uid ? (
         <Outlet></Outlet>
