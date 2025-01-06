@@ -3,6 +3,7 @@ import { Data } from "emoji-mart";
 import { useEffect, useRef, useState } from "react";
 import { EmojiSmileFill, FileImage, SendFill, X } from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "motion/react";
 
 export default function MessageBar(props) {
   const { uid } = useParams();
@@ -58,7 +59,14 @@ export default function MessageBar(props) {
       />
       <div className="input">
         {isEmojiOpened ? (
-          <X className="emoji icon" onClick={closeEmojiSection}></X>
+          <motion.span
+            className="center"
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 180, transition: { duration: 1 } }}
+            exit={{ rotate: 0 }}
+          >
+            <X className="emoji icon" onClick={closeEmojiSection}></X>
+          </motion.span>
         ) : (
           <EmojiSmileFill
             className="emoji icon"

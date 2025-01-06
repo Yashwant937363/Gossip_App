@@ -20,12 +20,10 @@
 
 @keyframes fade {
   0% {
-    opacity: 0;
     transform: translateX(-10px);
   }
 
   100% {
-    opacity: 1;
     transform: translateX(0px);
   }
 }
@@ -264,15 +262,12 @@
 
 .chatwindow .chatcontainer .date {
   border-radius: 23px;
-  background-color: color-mix(
-    in srgb,
-    var(--theme-mode) 5%,
-    var(--opposite-theme-mode) 5%
-  );
+  background-color: var(--background15);
   padding: 3px 15px;
   margin: 20px auto;
   text-align: center;
   display: inline;
+  font-size: 0.8rem;
 }
 
 .fullscreen {

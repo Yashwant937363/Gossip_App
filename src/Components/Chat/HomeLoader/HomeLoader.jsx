@@ -5,7 +5,7 @@ import "./HomeLoader.css";
 
 export default function HomeLoader() {
   return (
-    <div className="chat homeloader">
+    <div className="chatpage homeloader">
       <div className="sidebarlist">
         <div className="chats">
           <span className="loading">Chats</span>

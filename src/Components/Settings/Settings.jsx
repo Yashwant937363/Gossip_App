@@ -7,7 +7,7 @@ import SettingsSidebar from "./SettingsSidebar/SettingsSidebar";
 export default function Settings() {
   const url = useHref();
   return (
-    <div className="chat settings">
+    <div className="chatpage settings">
       <SettingsSidebar></SettingsSidebar>
       {url === "/settings" ? <div></div> : <Outlet></Outlet>}
     </div>
