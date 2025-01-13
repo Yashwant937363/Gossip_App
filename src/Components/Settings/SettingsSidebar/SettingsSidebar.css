@@ -12,6 +12,7 @@
 }
 
 .settingsidebar h2 .arrowlefticon {
+  cursor: pointer;
   margin-right: 5px;
 }
 
@@ -26,10 +27,18 @@
   cursor: pointer;
 }
 
+.settingsidebar .listitem.active {
+  background-color: var(--backgrounHover);
+}
+
 .settingsidebar .listitem:hover {
+  background-color: var(--background30);
+}
+
+.settingsidebar .listitem:hover.active {
   background-color: color-mix(
     in srgb,
-    var(--theme-color) 20%,
-    var(--theme-mode)
+    var(--backgrounHover) 50%,
+    var(--background30)
   );
 }

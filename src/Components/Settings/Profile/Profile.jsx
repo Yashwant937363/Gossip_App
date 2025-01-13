@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Profile.css";
 import { Person } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { clear, setErrorMsgUser } from "../../../store/slices/UserSlice";
 import GoBackButton from "../../Buttons/GoBackButton/GoBackButton";
@@ -25,12 +25,20 @@ export default function Profile() {
     Cookies.remove("authtoken");
     disconnectSocket();
   };
-  useEffect(() => {
-    if (!isLogin) {
-      dispatch(setErrorMsgUser("Please Login First"));
-      navigate("/login");
-    }
-  }, [isLogin, navigate]);
+
+  if (!isLogin) {
+    return (
+      <div className="profilecontainer mainpage center redirect-page">
+        <div className="container">
+          <h2>Your not login yet</h2>
+          <div className="login-buttons">
+            <Link className="btn btn-signin">sign in</Link>
+            <Link className="btn btn-signup">sign up</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="profilecontainer mainpage">

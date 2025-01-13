@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { EnvelopeSlashFill } from "react-bootstrap-icons";
+import {
+  ChevronBarDown,
+  ChevronDown,
+  EnvelopeSlashFill,
+} from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 import SendChat from "./SendChat/SendChat";
 import ReceivedChat from "./ReceiveChat/Received";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "motion/react";
+import { div } from "motion/react-client";
 
 export default function ChatContainer() {
   const navigate = useNavigate();
@@ -13,6 +19,12 @@ export default function ChatContainer() {
   const containerRef = useRef(null);
   const chats = useSelector((state) => state.chat.chats);
   const [userchat, setUserChats] = useState(new Array());
+  const [isScrolledUp, setIsScrolledUp] = useState(false);
+  const scrollToBottom = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  };
   useEffect(() => {
     let newUserChats = new Array();
     if (chats.length !== 0) {
@@ -26,15 +38,43 @@ export default function ChatContainer() {
       });
     }
     setUserChats(newUserChats);
-    const scrollToBottom = () => {
-      if (containerRef.current) {
-        containerRef.current.scrollTop = containerRef.current.scrollHeight;
-      }
-    };
     setTimeout(() => {
       scrollToBottom();
     }, [0]);
   }, [chats, openedchat]);
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const scrollTop = container.scrollTop; // Current scroll position from the top
+      const scrollHeight = container.scrollHeight; // Total scrollable height
+      const clientHeight = container.clientHeight; // Visible height of the container
+
+      // Distance from the bottom
+      const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
+
+      // If user scrolls up 600px or more from the bottom, set the variable to true
+      if (distanceFromBottom >= 600) {
+        setIsScrolledUp(true);
+        console.log("User Scroll UP");
+      } else {
+        setIsScrolledUp(false);
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    // Cleanup event listener on component unmount
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
   let date;
   return (
     <div className="chatcontainer" ref={containerRef}>
@@ -121,6 +161,25 @@ export default function ChatContainer() {
           <EnvelopeSlashFill></EnvelopeSlashFill>
           <div>No Messages</div>
         </div>
+      )}
+      {isScrolledUp && (
+        <motion.div
+          initial={{ opacity: 0, height: 40, width: 40 }}
+          animate={{ opacity: 1, height: 40, width: 40 }}
+          transition={{ duration: 0.5 }}
+          exit={{ opacity: 0, height: 40, width: 40 }}
+          className="go-down center"
+          onClick={scrollToBottom}
+        >
+          <motion.span
+            className="center"
+            initial={{ rotate: 180 }}
+            animate={{ rotate: 0 }}
+            exit={{ rotate: 180 }}
+          >
+            <ChevronDown />
+          </motion.span>
+        </motion.div>
       )}
     </div>
   );

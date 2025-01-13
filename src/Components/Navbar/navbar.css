@@ -52,7 +52,7 @@
 
 #list li .link {
   color: var(--text-color);
-  padding: 30px 15px;
+  padding: 30px 15px 10px;
   margin: 5px;
   text-decoration: none;
 }

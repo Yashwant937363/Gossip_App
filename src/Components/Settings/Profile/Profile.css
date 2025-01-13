@@ -39,3 +39,35 @@
   margin: 40px auto 0px auto;
   background-color: var(--error);
 }
+
+.profilecontainer.redirect-page .container {
+  width: 40%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--background20);
+  box-shadow: 1px 1px 5px 0px var(--background20);
+  padding: 4%;
+  border-radius: 23px;
+}
+
+.profilecontainer.redirect-page .container .login-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profilecontainer.redirect-page .btn-signin,
+.profilecontainer.redirect-page .btn-signup {
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.profilecontainer.redirect-page .btn-signin {
+  background-color: var(--backgrounHover);
+}
+
+.profilecontainer.redirect-page .btn-signup {
+  background-color: var(--background10);
+}
