@@ -56,7 +56,7 @@ export default function SideBar() {
       );
     });
     setSortedFriends(newFriendArray);
-  }, [chats]);
+  }, [chats, friends]);
 
   return (
     <>

@@ -59,9 +59,8 @@ export default function ChatWindow(props) {
       setTimeout(() => setAnimation({ animationName: "fadein" }), 0);
     }
   }, [openedchat]);
-
   useEffect(() => {
-    const touid = openedchat.uid;
+    const touid = uid;
     const messages = new Array(...chats);
     const lastIndex = messages
       .reverse()
@@ -71,6 +70,7 @@ export default function ChatWindow(props) {
       const lastMessage = messages[lastIndex];
       console.log(lastMessage);
       if (lastMessage.seen === false) {
+        console.log(`fromuid: ${fromuid}, touid: ${touid}`);
         seenMessages({ fromuid: touid, touid: fromuid });
         dispatch(setSeenMessages(fromuid));
       }

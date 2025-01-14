@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  CheckSquareFill,
-  PersonFill,
-  XSquareFill,
-} from "react-bootstrap-icons";
+import { PersonFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeRequest,
@@ -11,6 +7,7 @@ import {
 } from "../../../../store/slices/UserSlice";
 import { addFriend } from "../../../../store/slices/ChatSlice";
 import { requestAnswer } from "../../../../socket/main";
+import { motion } from "motion/react";
 
 export default function RequestItem(props) {
   const touid = useSelector((state) => state.user.uid);
@@ -41,19 +38,24 @@ export default function RequestItem(props) {
           <PersonFill></PersonFill>
         </div>
       )}
-      <div className="seachitemtext">
-        <h3>{username}</h3>
-        <div>{uid}</div>
-      </div>
-      <div className="acceptandreject">
-        <XSquareFill
-          color="red"
-          onClick={() => answerRequest(false)}
-        ></XSquareFill>
-        <CheckSquareFill
-          color="green"
-          onClick={() => answerRequest(true)}
-        ></CheckSquareFill>
+      <div className="container">
+        <h3 className="seachitemtext">{username}</h3>
+        <div className="acceptandreject">
+          <button
+            className="btn btn-accept"
+            onClick={() => answerRequest(true)}
+          >
+            accept
+          </button>
+          <motion.button
+            className="btn btn-reject center"
+            initial={{ scale: 1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => answerRequest(true)}
+          >
+            reject
+          </motion.button>
+        </div>
       </div>
     </div>
   );

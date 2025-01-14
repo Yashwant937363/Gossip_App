@@ -43,7 +43,7 @@
     var(--opposite-theme-mode) 30%,
     var(--theme-mode)
   );
-  --backgrounHover: color-mix(
+  --backgroundHover: color-mix(
     in srgb,
     var(--theme-mode) 30%,
     var(--theme-color)

@@ -38,7 +38,7 @@
 }
 
 .searchpeople .searchandreqitems {
-  margin: 10px;
+  margin: 5px;
 }
 
 .searchpeople .searchandreqitems .searchandreqitem {
@@ -74,17 +74,38 @@
   cursor: pointer;
 }
 
-.searchpeople .reqitem .acceptandreject {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  font-size: 1.5rem;
+.searchpeople .searchandreqitems .searchandreqitem.reqitem {
+  grid-template-columns: 7fr 20fr;
 }
 
-.searchpeople .reqitem .acceptandreject > * {
-  background-color: white;
-  border-radius: 6px;
+.searchpeople .reqitem .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80%;
+}
+
+.searchpeople .reqitem .acceptandreject {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchpeople .reqitem .acceptandreject .btn {
+  border-radius: 5px;
+  width: 45%;
+  height: 100%;
   cursor: pointer;
   box-shadow: 0.5px 0.5px 2px 0px black;
+  border: 0px;
+  color: var(--text-color);
+  font-weight: bold;
+  padding: 3px;
+}
+
+.searchpeople .reqitem .acceptandreject .btn-accept {
+  background-color: color-mix(in srgb, var(--theme-mode) 30%, lime);
+}
+
+.searchpeople .reqitem .acceptandreject .btn-reject {
+  background-color: color-mix(in srgb, var(--theme-mode) 10%, red);
 }

@@ -80,7 +80,7 @@
 }
 
 .e-image-editor .e-toolbar .e-toolbar-items .e-tbar-btn.e-btn.e-selected-btn {
-  background-color: var(--backgrounHover) !important;
+  background-color: var(--backgroundHover) !important;
 }
 
 .e-dropdown-popup {
@@ -89,7 +89,7 @@
 }
 
 .e-dropdown-popup ul .e-item:hover {
-  background-color: var(--backgrounHover);
+  background-color: var(--backgroundHover);
   color: var(--text-color);
 }
 

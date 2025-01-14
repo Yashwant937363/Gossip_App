@@ -28,7 +28,7 @@
 }
 
 .settingsidebar .listitem.active {
-  background-color: var(--backgrounHover);
+  background-color: var(--backgroundHover);
 }
 
 .settingsidebar .listitem:hover {
@@ -38,7 +38,7 @@
 .settingsidebar .listitem:hover.active {
   background-color: color-mix(
     in srgb,
-    var(--backgrounHover) 50%,
+    var(--backgroundHover) 50%,
     var(--background30)
   );
 }

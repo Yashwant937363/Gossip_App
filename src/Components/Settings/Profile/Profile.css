@@ -65,7 +65,7 @@
 }
 
 .profilecontainer.redirect-page .btn-signin {
-  background-color: var(--backgrounHover);
+  background-color: var(--backgroundHover);
 }
 
 .profilecontainer.redirect-page .btn-signup {

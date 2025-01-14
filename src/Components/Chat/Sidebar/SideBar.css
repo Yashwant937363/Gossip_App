@@ -114,11 +114,11 @@
 
 .sidebarlist .chats .addperson .reddot {
   display: inline-block;
-  width: 10px;
+  width: 7px;
   background-color: red;
   position: absolute;
-  right: -1px;
-  top: -1px;
+  right: 2px;
+  top: 1px;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
@@ -126,6 +126,10 @@
 .sidebarlist .chats .addpersonicon {
   font-size: 1.6rem;
   cursor: pointer;
+}
+
+.sidebarlist .chats .addpersonicon:hover {
+  color: var(--backgroundHover);
 }
 
 .sidebarlist .listItem {
@@ -140,15 +144,19 @@
   transition: all 0.1s ease-in;
 }
 
+.sidebarlist .listItem:hover {
+  background-color: var(--backgroundHover);
+}
+
 .sidebarlist .listItem .profileimgbox {
   position: relative;
 }
 
 .sidebarlist .listItem .profileimgbox .dot {
   position: absolute;
-  top: 2px;
-  right: 0px;
-  width: 25%;
+  top: 4px;
+  right: 4px;
+  width: 20%;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
@@ -158,6 +166,7 @@
 }
 
 .sidebarlist .listItem .profileimgbox .dot.offline {
+  display: none;
   background-color: red;
 }
 
