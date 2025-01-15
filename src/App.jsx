@@ -179,6 +179,7 @@ function App() {
                 <Route path="viewimage/:layoutId" element={<ImageViewer />} />
               </Route>
             </Route>
+            <Route path="/login/:type" element={<Account />} />
             <Route path="/login" element={<Account />} />
             <Route path="/about" element={<About />} />
             <Route path="/settings" element={<Settings />}>

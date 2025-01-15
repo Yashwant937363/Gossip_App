@@ -5,12 +5,16 @@ import "./navbar.css";
 import { GearWide, List, PersonFill, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { changePreviousPath } from "../../store/slices/UISlice";
+import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
+import { fetchFriends } from "../../store/slices/ChatSlice";
+import Cookies from "js-cookie";
 
 function Navbar(props) {
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const profile = useSelector((state) => state.user.profile);
   const isLogin = useSelector((state) => state.user.isLogin);
+  const authtoken = useSelector((state) => state.user.authtoken);
   const url = useHref();
   const location = useLocation();
   const handleMenuToggle = () => {
@@ -20,6 +24,20 @@ function Navbar(props) {
   const handleNavlinkClick = () => {
     setIsMenuOpen(false);
   };
+
+  useEffect(() => {
+    const authtoken = Cookies.get("authtoken");
+    if (authtoken) {
+      dispatch(getUser({ authtoken }));
+      dispatch(setAuthtoken(authtoken));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(fetchFriends({ authtoken }));
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     if (!location.pathname.startsWith("/settings")) {

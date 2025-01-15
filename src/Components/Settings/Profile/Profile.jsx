@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Profile.css";
-import { Person } from "react-bootstrap-icons";
+import { Person, PersonFillExclamation } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -28,12 +28,21 @@ export default function Profile() {
 
   if (!isLogin) {
     return (
-      <div className="profilecontainer mainpage center redirect-page">
-        <div className="container">
+      <div className="profilecontainer mainpage">
+        <h2 className="settings-heading">
+          <GoBackButton />
+          Profile
+        </h2>
+        <div className="redirect-container">
+          <PersonFillExclamation className="no-account-icon" />
           <h2>Your not login yet</h2>
           <div className="login-buttons">
-            <Link className="btn btn-signin">sign in</Link>
-            <Link className="btn btn-signup">sign up</Link>
+            <Link to="/login/signin" className="btn btn-signin">
+              sign in
+            </Link>
+            <Link to="/login/signup" className="btn btn-signup">
+              sign up
+            </Link>
           </div>
         </div>
       </div>

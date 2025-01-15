@@ -33,7 +33,7 @@ export default function Chat() {
       {uid ? (
         <Outlet></Outlet>
       ) : (
-        <div className="closedchat">Click on Chat to Open The Chat</div>
+        <div className="closedchat">Click on chat</div>
       )}
       {callInitialize && <Call></Call>}
     </div>

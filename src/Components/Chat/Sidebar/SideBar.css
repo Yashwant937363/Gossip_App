@@ -27,6 +27,7 @@
   flex-direction: column;
   padding: 10% 0px;
   animation: pulldown 1s ease forwards;
+  overflow: hidden;
 }
 
 @keyframes pulldown {
@@ -203,7 +204,7 @@
 .sidebarlist .listItem.openeditem {
   background-color: color-mix(
     in srgb,
-    var(--theme-color) 15%,
+    var(--theme-color) 30%,
     var(--theme-mode)
   );
 }

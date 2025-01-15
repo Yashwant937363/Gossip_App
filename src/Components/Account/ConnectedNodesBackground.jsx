@@ -19,7 +19,7 @@ const createUserShape = () => {
   torso.position.y = 0.2; // Position the torso below the head
   group.add(torso);
 
-  const scalingFactor = 0.5;
+  const scalingFactor = 0.2;
   group.scale.set(scalingFactor, scalingFactor, scalingFactor);
 
   return group;

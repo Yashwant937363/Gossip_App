@@ -112,7 +112,7 @@ const chatSlice = createSlice({
         copyobject = {
           ...item,
         };
-        if (copyobject.Receiver_ID === uid) {
+        if (copyobject.Receiver_ID === uid && copyobject.seen !== true) {
           copyobject.seen = false;
         }
         return copyobject;

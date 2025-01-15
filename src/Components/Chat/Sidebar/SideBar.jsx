@@ -11,6 +11,7 @@ import SeachPeople from "./SeachPeople/SeachPeople";
 import { useSelector } from "react-redux";
 import SideProfile from "./SideProfile";
 import { useHref, useLocation } from "react-router-dom";
+import { AnimatePresence } from "motion/react";
 
 export default function SideBar() {
   const path = useLocation();
@@ -73,7 +74,7 @@ export default function SideBar() {
         `}
       </style>
       <div className="sidebarlist">
-        {url === "/chat" && <SideProfile />}
+        <AnimatePresence>{url === "/chat" && <SideProfile />}</AnimatePresence>
         <h3 className="chats">
           <span className="chatstext">Chats</span>
           {/* <div className='groupaddicon'>

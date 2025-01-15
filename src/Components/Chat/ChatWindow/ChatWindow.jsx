@@ -18,6 +18,7 @@ import {
   setChannel,
 } from "../../../store/slices/CallSlice";
 import { sendOutgoingVideoCall } from "../../../socket/call";
+import { motion } from "motion/react";
 
 export default function ChatWindow(props) {
   const dispatch = useDispatch();
@@ -103,10 +104,12 @@ export default function ChatWindow(props) {
     <>
       <div className="chatwindow" style={animation}>
         <div className="profilebar">
-          <ChevronLeft
-            className="arrowlefticon"
-            onClick={clearOpenedChat}
-          ></ChevronLeft>
+          <motion.span whileTap={{ translateX: -5 }}>
+            <ChevronLeft
+              className="arrowlefticon"
+              onClick={clearOpenedChat}
+            ></ChevronLeft>
+          </motion.span>
           <div className="outerimg">
             {openedchat?.profile !== "" ? (
               <img

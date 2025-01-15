@@ -1,39 +1,28 @@
 import { useEffect, useState } from "react";
 import SignUp from "./SignUp/SignUp";
 import SignIn from "./SignIn/SignIn";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import "./Account.css";
-import { useNavigate } from "react-router-dom";
-import { fetchChats, fetchFriends } from "../../store/slices/ChatSlice";
-import { getUser, setAuthtoken } from "../../store/slices/UserSlice";
-import Cookies from "js-cookie";
+import { useNavigate, useParams } from "react-router-dom";
 import HomeLoader from "../Chat/HomeLoader/HomeLoader";
-import { setThemeColor, setThemeMode } from "../../store/slices/ThemeSlice";
 import ConnectedNodesBackground from "./ConnectedNodesBackground";
 
 export default function Account() {
-  const dispatch = useDispatch();
   const [signup, setSignup] = useState(false);
+  const { type } = useParams();
   const isLogin = useSelector((state) => state.user.isLogin);
   const navigate = useNavigate();
-  const authtoken = useSelector((state) => state.user.authtoken);
   const isPending = useSelector((state) => state.user.isPending);
 
   useEffect(() => {
-    const authtoken = Cookies.get("authtoken");
-    if (authtoken) {
-      dispatch(getUser({ authtoken }));
-      dispatch(setAuthtoken(authtoken));
-    }
-  }, []);
-
-  useEffect(() => {
     if (isLogin) {
-      dispatch(fetchFriends({ authtoken }));
       navigate("/chat");
     }
   }, [isLogin, navigate]);
 
+  useEffect(() => {
+    setSignup("signup" === type ? true : false);
+  }, []);
   if (isPending) {
     return <HomeLoader />;
   }
