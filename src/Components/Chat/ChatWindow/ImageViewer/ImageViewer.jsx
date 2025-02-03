@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ChevronCompactUp, X } from "react-bootstrap-icons";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./ImageViewer.css";
 import { motion, useAnimate } from "motion/react";
-import { getImageDescription } from "../../../../socket/ai";
-import { useDispatch } from "react-redux";
-import { setWarningMsg } from "../../../../store/slices/UISlice";
-import { desc } from "motion/react-client";
 
 export default function ImageViewer() {
-  const dispatch = useDispatch();
-  const { layoutId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const { message } = location.state || {};
@@ -25,8 +19,6 @@ export default function ImageViewer() {
   };
   const getDescription = async () => {
     setPending(true);
-    const response = await getImageDescription({ url: message });
-    console.log(response);
     setDescription(response);
     setPending(false);
   };
@@ -64,7 +56,7 @@ export default function ImageViewer() {
         close
       </div>
       <div className="viewimage center">
-        <motion.img layoutId={layoutId} className="image" src={message} />
+        <motion.img layoutId="openedimage" className="image" src={message} />
       </div>
       <div className="description-container">
         <motion.button

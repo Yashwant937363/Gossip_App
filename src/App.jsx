@@ -176,7 +176,7 @@ function App() {
             <Route path="chat" element={<Chat />}>
               <Route path=":uid" element={<ChatWindow />}>
                 <Route path="sendimage" element={<ImageEditor />} />
-                <Route path="viewimage/:layoutId" element={<ImageViewer />} />
+                <Route path="viewimage" element={<ImageViewer />} />
               </Route>
             </Route>
             <Route path="/login/:type" element={<Account />} />

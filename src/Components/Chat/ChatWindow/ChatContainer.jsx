@@ -141,7 +141,6 @@ export default function ChatContainer() {
                   time={item.createdAt}
                   type={item.type}
                   position={position}
-                  onImageClick={imageOnClickHandler}
                 />
               ) : (
                 <ReceivedChat

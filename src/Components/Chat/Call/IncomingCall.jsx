@@ -33,7 +33,12 @@ export default function IncomingCall(props) {
     <div className="call">
       <div className="profileimgbox">
         {caller?.profile !== "" ? (
-          <img src={caller?.profile} className="profileimg" />
+          <img
+            src={caller?.profile}
+            height={100}
+            width={100}
+            className="profileimg"
+          />
         ) : (
           <div className="personfillicon">
             <PersonFill></PersonFill>

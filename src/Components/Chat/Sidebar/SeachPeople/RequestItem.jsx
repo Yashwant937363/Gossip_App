@@ -51,7 +51,7 @@ export default function RequestItem(props) {
             className="btn btn-reject center"
             initial={{ scale: 1 }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => answerRequest(true)}
+            onClick={() => answerRequest(false)}
           >
             reject
           </motion.button>

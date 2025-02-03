@@ -11,12 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@react-three/drei": "^9.120.4",
     "@react-three/fiber": "^8.17.10",
     "@reduxjs/toolkit": "^2.0.1",
     "@syncfusion/ej2-react-image-editor": "^28.1.33",
+    "agora-extension-virtual-background": "^2.0.0",
     "agora-rtc-react": "^2.3.0",
     "agora-rtc-sdk-ng": "^4.22.2",
     "axios": "^1.6.5",
