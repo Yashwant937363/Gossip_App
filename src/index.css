@@ -77,6 +77,12 @@ body {
   }
 }
 
+@media screen and (max-width: 850px) {
+  .mainpage {
+    margin: 0px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .chatpage {
     grid-template-columns: 1fr;
@@ -85,7 +91,7 @@ body {
     display: none !important;
   }
   .chatwindow,
-  mainpage {
+  .mainpage {
     animation: scalein 0.3s ease-in forwards;
   }
 

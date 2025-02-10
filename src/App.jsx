@@ -48,6 +48,7 @@ function App() {
   const username = useSelector((state) => state.user.username);
   const profile = useSelector((state) => state.user.profile);
   const uid = useSelector((state) => state.user.uid);
+  const settings = useSelector((state) => state.user.settings);
   const successmsguser = useSelector((state) => state.user.successmsg);
   const errormsguser = useSelector((state) => state.user.errormsg);
   const friends = useSelector((state) => state.chat.friends);
@@ -102,7 +103,7 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    connecttoserver({ dispatch, username, profile, uid });
+    connecttoserver({ dispatch, username, profile, uid, settings });
   }, [isLogin]);
 
   useEffect(() => {
@@ -174,6 +175,10 @@ function App() {
             <Route index element={<Home />}></Route>
             <Route path="/chatbot" element={<ChatBot />} />
             <Route path="chat" element={<Chat />}>
+              <Route
+                index
+                element={<div className="closedchat">Click on chat</div>}
+              />
               <Route path=":uid" element={<ChatWindow />}>
                 <Route path="sendimage" element={<ImageEditor />} />
                 <Route path="viewimage" element={<ImageViewer />} />

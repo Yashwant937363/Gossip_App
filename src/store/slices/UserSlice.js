@@ -65,6 +65,12 @@ const userSlice = createSlice({
     dob: null,
     authtoken: "",
     uid: "",
+    settings: {
+      translation: {
+        language: "original",
+        alwaysTranslate: false,
+      },
+    },
     errormsg: "",
     successmsg: "",
     online: false,
@@ -108,6 +114,12 @@ const userSlice = createSlice({
     },
     setOnline: (state, action) => {
       state.online = action.payload;
+    },
+    changeLanguage: (state, action) => {
+      state.settings.translation.language = action.payload;
+    },
+    changeAlwaysTranslate: (state, action) => {
+      state.settings.translation.alwaysTranslate = action.payload;
     },
     addRequest: (state, action) => {
       const { uid, profile, username } = action.payload;
@@ -161,7 +173,7 @@ const userSlice = createSlice({
     });
     builder.addCase(signInUser.fulfilled, (state, action) => {
       if (action.payload.status < 300 && action.payload.status >= 200) {
-        const { profile, authtoken, dob, fullname, uid, username } =
+        const { profile, authtoken, dob, fullname, uid, username, settings } =
           action.payload.data;
         state.profile = profile;
         state.authtoken = authtoken;
@@ -170,6 +182,7 @@ const userSlice = createSlice({
         state.fullname = fullname;
         state.username = username;
         state.uid = uid;
+        state.settings = settings;
         state.isLogin = true;
       } else {
         state.errormsg = action.payload.data.error;
@@ -195,6 +208,7 @@ const userSlice = createSlice({
         state.uid = user.uid;
         state.dob = user.dob;
         state.profile = user.profile;
+        state.settings = user.settings;
         state.isLogin = true;
       } else {
         state.errormsg = data.error;
@@ -218,6 +232,8 @@ export const {
   setErrorMsgUser,
   setSucessMsgUser,
   addRequest,
+  changeLanguage,
+  changeAlwaysTranslate,
   removeRequest,
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -74,7 +74,7 @@ export default function SideBar() {
         `}
       </style>
       <div className="sidebarlist">
-        <AnimatePresence>{url === "/chat" && <SideProfile />}</AnimatePresence>
+        <AnimatePresence>{url === "/chat/" && <SideProfile />}</AnimatePresence>
         <h3 className="chats">
           <span className="chatstext">Chats</span>
           {/* <div className='groupaddicon'>

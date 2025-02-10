@@ -7,10 +7,16 @@ export const socket = io(SERVER_URL, {
   autoConnect: false,
 });
 
-export function connecttoserver({ dispatch, username, profile, uid }) {
+export function connecttoserver({
+  dispatch,
+  username,
+  profile,
+  uid,
+  settings,
+}) {
   socket.emit(
     "user:connection",
-    { username, profile, uid },
+    { username, profile, uid, settings },
     (acknowledgment) => {
       if (acknowledgment && acknowledgment.success) {
         dispatch(setOnline(true));

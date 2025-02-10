@@ -16,7 +16,7 @@ export default function Account() {
 
   useEffect(() => {
     if (isLogin) {
-      navigate("/chat");
+      navigate("/chat/");
     }
   }, [isLogin, navigate]);
 

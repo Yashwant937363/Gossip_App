@@ -18,6 +18,9 @@ export default function ChatContainer() {
   const fromuid = useSelector((state) => state.user.uid);
   const containerRef = useRef(null);
   const chats = useSelector((state) => state.chat.chats);
+  const userTranslateLanguage = useSelector(
+    (state) => state.user.settings.translation.language
+  );
   const [userchat, setUserChats] = useState(new Array());
   const [isScrolledUp, setIsScrolledUp] = useState(false);
   const scrollToBottom = () => {
@@ -57,7 +60,6 @@ export default function ChatContainer() {
       // If user scrolls up 600px or more from the bottom, set the variable to true
       if (distanceFromBottom >= 600) {
         setIsScrolledUp(true);
-        console.log("User Scroll UP");
       } else {
         setIsScrolledUp(false);
       }
@@ -123,6 +125,12 @@ export default function ChatContainer() {
               });
             }
           };
+          const translatedText =
+            item.Sender_ID === fromuid
+              ? null
+              : [...item.translatedText].find(
+                  (item) => item.language === userTranslateLanguage
+                );
           const position = myPosition();
           return (
             <React.Fragment key={index}>
@@ -146,10 +154,13 @@ export default function ChatContainer() {
                 <ReceivedChat
                   key={index}
                   message={item.text}
+                  translatedMessage={translatedText}
                   time={item.createdAt}
                   type={item.type}
                   position={position}
                   onImageClick={imageOnClickHandler}
+                  scrollToBottom={scrollToBottom}
+                  container={containerRef.current}
                 />
               )}
             </React.Fragment>

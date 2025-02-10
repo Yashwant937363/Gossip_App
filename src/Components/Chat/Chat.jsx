@@ -30,11 +30,7 @@ export default function Chat() {
   return (
     <div className="chatpage">
       <SideBar></SideBar>
-      {uid ? (
-        <Outlet></Outlet>
-      ) : (
-        <div className="closedchat">Click on chat</div>
-      )}
+      <Outlet></Outlet>
       {callInitialize && <Call></Call>}
     </div>
   );

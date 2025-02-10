@@ -7,7 +7,13 @@ export default function SideProfile() {
   const profile = useSelector((state) => state.user.profile);
   const username = useSelector((state) => state.user.username);
   return (
-    <motion.div exit={{ height: 0, padding: 0 }} className="sideprofile">
+    <motion.div
+      initial={{ height: 0, paddingTop: 0, paddingBottom: 0 }}
+      animate={{ height: "auto", paddingTop: 30, paddingBottom: 30 }}
+      exit={{ height: 0, paddingTop: 0, paddingBottom: 0 }}
+      transition={{ duration: 0.4 }}
+      className="sideprofile"
+    >
       {profile !== "" ? (
         <img src={profile} className="profile" alt="" />
       ) : (

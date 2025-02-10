@@ -41,7 +41,7 @@ export default function ChatWindow(props) {
 
   const clearOpenedChat = () => {
     dispatch(changeOpenedChat(false));
-    navigate("/chat");
+    navigate("/chat/");
   };
 
   const handleVideoCall = async () => {
