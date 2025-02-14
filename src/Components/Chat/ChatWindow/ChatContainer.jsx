@@ -11,6 +11,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { div } from "motion/react-client";
+import { socket } from "../../../socket/main";
 
 export default function ChatContainer() {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ export default function ChatContainer() {
   const userTranslateLanguage = useSelector(
     (state) => state.user.settings.translation.language
   );
+  const alwaysTranslate = useSelector(
+    (state) => state.user.settings.translation.alwaysTranslate
+  );
+
   const [userchat, setUserChats] = useState(new Array());
   const [isScrolledUp, setIsScrolledUp] = useState(false);
   const scrollToBottom = () => {
@@ -41,6 +46,32 @@ export default function ChatContainer() {
       });
     }
     setUserChats(newUserChats);
+    if (alwaysTranslate) {
+      const filterChatsForTranslation = newUserChats.filter(
+        (chat) =>
+          chat.Receiver_ID === fromuid &&
+          chat.type === "text" &&
+          !chat.translatedText.some((t) => t.language === userTranslateLanguage)
+      );
+      const inputTranslateText = filterChatsForTranslation.map((chat) => {
+        return {
+          id: chat._id.toString(),
+          text: chat.text,
+        };
+      });
+      if (inputTranslateText.length >= 1) {
+        socket.emit(
+          "ai:translate:multiple-messages",
+          {
+            messages: inputTranslateText,
+            to: userTranslateLanguage,
+          },
+          fromuid
+        );
+      }
+      console.log("for translation:", filterChatsForTranslation.length);
+      console.log("all messages", newUserChats.length);
+    }
     setTimeout(() => {
       scrollToBottom();
     }, [0]);
@@ -64,7 +95,6 @@ export default function ChatContainer() {
         setIsScrolledUp(false);
       }
     };
-
     const container = containerRef.current;
     if (container) {
       container.addEventListener("scroll", handleScroll);
@@ -153,6 +183,7 @@ export default function ChatContainer() {
               ) : (
                 <ReceivedChat
                   key={index}
+                  chatid={item._id}
                   message={item.text}
                   translatedMessage={translatedText}
                   time={item.createdAt}

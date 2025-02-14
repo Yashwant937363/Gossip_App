@@ -13,16 +13,25 @@ import { socket } from "./../../../socket/main";
 export default function Translation() {
   const dispatch = useDispatch();
   const authtoken = useSelector((state) => state.user.authtoken);
-  const alwaysTranslate = useSelector(
-    (state) => state.user.settings.translation.alwaysTranslate
+
+  const { alwaysTranslate, language } = useSelector(
+    (state) => state.user.settings.translation
   );
-  const options = ["Hindi", "Marathi", "English"];
+  const options = ["Hindi", "Marathi", "English", "Spanish", "Punjabi"];
   const handleLanguageOnChange = (value) => {
     const lang = value.value.toLowerCase();
     dispatch(changeLanguage(lang));
     socket.emit("settings:translate:languageChange", {
       authtoken,
       language: lang,
+    });
+  };
+
+  const handleAlwaysTranslate = (value) => {
+    dispatch(changeAlwaysTranslate(value));
+    socket.emit("settings:translate:alwaysTranslateChange", {
+      authtoken,
+      alwaysTranslate: value,
     });
   };
 
@@ -37,7 +46,7 @@ export default function Translation() {
           <span className="center">Language</span>
           <ReactDropdown
             options={options}
-            value={options[0]}
+            value={language}
             onChange={handleLanguageOnChange}
             placeholder="Select a Language"
           />
@@ -56,13 +65,13 @@ export default function Translation() {
             </motion.div>
             <div
               className="text center"
-              onClick={() => dispatch(changeAlwaysTranslate(true))}
+              onClick={() => handleAlwaysTranslate(true)}
             >
               Yes
             </div>
             <div
               className="text center"
-              onClick={() => dispatch(changeAlwaysTranslate(false))}
+              onClick={() => handleAlwaysTranslate(false)}
             >
               No
             </div>

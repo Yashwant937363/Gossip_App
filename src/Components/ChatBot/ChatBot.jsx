@@ -52,67 +52,63 @@ export default function ChatBot() {
     console.log(messages);
   }, [messages]);
   return (
-    <div className="chatpage chatbot">
-      <SideBar></SideBar>
-
-      <div className="chatwindow" style={animation}>
-        <div className="profilebar">
-          <ChevronLeft
-            className="arrowlefticon"
-            onClick={() => navigate("/chat")}
-          ></ChevronLeft>
-          <div className="outerimg">
-            <div className="personfillicon">
-              <Robot></Robot>
-            </div>
-          </div>
-          <div className="profilebarusername">
-            <div>ChatBot</div>
-          </div>
-          <div className="callicons">
-            <select
-              value={tone}
-              onChange={(e) => dispatch(changeTone(e.target.value))}
-              className="tones"
-            >
-              {tones.map((tone) => (
-                <option key={tone} value={tone}>
-                  {tone}
-                </option>
-              ))}
-            </select>
+    <div className="chatwindow chatbot" style={animation}>
+      <div className="profilebar">
+        <ChevronLeft
+          className="arrowlefticon"
+          onClick={() => navigate("/chat/")}
+        ></ChevronLeft>
+        <div className="outerimg">
+          <div className="personfillicon">
+            <Robot></Robot>
           </div>
         </div>
-
-        <div className="chatcontainer" ref={containerRef}>
-          {messages.map((value, index) => {
-            if (value.ai) {
-              return (
-                <ReceivedChat
-                  key={index}
-                  message={value.text}
-                  time={value.time}
-                  type={value.type}
-                  position="first"
-                />
-              );
-            } else {
-              return (
-                <SendChat
-                  key={index}
-                  message={value.text}
-                  time={value.time}
-                  type={value.type}
-                  status="chatbot"
-                  position="first"
-                ></SendChat>
-              );
-            }
-            return null;
-          })}
+        <div className="profilebarusername">
+          <div>ChatBot</div>
         </div>
-        <MessageBar submitMessage={submitMessage}></MessageBar>
+        <div className="callicons">
+          <select
+            value={tone}
+            onChange={(e) => dispatch(changeTone(e.target.value))}
+            className="tones"
+          >
+            {tones.map((tone) => (
+              <option key={tone} value={tone}>
+                {tone}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
+
+      <div className="chatcontainer" ref={containerRef}>
+        {messages.map((value, index) => {
+          if (value.ai) {
+            return (
+              <ReceivedChat
+                key={index}
+                message={value.text}
+                time={value.time}
+                type={value.type}
+                translatedMessage={false}
+                position="first"
+              />
+            );
+          } else {
+            return (
+              <SendChat
+                key={index}
+                message={value.text}
+                time={value.time}
+                type={value.type}
+                status="chatbot"
+                position="first"
+              ></SendChat>
+            );
+          }
+        })}
+      </div>
+      <MessageBar submitMessage={submitMessage}></MessageBar>
     </div>
   );
 }

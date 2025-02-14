@@ -38,9 +38,10 @@ export default function ListItem(props) {
   }
   return (
     <Link
-      to={uid == "chatbot" ? `/chatbot` : `/chat/${uid}`}
+      to={uid == "chatbot" ? `/chat/chatbot` : `/chat/${uid}`}
       className={
-        openedchat?.uid === uid || (path === "/chatbot" && uid === "chatbot")
+        openedchat?.uid === uid ||
+        (path === "/chat/chatbot" && uid === "chatbot")
           ? "openeditem listItem"
           : "listItem"
       }

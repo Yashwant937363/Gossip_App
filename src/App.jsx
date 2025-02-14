@@ -20,6 +20,7 @@ import {
   addFriend,
   setFriendOffline,
   setFriendOnline,
+  setMultipleTranslatedMessages,
   setReceivedMessages,
   setSeenMessages,
 } from "./store/slices/ChatSlice";
@@ -40,7 +41,6 @@ import { videoCallRingingReceiverSide } from "./socket/call";
 import ImageViewer from "./Components/Chat/ChatWindow/ImageViewer/ImageViewer";
 import { setWarningMsg } from "./store/slices/UISlice";
 import WarningBar from "./Components/MsgBars/WarningBar";
-import { setQuaternionFromProperEuler } from "three/src/math/MathUtils.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +78,10 @@ function App() {
     socket.on("call:videocallcanceled", () => {
       dispatch(setErrorMsgUser("Call Ended"));
       dispatch(cancelVideoCall());
+    });
+    socket.on("ai:translated:multiple-messages", (data) => {
+      console.log("translated:", data);
+      dispatch(setMultipleTranslatedMessages(data));
     });
     // socket.on("disconnetion", () => {
     //   dispatch(setOnline(false))
@@ -183,6 +187,7 @@ function App() {
                 <Route path="sendimage" element={<ImageEditor />} />
                 <Route path="viewimage" element={<ImageViewer />} />
               </Route>
+              <Route path="chatbot" element={<ChatBot />} />
             </Route>
             <Route path="/login/:type" element={<Account />} />
             <Route path="/login" element={<Account />} />

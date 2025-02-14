@@ -10,7 +10,6 @@
   border-end-start-radius: 0px;
   transition: all;
   position: relative;
-  background-color: var(--theme-color);
   overflow: hidden;
 }
 
@@ -35,19 +34,29 @@
   display: flex;
   flex-wrap: wrap;
 }
+
 .chatwindow .chatcontainer .receivedchat .text-chat .timecheck {
   margin-left: auto;
+  padding-left: 5px;
+}
+.chatwindow
+  .chatcontainer
+  .receivedchat
+  .text-chat
+  .timecheck
+  .retranslate-icon {
+  cursor: pointer;
 }
 
 .chatwindow .chatcontainer .receivedchat .primary {
-  background-color: red;
+  background-color: var(--background10);
   padding: 7px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
 .chatwindow .chatcontainer .receivedchat .secondary {
-  background-color: green;
+  background-color: var(--background20);
   height: 0px;
   padding: 0px;
   padding-left: 0px;

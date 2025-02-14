@@ -15,9 +15,8 @@ export const fetchFriends = createAsyncThunk(
         method: "POST",
         headers: { authtoken },
       });
-      console.log("Response", response);
       const data = await response.json();
-      console.log("Data", data);
+
       return {
         data: data,
         status: response.status,
@@ -119,6 +118,40 @@ const chatSlice = createSlice({
       });
       state.chats = new Array(...newChats);
     },
+    setMultipleTranslatedMessages: (state, action) => {
+      const { messages, language } = action.payload;
+      const newChats = state.chats.map((chat) => {
+        const translatedText = messages.find(
+          (message) => message.id === chat._id.toString()
+        );
+        if (translatedText) {
+          chat.translatedText.push({
+            language,
+            translatedText: translatedText.translatedText,
+          });
+        }
+        return chat;
+      });
+      state.chats = newChats;
+    },
+    setSingleTranslatedMessage: (state, action) => {
+      const { id, translatedText, language } = action.payload;
+
+      state.chats = state.chats.map((chat) => {
+        if (chat._id === id) {
+          return {
+            ...chat,
+            translatedText: [
+              ...(chat.translatedText?.filter((t) => t.language !== language) ||
+                []), // Remove existing translation for the language
+              { translatedText, language }, // Add the new translation
+            ],
+          };
+        }
+        return chat;
+      });
+    },
+
     clearChat: (state, action) => {
       state.friends = new Array();
       state.chats = new Array();
@@ -168,5 +201,7 @@ export const {
   setSeenMessages,
   setReceivedMessages,
   clearChat,
+  setMultipleTranslatedMessages,
+  setSingleTranslatedMessage,
 } = chatSlice.actions;
 export default chatSlice.reducer;
