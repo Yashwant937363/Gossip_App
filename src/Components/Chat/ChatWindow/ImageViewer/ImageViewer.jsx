@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ChevronCompactUp, X } from "react-bootstrap-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./ImageViewer.css";
+import { getImageDescription } from "./../../../../socket/ai";
 import { motion, useAnimate } from "motion/react";
 
 export default function ImageViewer() {
@@ -19,6 +20,9 @@ export default function ImageViewer() {
   };
   const getDescription = async () => {
     setPending(true);
+    const response = await getImageDescription({ url: message });
+
+    console.log(response);
     setDescription(response);
     setPending(false);
   };
@@ -69,7 +73,7 @@ export default function ImageViewer() {
         </motion.button>
         <div ref={descriptionRef} className="description">
           {description ? (
-            <span>{description}</span>
+            <span dangerouslySetInnerHTML={{ __html: description }} />
           ) : (
             <div className="loader">
               <div className="loading">

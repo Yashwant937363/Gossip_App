@@ -42,7 +42,7 @@
   max-width: 600px;
   min-width: 200px;
   overflow-y: scroll;
-  background-color: #00000088;
+  background-color: color-mix(in srgb, transparent 20%, var(--theme-mode));
   backdrop-filter: blur(2px);
   padding: 1rem;
   border-top-left-radius: 10px;
