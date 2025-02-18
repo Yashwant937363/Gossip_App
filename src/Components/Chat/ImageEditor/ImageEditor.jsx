@@ -54,13 +54,15 @@ export default function ImageEditor() {
       console.log(message);
 
       // Send the message
-      sendMessage({
+      let data = await sendMessage({
         fromuid: fromuid,
         touid: uid,
         message: message,
         dispatch,
         type: "image",
       });
+      console.log("Data");
+      console.log(data);
       navigate(-1);
     } catch (error) {
       console.error("Error while sending image:", error);

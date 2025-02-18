@@ -51,7 +51,9 @@ export default function ChatContainer() {
         (chat) =>
           chat.Receiver_ID === fromuid &&
           chat.type === "text" &&
-          !chat.translatedText.some((t) => t.language === userTranslateLanguage)
+          !chat.translatedText.some(
+            (t) => t?.language === userTranslateLanguage
+          )
       );
       const inputTranslateText = filterChatsForTranslation.map((chat) => {
         return {
@@ -150,7 +152,7 @@ export default function ChatContainer() {
           };
           const imageOnClickHandler = () => {
             if (item.type === "image") {
-              navigate(`viewimage/${index}`, {
+              navigate(`viewimage`, {
                 state: { message: item.text },
               });
             }
@@ -159,7 +161,7 @@ export default function ChatContainer() {
             item.Sender_ID === fromuid
               ? null
               : [...item.translatedText].find(
-                  (item) => item.language === userTranslateLanguage
+                  (item) => item?.language === userTranslateLanguage
                 );
           const position = myPosition();
           return (
@@ -179,6 +181,7 @@ export default function ChatContainer() {
                   time={item.createdAt}
                   type={item.type}
                   position={position}
+                  onImageClick={imageOnClickHandler}
                 />
               ) : (
                 <ReceivedChat
