@@ -6,24 +6,43 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeAlwaysTranslate,
   changeLanguage,
+  changeSummarizationFormat,
 } from "../../../store/slices/UserSlice";
 import { AnimatePresence, motion } from "motion/react";
-import { socket } from "./../../../socket/main";
+import { socket } from "../../../socket/main";
+import { useSpriteLoader } from "@react-three/drei";
 
-export default function Translation() {
+export default function AISettngs() {
   const dispatch = useDispatch();
   const authtoken = useSelector((state) => state.user.authtoken);
 
   const { alwaysTranslate, language } = useSelector(
     (state) => state.user.settings.translation
   );
-  const options = ["Hindi", "Marathi", "English", "Spanish", "Punjabi"];
+  const { format } = useSelector((state) => state.user.settings.summarization);
+
+  const translationOptions = [
+    "Hindi",
+    "Marathi",
+    "English",
+    "Spanish",
+    "Punjabi",
+  ];
+  const formatOptions = ["Paragraph", "Bullet", "Structured"];
   const handleLanguageOnChange = (value) => {
     const lang = value.value.toLowerCase();
     dispatch(changeLanguage(lang));
     socket.emit("settings:translate:languageChange", {
       authtoken,
       language: lang,
+    });
+  };
+  const handleFormatOnChange = (value) => {
+    const newFormat = value.value.toLowerCase();
+    dispatch(changeSummarizationFormat(newFormat));
+    socket.emit("settings:summarization:formatChange", {
+      authtoken,
+      format: newFormat,
     });
   };
 
@@ -36,16 +55,17 @@ export default function Translation() {
   };
 
   return (
-    <div className="mainpage translation">
+    <div className="mainpage ai-settings-page">
       <div>
         <h2 className="settings-heading">
           <GoBackButton />
-          Trasnlation
+          AI Settings
         </h2>
+        <h2 className="settings-heading">Translation</h2>
         <div className="setting-item">
           <span className="center">Language</span>
           <ReactDropdown
-            options={options}
+            options={translationOptions}
             value={language}
             onChange={handleLanguageOnChange}
             placeholder="Select a Language"
@@ -76,6 +96,17 @@ export default function Translation() {
               No
             </div>
           </div>
+        </div>
+
+        <h2 className="settings-heading">Summarization</h2>
+        <div className="setting-item">
+          <span className="center">Format</span>
+          <ReactDropdown
+            options={formatOptions}
+            value={format}
+            onChange={handleFormatOnChange}
+            placeholder="Select a Format"
+          />
         </div>
       </div>
     </div>

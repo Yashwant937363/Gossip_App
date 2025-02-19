@@ -21,45 +21,46 @@
   padding-left: 5px;
 }
 
-.translation .setting-item {
+.ai-settings-page .setting-item {
   display: flex;
   justify-content: space-between;
   align-items: centers;
   margin: 10px 0px;
 }
 
-.translation {
-  padding: 5px;
+.ai-settings-page {
+  padding: 2%;
+  box-sizing: border-box;
 }
 
-.translation .settings-heading {
+.ai-settings-page .settings-heading {
   padding: 0px;
   margin-bottom: 20px;
 }
 
-.translation .Dropdown-control {
+.ai-settings-page .Dropdown-control {
   background-color: var(--background15);
   border: none;
   color: var(--text-color);
 }
-.translation .Dropdown-menu {
+.ai-settings-page .Dropdown-menu {
   background-color: var(--background20);
   border: none;
   color: var(--text-color);
 }
 
-.translation .Dropdown-menu .Dropdown-option {
+.ai-settings-page .Dropdown-menu .Dropdown-option {
   color: var(--text-color);
 }
-.translation .Dropdown-menu .Dropdown-option:hover {
+.ai-settings-page .Dropdown-menu .Dropdown-option:hover {
   background-color: var(--background30);
 }
-.translation .Dropdown-menu .Dropdown-option.is-selected {
+.ai-settings-page .Dropdown-menu .Dropdown-option.is-selected {
   color: var(--text-color);
   background-color: var(--backgroundHover);
 }
 
-.translation .setting-item .yes-no-switch {
+.ai-settings-page .setting-item .yes-no-switch {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -71,12 +72,12 @@
   border-radius: 10px;
 }
 
-.translation .setting-item .yes-no-switch .text {
+.ai-settings-page .setting-item .yes-no-switch .text {
   z-index: 1;
   cursor: pointer;
 }
 
-.translation .setting-item .yes-no-switch .animate-container {
+.ai-settings-page .setting-item .yes-no-switch .animate-container {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -84,7 +85,7 @@
   width: 100%;
   z-index: 0;
 }
-.translation .setting-item .yes-no-switch .animate-container div {
+.ai-settings-page .setting-item .yes-no-switch .animate-container div {
   width: 50%;
   height: 100%;
   background-color: var(--backgroundHover);

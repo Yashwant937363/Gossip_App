@@ -12,12 +12,14 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { div } from "motion/react-client";
 import { socket } from "../../../socket/main";
+import ChatDate from "./ChatDate";
 
 export default function ChatContainer() {
   const navigate = useNavigate();
   const openedchat = useSelector((state) => state.UIState.openedchat);
   const fromuid = useSelector((state) => state.user.uid);
   const containerRef = useRef(null);
+  const username = useSelector((state) => state.user.username);
   const chats = useSelector((state) => state.chat.chats);
   const userTranslateLanguage = useSelector(
     (state) => state.user.settings.translation.language
@@ -33,6 +35,7 @@ export default function ChatContainer() {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   };
+
   useEffect(() => {
     let newUserChats = new Array();
     if (chats.length !== 0) {
@@ -157,21 +160,47 @@ export default function ChatContainer() {
               });
             }
           };
+
           const translatedText =
             item.Sender_ID === fromuid
               ? null
               : [...item.translatedText].find(
                   (item) => item?.language === userTranslateLanguage
                 );
+          const isSameDate = (d1, d2) =>
+            d1.getFullYear() === d2.getFullYear() &&
+            d1.getMonth() === d2.getMonth() &&
+            d1.getDate() === d2.getDate();
+
+          const getConversation = (date) => {
+            const datechats = [...userchat].filter(
+              (item) =>
+                isSameDate(new Date(item.createdAt), date) &&
+                item.type === "text"
+            );
+            const conversation = datechats.map((item, index) => {
+              return {
+                username:
+                  item.Sender_ID === fromuid ? username : openedchat.username,
+                message:
+                  alwaysTranslate && item.Sender_ID !== fromuid
+                    ? [...item.translatedText].find(
+                        (item) => item?.language === userTranslateLanguage
+                      ).translatedText
+                    : item.text,
+              };
+            });
+            return conversation;
+          };
           const position = myPosition();
           return (
             <React.Fragment key={index}>
               {shouldRenderDate && (
-                <div className="date">
-                  {`${date.getDate()} ${date.toLocaleString("default", {
-                    month: "short",
-                  })}, ${date.getFullYear()}`}
-                </div>
+                <ChatDate
+                  date={date}
+                  userchat={userchat}
+                  getConversation={getConversation}
+                />
               )}
               {item.Sender_ID === fromuid ? (
                 <SendChat

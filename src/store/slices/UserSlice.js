@@ -67,8 +67,11 @@ const userSlice = createSlice({
     uid: "",
     settings: {
       translation: {
-        language: "original",
+        language: "english",
         alwaysTranslate: false,
+      },
+      summarization: {
+        format: "paragraph",
       },
     },
     errormsg: "",
@@ -120,6 +123,9 @@ const userSlice = createSlice({
     },
     changeAlwaysTranslate: (state, action) => {
       state.settings.translation.alwaysTranslate = action.payload;
+    },
+    changeSummarizationFormat: (state, action) => {
+      state.settings.summarization.format = action.payload;
     },
     addRequest: (state, action) => {
       const { uid, profile, username } = action.payload;
@@ -235,5 +241,6 @@ export const {
   changeLanguage,
   changeAlwaysTranslate,
   removeRequest,
+  changeSummarizationFormat,
 } = userSlice.actions;
 export default userSlice.reducer;

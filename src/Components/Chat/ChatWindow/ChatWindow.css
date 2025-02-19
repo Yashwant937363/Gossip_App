@@ -279,14 +279,22 @@
   color: color-mix(in srgb, var(--opposite-theme-mode) 10%, #53bdeb);
 }
 
-.chatwindow .chatcontainer .date {
+.chatwindow .chatcontainer .date-container {
   border-radius: 23px;
   background-color: var(--background15);
   padding: 3px 15px;
   margin: 20px auto;
+  display: block;
+  box-sizing: border-box;
+  user-select: none;
+}
+.chatwindow .chatcontainer .date {
   text-align: center;
-  display: inline;
   font-size: 0.8rem;
+}
+
+.chatwindow .chatcontainer .date-container .summary {
+  margin: 5px;
 }
 
 .fullscreen {
