@@ -6,6 +6,7 @@ import "./Account.css";
 import { useNavigate, useParams } from "react-router-dom";
 import HomeLoader from "../Chat/HomeLoader/HomeLoader";
 import ConnectedNodesBackground from "./ConnectedNodesBackground";
+import { motion } from "motion/react";
 
 export default function Account() {
   const [signup, setSignup] = useState(false);
@@ -28,7 +29,6 @@ export default function Account() {
   }
   return (
     <div className="account">
-      <ConnectedNodesBackground />
       <style>
         {`
             .navbar{

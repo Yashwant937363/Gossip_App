@@ -56,7 +56,7 @@
   border-radius: 23px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
-  background-color: color-mix(in srgb, transparent 70%, var(--theme-mode));
+  background-color: var(--background15);
   backdrop-filter: blur(5px);
   padding: 30px;
   width: min(90vw, 400px);
@@ -113,7 +113,7 @@
 .account .form .errortext {
   font-size: 0.8rem;
   position: absolute;
-  bottom: -6px;
+  bottom: -10px;
   left: 0px;
 }
 

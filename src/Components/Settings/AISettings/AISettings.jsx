@@ -11,6 +11,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { socket } from "../../../socket/main";
 import { useSpriteLoader } from "@react-three/drei";
+import { useNavigate } from "react-router-dom";
 
 export default function AISettngs() {
   const dispatch = useDispatch();
@@ -53,6 +54,14 @@ export default function AISettngs() {
       alwaysTranslate: value,
     });
   };
+
+  const isLogin = useSelector((state) => state.user.isLogin);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isLogin) {
+      navigate(-1);
+    }
+  }, [isLogin]);
 
   return (
     <div className="mainpage ai-settings-page">

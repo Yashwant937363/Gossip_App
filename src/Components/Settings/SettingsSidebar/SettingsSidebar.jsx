@@ -33,10 +33,12 @@ export default function SettingsSidebar() {
         <PaletteFill />
         Themes
       </NavLink>
-      <NavLink to="/settings/ai-settings" className="listitem">
-        <Robot />
-        AI Settings
-      </NavLink>
+      {isLogin && (
+        <NavLink to="/settings/ai-settings" className="listitem">
+          <Robot />
+          AI Settings
+        </NavLink>
+      )}
     </div>
   );
 }

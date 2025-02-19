@@ -11,27 +11,43 @@ import {
   Person,
 } from "react-bootstrap-icons";
 import {
+  setErrorMsgUser,
   setProfile,
   setSignUpDetails,
+  setSucessMsgUser,
   signUpUser,
 } from "../../../store/slices/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useToggle } from "../../Hooks/useToggle";
+import { AnimatePresence, motion } from "motion/react";
+import axios from "axios";
+
+const SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 
 export default function SignUp(props) {
   const dispatch = useDispatch();
   const [showPass, setPassToggle] = useToggle();
   const profile = useSelector((state) => state.user.profile);
   const [dateError, setDateError] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [isVerified, setVerified] = useState(false);
+  const [OTP, setOTP] = useState();
+  const [inputOTP, setInputOTP] = useState("");
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
+    formState: { errors, touchedFields },
     trigger,
     getValues,
   } = useForm();
   const [daysInMonth, setDaysInMonth] = useState(31);
+  const showOTPVerification = isVerified && touchedFields.email;
   const onSubmit = (data) => {
+    if (!isVerified) {
+      dispatch(setErrorMsgUser("Verify Email First"));
+      return;
+    }
     const signUpData = new FormData();
     const { day, month, year } = data.date;
     if (day === 29 && year % 4 !== 0) {
@@ -73,6 +89,41 @@ export default function SignUp(props) {
     setDaysInMonth(lastDay);
   };
 
+  const handleSendEmailOtp = async () => {
+    const email = watch("email");
+    if (email.trim() === "") {
+      dispatch(setErrorMsgUser("Empty Email"));
+      return;
+    }
+    setOtpLoading(true);
+
+    const response = await axios.post(SERVER_URL + "/api/auth/send-email-otp", {
+      email,
+    });
+    if (response.data?.success) {
+      setOTP(response.data.otp.toString());
+    } else {
+      dispatch(setErrorMsgUser("Email - Something Went Wrong"));
+    }
+    console.log(response.data);
+    setOtpLoading(false);
+  };
+
+  const handleVerifyOTP = () => {
+    setOtpLoading(true);
+    if (OTP === inputOTP) {
+      setTimeout(() => {
+        setVerified(true);
+        dispatch(setSucessMsgUser("Email Verification Successful"));
+        setOtpLoading(false);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        dispatch(setErrorMsgUser("Invalid OTP"));
+        setOtpLoading(false);
+      }, 1000);
+    }
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form" id="signup">
       <label htmlFor="profile" className="profile">
@@ -131,6 +182,10 @@ export default function SignUp(props) {
           id="email"
           {...register("email", {
             onBlur: () => trigger("email"), // Trigger validation on blur
+            onChange: () => {
+              setOTP("");
+              setVerified(false);
+            },
             required: "Please Enter Email",
             pattern: {
               value: /^\S+@\S+\.\S+$/,
@@ -139,8 +194,52 @@ export default function SignUp(props) {
           })}
         />
         <Envelope></Envelope>
-        {errors.email && (
+        {errors.email ? (
           <div className="errortext">{errors.email.message}</div>
+        ) : (
+          !isVerified && (
+            <motion.div
+              initial={{ height: 0 }}
+              exit={{ height: 0 }}
+              animate={{ height: "auto" }}
+            >
+              {OTP ? (
+                <>
+                  <input
+                    value={inputOTP}
+                    onChange={(e) => setInputOTP(e.target.value)}
+                  />
+                  <button
+                    className="btn btn-send-email"
+                    onClick={handleVerifyOTP}
+                    disabled={isVerified || otpLoading}
+                  >
+                    {otpLoading ? (
+                      <div className="btn-spinner"></div>
+                    ) : (
+                      "Verify OTP"
+                    )}
+                  </button>
+                  {isVerified === null && (
+                    <div className="errortext">Invalid OTP</div>
+                  )}
+                </>
+              ) : (
+                <button
+                  className="btn btn-send-email"
+                  onClick={handleSendEmailOtp}
+                  type="button"
+                  disabled={otpLoading || OTP}
+                >
+                  {otpLoading ? (
+                    <div className="btn-spinner"></div>
+                  ) : (
+                    "Send OTP"
+                  )}
+                </button>
+              )}
+            </motion.div>
+          )
         )}
       </div>
       <div className={errors.password ? "error" : ""}>Password : </div>
