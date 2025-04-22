@@ -58,7 +58,7 @@ export default function AISettngs() {
   const isLogin = useSelector((state) => state.user.isLogin);
   const navigate = useNavigate();
   useEffect(() => {
-    if (isLogin) {
+    if (!isLogin) {
       navigate(-1);
     }
   }, [isLogin]);

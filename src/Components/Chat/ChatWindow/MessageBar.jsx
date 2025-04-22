@@ -2,11 +2,12 @@ import EmojiPicker from "@emoji-mart/react";
 import { Data } from "emoji-mart";
 import { useEffect, useRef, useState } from "react";
 import { EmojiSmileFill, FileImage, SendFill, X } from "react-bootstrap-icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "motion/react";
 
 export default function MessageBar(props) {
   const { uid } = useParams();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { submitMessage } = props;
   const sendMessage = (e) => {
@@ -54,7 +55,9 @@ export default function MessageBar(props) {
         </div>
       )}
       <FileImage
-        className={`icon fileimage ${message.trim() !== "" ? "hide" : ""}`}
+        className={`icon fileimage ${
+          message.trim() !== "" || pathname.includes("/chatbot") ? "hide" : ""
+        }`}
         onClick={() => navigate("sendimage")}
       />
       <div className="input">

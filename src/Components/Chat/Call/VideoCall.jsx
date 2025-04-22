@@ -54,6 +54,7 @@ export default function VideoCall() {
   const [cameraOn, setCamera] = useState(true);
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
   const { localCameraTrack } = useLocalCameraTrack(cameraOn);
+  const [isVirtualOn, setIsVirtualOn] = useState(false);
   usePublish([localMicrophoneTrack, localCameraTrack]);
   const remoteUsers = useRemoteUsers();
   const handleCameraFocus = (user, e) => {
@@ -87,6 +88,7 @@ export default function VideoCall() {
         .pipe(processor.current)
         .pipe(localCameraTrack.processorDestination);
       await processor.current.enable();
+      setIsVirtualOn(true);
       setExtensionActive(true);
     }
   };
@@ -95,6 +97,7 @@ export default function VideoCall() {
     if (processor.current && localCameraTrack) {
       localCameraTrack.unpipe();
       await processor.current.disable();
+      setIsVirtualOn(false);
       setExtensionActive(false);
     }
   };
@@ -103,6 +106,15 @@ export default function VideoCall() {
     enableBackground();
     return () => disableBackground();
   }, [localCameraTrack]);
+
+  const offBackground = async () => {
+    await processor.current?.disable();
+    setIsVirtualOn(false);
+  };
+  const onBackground = async () => {
+    await processor.current?.disable();
+    setIsVirtualOn(true);
+  };
 
   const blurBackground = () => {
     processor.current?.setOptions({ type: "blur", blurDegree: 2 });
@@ -225,6 +237,7 @@ export default function VideoCall() {
             <motion.div
               whileHover={{ opacity: 0.5 }}
               className="virtual-background custom"
+              onClick={isVirtualOn ? offBackground : onBackground}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +250,7 @@ export default function VideoCall() {
               >
                 <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
               </svg>
-              off
+              {isVirtualOn ? "Off" : "On"}
             </motion.div>
             <motion.div
               whileHover={{ opacity: 0.5 }}

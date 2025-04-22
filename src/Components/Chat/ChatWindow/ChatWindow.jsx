@@ -128,7 +128,7 @@ export default function ChatWindow(props) {
           </div>
           <div className="callicons">
             <CameraVideoFill className="callicon" onClick={handleVideoCall} />
-            <TelephoneFill className="callicon" onClick={handleAudioCall} />
+            {/* <TelephoneFill className="callicon" onClick={handleAudioCall} /> */}
           </div>
         </div>
         <ChatContainer></ChatContainer>
