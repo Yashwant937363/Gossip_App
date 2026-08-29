@@ -136,14 +136,15 @@ const chatSlice = createSlice({
     },
     setSingleTranslatedMessage: (state, action) => {
       const { id, translatedText, language } = action.payload;
-
+      console.log("Translation Response", language);
       state.chats = state.chats.map((chat) => {
         if (chat._id === id) {
           return {
             ...chat,
             translatedText: [
-              ...(chat.translatedText?.filter((t) => t.language !== language) ||
-                []), // Remove existing translation for the language
+              ...(chat.translatedText?.filter(
+                (t) => t && t.language !== language
+              ) || []),
               { translatedText, language }, // Add the new translation
             ],
           };

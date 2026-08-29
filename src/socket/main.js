@@ -5,6 +5,11 @@ const SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 
 export const socket = io(SERVER_URL, {
   autoConnect: false,
+  reconnection: true,
+  reconnectionAttempts: 20,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  randomizationFactor: 0.5,
 });
 
 export function connecttoserver({
@@ -24,7 +29,7 @@ export function connecttoserver({
         dispatch(setOnline(false));
         console.error("Error in user connection:", acknowledgment.error);
       }
-    }
+    },
   );
 }
 
@@ -63,7 +68,7 @@ export function requestAnswer({ fromuid, touid, answer, tousername }) {
         } else {
           reject(new Error("Your Request has been Rejected"));
         }
-      }
+      },
     );
   });
 }
@@ -81,7 +86,7 @@ export function sendMessage({ fromuid, touid, message, dispatch, type }) {
           // dispatch(setErrorMsgUser("empty message connot be send"));
           reject(new Error("Message has been not Send"));
         }
-      }
+      },
     );
   });
 }

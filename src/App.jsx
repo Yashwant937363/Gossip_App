@@ -45,18 +45,15 @@ import AISettngs from "./Components/Settings/AISettings/AISettings";
 
 function App() {
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.user.isLogin);
-  const username = useSelector((state) => state.user.username);
-  const profile = useSelector((state) => state.user.profile);
-  const uid = useSelector((state) => state.user.uid);
-  const settings = useSelector((state) => state.user.settings);
-  const successmsguser = useSelector((state) => state.user.successmsg);
-  const errormsguser = useSelector((state) => state.user.errormsg);
+  const { isLogin, username, profile, uid, settings } = useSelector(
+    (state) => state.user,
+  );
+  const { successmsguser, errormsguser } = useSelector((state) => state.user);
   const friends = useSelector((state) => state.chat.friends);
   const warningmsg = useSelector((state) => state.UIState.warningmsg);
   useEffect(() => {
     socket.on("requestfromuser", ({ uid, profile, username }) =>
-      dispatch(addRequest({ uid, profile, username }))
+      dispatch(addRequest({ uid, profile, username })),
     );
     socket.on("successmessage", ({ msg, user }) => {
       dispatch(setSucessMsgUser(msg));
@@ -87,10 +84,15 @@ function App() {
     // socket.on("disconnetion", () => {
     //   dispatch(setOnline(false))
     // })
-    // socket.on('reconnection', () => {
-    //   // socket.emit('reconnecting', {uid, profile, username})
-    //   console.log({ uid, profile, username })
-    // })
+    socket.on("reconnection", () => {
+      connecttoserver({
+        dispatch,
+        profile,
+        settings,
+        uid,
+        username,
+      });
+    });
 
     return () => {
       socket.off("requsetfromuser");
@@ -103,7 +105,7 @@ function App() {
       socket.off("call:videocallincoming");
       socket.off("call:videocallcanceled");
       // socket.off("disconnection")
-      // socket.off("reconnection")
+      socket.off("reconnection");
     };
   }, [socket]);
 
@@ -137,26 +139,26 @@ function App() {
     document.documentElement.style.setProperty("--theme-color", themeColor);
     document.documentElement.style.setProperty(
       "--opposite-theme-mode",
-      themeMode === "white" ? "black" : "white"
+      themeMode === "white" ? "black" : "white",
     );
     document.documentElement.style.setProperty(
       "--rgb-accent",
-      colors.rgbAccent
+      colors.rgbAccent,
     );
     if (themeMode == "white") {
       document.documentElement.style.setProperty(
         "--rgb-background",
-        colors.rgbBackground
+        colors.rgbBackground,
       );
       document.documentElement.style.setProperty("--rgb-color", colors.rgbText);
     } else {
       document.documentElement.style.setProperty(
         "--rgb-background",
-        colors.rgbText
+        colors.rgbText,
       );
       document.documentElement.style.setProperty(
         "--rgb-color",
-        colors.rgbBackground
+        colors.rgbBackground,
       );
     }
   }, [themeColor, themeMode]);
@@ -168,11 +170,12 @@ function App() {
       dispatch(setThemeMode(themeMode));
     }
   }, []);
+  console.log("Error Message User: ", errormsguser);
   return (
     <>
-      {successmsguser !== "" ? <SuccessBar msg={successmsguser} /> : null}
-      {errormsguser !== "" ? <ErrorBar msg={errormsguser} /> : null}
-      {warningmsg !== "" ? <WarningBar msg={warningmsg} /> : null}
+      {successmsguser ? <SuccessBar msg={successmsguser} /> : null}
+      {errormsguser ? <ErrorBar msg={errormsguser} /> : null}
+      {warningmsg ? <WarningBar msg={warningmsg} /> : null}
       {}
       <BrowserRouter>
         <Routes>

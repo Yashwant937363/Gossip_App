@@ -1,5 +1,42 @@
 .imageviewer {
   backdrop-filter: blur(5px);
+  position: fixed;
+}
+
+.imageviewer .close-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background-color: var(--background15);
+  border: 1px solid var(--background30);
+  color: var(--opposite-theme-mode);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  cursor: pointer;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease-in-out;
+}
+
+.imageviewer .close-btn:hover {
+  background-color: var(--backgroundHover);
+  border-color: var(--theme-color);
+  transform: translateY(-1px);
+}
+
+.imageviewer .close-btn:active {
+  transform: translateY(0);
+}
+
+.imageviewer .close-btn .icon {
+  font-size: 1.4rem;
 }
 
 .imageviewer .viewimage {
@@ -44,7 +81,7 @@
   overflow-y: scroll;
   background-color: color-mix(in srgb, transparent 20%, var(--theme-mode));
   backdrop-filter: blur(2px);
-  padding: 1rem;
+  padding: 2rem;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }

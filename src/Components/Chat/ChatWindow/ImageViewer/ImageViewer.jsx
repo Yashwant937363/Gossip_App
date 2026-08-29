@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./ImageViewer.css";
 import { getImageDescription } from "./../../../../socket/ai";
 import { motion, useAnimate } from "motion/react";
+import ReactMarkdown from "react-markdown";
+import ImageAnalysis from "./ImageAnalysis";
 
 export default function ImageViewer() {
   const location = useLocation();
@@ -41,23 +43,23 @@ export default function ImageViewer() {
       descriptionAnimate(
         descriptionRef.current,
         { height: "auto", opacity: 1, padding: "1rem" },
-        duration
+        duration,
       );
       drawerIconAnimate(drawerIconRef.current, { rotate: 180 }, duration);
     } else {
       descriptionAnimate(
         descriptionRef.current,
         { height: 0, opacity: 0.5, padding: 0 },
-        duration
+        duration,
       );
       drawerIconAnimate(drawerIconRef.current, { rotate: 0 }, duration);
     }
   }, [isDrawerOpen]);
   return (
     <div className="imageviewer fullscreen">
-      <div onClick={closeImage}>
+      <div className="close-btn" onClick={closeImage}>
         <X className="icon" />
-        close
+        <span>close</span>
       </div>
       <div className="viewimage center">
         <motion.img layoutId="openedimage" className="image" src={message} />
@@ -73,7 +75,7 @@ export default function ImageViewer() {
         </motion.button>
         <div ref={descriptionRef} className="description">
           {description ? (
-            <span dangerouslySetInnerHTML={{ __html: description }} />
+            <ImageAnalysis description={description} />
           ) : (
             <div className="loader">
               <div className="loading">
