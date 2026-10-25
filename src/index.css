@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --first: #f8e559;
   --second: hsl(273, 100%, 76%);
@@ -13,143 +17,24 @@
   --theme-mode: black;
   --text-color: color-mix(in srgb, grey 23%, var(--opposite-theme-mode));
   --body-text-color: black;
-  /* --text-color: color-mix(
-    in srgb,
-    var(--theme-color) 23%,
-    var(--opposite-theme-mode)
-  ); */
-  --background5: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 5%,
-    var(--theme-mode)
-  );
-  --background10: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 10%,
-    var(--theme-mode)
-  );
-  --background15: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 15%,
-    var(--theme-mode)
-  );
-  --background20: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 20%,
-    var(--theme-mode)
-  );
-  --background30: color-mix(
-    in srgb,
-    var(--opposite-theme-mode) 30%,
-    var(--theme-mode)
-  );
-  --backgroundHover: color-mix(
-    in srgb,
-    var(--theme-mode) 30%,
-    var(--theme-color)
-  );
+  --background5: color-mix(in srgb, var(--opposite-theme-mode) 5%, var(--theme-mode));
+  --background10: color-mix(in srgb, var(--opposite-theme-mode) 10%, var(--theme-mode));
+  --background15: color-mix(in srgb, var(--opposite-theme-mode) 15%, var(--theme-mode));
+  --background20: color-mix(in srgb, var(--opposite-theme-mode) 20%, var(--theme-mode));
+  --background30: color-mix(in srgb, var(--opposite-theme-mode) 30%, var(--theme-mode));
+  --backgroundHover: color-mix(in srgb, var(--theme-mode) 30%, var(--theme-color));
 }
 
-* {
-  margin: 0px;
-  padding: 0px;
+@layer base {
+  body {
+    color: var(--text-color);
+    background-color: color-mix(in srgb, grey 5%, var(--theme-mode));
+    min-height: 100vh;
+  }
 }
 
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-body {
-  color: var(--text-color);
-  background-color: color-mix(in srgb, grey 5%, var(--theme-mode));
-  background-position-x: left !important;
-  background-position-y: bottom !important;
-  background-repeat: no-repeat !important;
-  background-attachment: fixed !important;
-  background-size: cover !important;
-}
-
-@media screen and (min-width: 600px) {
-  .goback {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .mainpage {
-    margin: 0px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .chatpage {
-    grid-template-columns: 1fr;
-  }
-  .closedchat {
-    display: none !important;
-  }
-  .chatwindow,
-  .mainpage {
-    animation: scalein 0.3s ease-in forwards;
-  }
-
-  @keyframes scalein {
-    0% {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-}
-
-@media screen and (min-width: 600px) and (max-width: 750px) {
-  .searchpeople .searchandreqitems .searchandreqitem {
-    grid-template-columns: 8fr 20fr 3fr;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .home .footer .social-text {
-    display: none;
-  }
-
-  .account .form {
-    font-size: 0.9rem;
-    grid-gap: 5px;
-    grid-row-gap: 10px;
-  }
-  .account .form > * {
-    display: flex;
-    align-items: center;
-  }
-  .account .form .password {
-    width: 80%;
-  }
-
-  .account .form .errortext {
-    bottom: -16px;
-  }
-  .account #signup {
-    padding: 20px;
-  }
-
-  .profilepage .profileform {
-    grid-template-columns: repeat(7, 1fr);
-  }
-  .profilepage .profileform .profile,
-  .profilepage .profileform .firstlastname {
-    grid-column: 1 / span 7;
-  }
-  .profilepage .profileform .inputtitle {
-    grid-column: 1 / span 2;
-  }
-  .profilepage .profileform .withicon {
-    grid-column: 3 / span 5;
-  }
 }
